@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="张晨">
+<meta name="dcterms.date" content="2026-09-29">
+
+<title>第七讲：AI 辅助文本分析 – AI 在经济管理研究中的应用</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08-empirical-research.html" rel="next">
+<link href="./06-data-collection.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-eec68b17241c1efd3eae2de50d816e3e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d5fb2bd185f07460e4408dd84795c9a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>
+  /* ---------- 登录门禁：页面锁定与登录框样式 ---------- */
+  /* 未登录时隐藏正文（仅保留登录框） */
+  html.auth-locked body > *:not(#book-auth-gate) {
+    visibility: hidden !important;
+  }
+
+  #book-auth-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background: radial-gradient(1200px 700px at 20% 0%, #22303f 0%, #16202b 55%, #101820 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #1a1a1a;
+  }
+  #book-auth-gate[hidden] { display: none !important; }
+
+  .auth-card {
+    width: 100%;
+    max-width: 380px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    padding: 40px 36px 34px;
+    box-sizing: border-box;
+  }
+  .auth-brand {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .auth-brand .auth-kicker {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #0b7285;
+    background: rgba(11, 114, 133, 0.08);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .auth-brand h1 {
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #1a2733;
+  }
+  .auth-brand p {
+    font-size: 13px;
+    color: #7a8794;
+    margin: 0;
+  }
+  .auth-field { margin-bottom: 16px; }
+  .auth-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3c4854;
+    margin-bottom: 6px;
+  }
+  .auth-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    font-size: 15px;
+    color: #1a2733;
+    background: #f6f8fa;
+    border: 1px solid #d7dee5;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-field input:focus {
+    border-color: #0b7285;
+    box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.15);
+    background: #ffffff;
+  }
+  .auth-error {
+    display: none;
+    font-size: 13px;
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.08);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin: -4px 0 14px;
+  }
+  .auth-submit {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0b7285;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .auth-submit:hover { background: #095d6d; }
+  .auth-submit:active { background: #084c59; }
+  .auth-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #a4afba;
+    margin-top: 18px;
+  }
+</style>
+
+<script>
+  /* 立即锁定：若尚未登录，则在正文渲染前隐藏页面内容 */
+  (function () {
+    var ok = false;
+    try {
+      ok = sessionStorage.getItem("BOOK_AUTH_OK") === "1";
+    } catch (e) {
+      ok = false;
+    }
+    if (!ok) {
+      document.documentElement.classList.add("auth-locked");
+    }
+  })();
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-text-analysis.html">第七讲：AI 辅助文本分析</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">课程讲义</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="切换阅读器模式">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">课程简介</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-ai-cognition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第一讲：AI 认知与工具概览</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-environment-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第二讲：环境安装与引擎配置</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-agent-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第三讲：Agent 基础操作</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-agent-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第四讲：Agent 进阶</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-knowledge-base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第五讲：知识库构建与学术品味蒸馏</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-data-collection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第六讲：AI 辅助数据采集</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-text-analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第七讲：AI 辅助文本分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-empirical-research.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第八讲：AI 辅助规范实证研究</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#本讲概览" id="toc-本讲概览" class="nav-link active" data-scroll-target="#本讲概览">本讲概览</a></li>
+  <li><a href="#本次教学目标" id="toc-本次教学目标" class="nav-link" data-scroll-target="#本次教学目标">本次教学目标</a></li>
+  <li><a href="#上节llm-文本分类与情感分析" id="toc-上节llm-文本分类与情感分析" class="nav-link" data-scroll-target="#上节llm-文本分类与情感分析">上节：LLM 文本分类与情感分析</a>
+  <ul class="collapse">
+  <li><a href="#传统方法的局限与-llm-的新范式" id="toc-传统方法的局限与-llm-的新范式" class="nav-link" data-scroll-target="#传统方法的局限与-llm-的新范式">1. 传统方法的局限与 LLM 的新范式</a></li>
+  <li><a href="#prompt-即标注规则" id="toc-prompt-即标注规则" class="nav-link" data-scroll-target="#prompt-即标注规则">2. Prompt 即标注规则</a></li>
+  <li><a href="#多模型交叉验证" id="toc-多模型交叉验证" class="nav-link" data-scroll-target="#多模型交叉验证">3. 多模型交叉验证</a></li>
+  <li><a href="#工程化保障机制" id="toc-工程化保障机制" class="nav-link" data-scroll-target="#工程化保障机制">4. 工程化保障机制</a></li>
+  <li><a href="#公告情感分析完整案例" id="toc-公告情感分析完整案例" class="nav-link" data-scroll-target="#公告情感分析完整案例">5. 公告情感分析完整案例</a></li>
+  </ul></li>
+  <li><a href="#下节多-agent-辩论与信息提取" id="toc-下节多-agent-辩论与信息提取" class="nav-link" data-scroll-target="#下节多-agent-辩论与信息提取">下节：多 Agent 辩论与信息提取</a>
+  <ul class="collapse">
+  <li><a href="#多-agent-辩论不止于一个标签" id="toc-多-agent-辩论不止于一个标签" class="nav-link" data-scroll-target="#多-agent-辩论不止于一个标签">6. 多 Agent 辩论：不止于一个标签</a></li>
+  <li><a href="#辩论案例顺景科技定向增发公告" id="toc-辩论案例顺景科技定向增发公告" class="nav-link" data-scroll-target="#辩论案例顺景科技定向增发公告">7. 辩论案例：顺景科技定向增发公告</a></li>
+  <li><a href="#信息提取从非结构化文本到结构化-json" id="toc-信息提取从非结构化文本到结构化-json" class="nav-link" data-scroll-target="#信息提取从非结构化文本到结构化-json">8. 信息提取：从非结构化文本到结构化 JSON</a></li>
+  <li><a href="#信息提取的四个关键挑战" id="toc-信息提取的四个关键挑战" class="nav-link" data-scroll-target="#信息提取的四个关键挑战">9. 信息提取的四个关键挑战</a></li>
+  <li><a href="#完整文本分析管线" id="toc-完整文本分析管线" class="nav-link" data-scroll-target="#完整文本分析管线">10. 完整文本分析管线</a></li>
+  <li><a href="#人工抽检不能省略的最后一步" id="toc-人工抽检不能省略的最后一步" class="nav-link" data-scroll-target="#人工抽检不能省略的最后一步">11. 人工抽检：不能省略的最后一步</a></li>
+  <li><a href="#经管文本分析的应用全景" id="toc-经管文本分析的应用全景" class="nav-link" data-scroll-target="#经管文本分析的应用全景">12. 经管文本分析的应用全景</a></li>
+  <li><a href="#prompt-设计前后对比" id="toc-prompt-设计前后对比" class="nav-link" data-scroll-target="#prompt-设计前后对比">13. Prompt 设计前后对比</a></li>
+  </ul></li>
+  <li><a href="#实战任务" id="toc-实战任务" class="nav-link" data-scroll-target="#实战任务">实战任务</a></li>
+  <li><a href="#案例材料索引" id="toc-案例材料索引" class="nav-link" data-scroll-target="#案例材料索引">案例材料索引</a></li>
+  <li><a href="#本讲核心概念回顾" id="toc-本讲核心概念回顾" class="nav-link" data-scroll-target="#本讲核心概念回顾">本讲核心概念回顾</a></li>
+  <li><a href="#下一讲预告" id="toc-下一讲预告" class="nav-link" data-scroll-target="#下一讲预告">下一讲预告</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">第七讲：AI 辅助文本分析</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+<p class="subtitle lead">课程讲义 · 网页教材</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>张晨 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">发布于</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-09-29</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong>课程：</strong> 人工智能在经济管理研究中的应用</p>
+<p><strong>授课人：</strong> 张晨（西北农林科技大学经济管理学院）</p>
+<p><strong>讲次：</strong> 第 7 次课（2 课时）</p>
+<p><strong>日期：</strong> 2026 年夏季学期</p>
+</blockquote>
+<hr>
+<section id="本讲概览" class="level2">
+<h2 class="anchored" data-anchor-id="本讲概览">本讲概览</h2>
+<p>第六讲我们学会了爬虫——拿到了文本数据。但拿到文本只是第一步。爬虫解决的是「把文本取回来」，本讲解决的是「把文本读明白」。</p>
+<p>上市公司公告、年报、电话会议纪要、政府政策文件——这些非结构化文本中藏着对经管研究至关重要的信息：情绪、事件、实体关系。传统上，研究者需要用词典法或人工标注来从中提取变量。这不仅耗时耗力, 而且质量难以保证。</p>
+<p>本讲的核心命题：<strong>如何用大语言模型（LLM）批量、系统地分析非结构化文本, 从中提取研究所需的变量？</strong></p>
+<p>分两步展开。<strong>上半节（LLM 文本分类与情感分析）：</strong> 从传统文本分析方法的局限出发, 引入 LLM 作为文本分析引擎的新范式——核心是「Prompt 即标注规则」, 配合多模型交叉验证和工程化保障, 最后以公告情感分析为完整案例。</p>
+<p><strong>下半节（多 Agent 辩论与信息提取）：</strong> 处理两个更高级的场景——当单一模型分类不够时, 用多 Agent 辩论暴露推理过程; 当需要结构化数据而非标签时, 用 LLM 从文本中抽取 JSON 字段。最后整合为一条完整的文本分析管线。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-01-new.png" class="img-fluid figure-img"></p>
+<figcaption>LLM 文本分析三大应用：情感分类、信息提取、主题建模</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="本次教学目标" class="level2">
+<h2 class="anchored" data-anchor-id="本次教学目标">本次教学目标</h2>
+<p>学完本讲后, 你将能够：</p>
+<ul>
+<li>理解 LLM 作为文本分析引擎的核心优势, 以及与词典法、传统 ML 分类器的本质差异</li>
+<li>掌握「Prompt 即标注规则」的设计原则——用关键词和 JSON 约束替代模糊指令</li>
+<li>搭建多模型交叉验证流程, 用「5 模型 x N 文件 → 投票 → 最终标签」的管线提升可靠性</li>
+<li>实现断点续跑、原子写入、解析兜底等工程化保障机制</li>
+<li>理解多 Agent 辩论的五阶段架构, 以及它相对于单模型分类的独特价值</li>
+<li>用 LLM 从非结构化公告中提取结构化 JSON（股东名称、减持数量、比例、方式）</li>
+<li>设计并跑通一条完整的文本分析管线——从原始文本到最终分析报告</li>
+</ul>
+<hr>
+</section>
+<section id="上节llm-文本分类与情感分析" class="level2">
+<h2 class="anchored" data-anchor-id="上节llm-文本分类与情感分析">上节：LLM 文本分类与情感分析</h2>
+<section id="传统方法的局限与-llm-的新范式" class="level3">
+<h3 class="anchored" data-anchor-id="传统方法的局限与-llm-的新范式">1. 传统方法的局限与 LLM 的新范式</h3>
+<p>在经管研究中, 文本分析最常见的就是情感分类——判断一段文本的情感倾向（积极 / 消极 / 中性）, 然后将其作为回归模型中的解释变量。年报语调、电话会议情绪、新闻情绪——这些都是经管顶刊中常见的研究变量。</p>
+<p><strong>传统方法怎么做？</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 39%">
+<col style="width: 10%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>原理</th>
+<th>代表工具</th>
+<th>核心痛点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>词典法</strong></td>
+<td>预定义情感词表, 统计正面词和负面词的出现频次, 用 (正面-负面)/(正面+负面) 构建情绪指数</td>
+<td>LM 词典、HowNet、NTUSD</td>
+<td>词典是通用的, 但语境是特定的——「ST 预警」在金融文本中是负面信号, 但通用词典可能不收录</td>
+</tr>
+<tr class="even">
+<td><strong>传统机器学习</strong></td>
+<td>人工标注训练集 → 特征工程（TF-IDF / n-gram）→ 训练分类器（SVM / 随机森林）→ 预测</td>
+<td>scikit-learn</td>
+<td>需要标注大量训练样本, 标注成本高; 且模型难以捕捉长距离语义依赖</td>
+</tr>
+</tbody>
+</table>
+<p>两种方法共享一个根本问题：<strong>规则是死的, 语言是活的。</strong> 词典无法处理否定句式（「并没有亏损」）、条件句式（「如果市场好转, 则…」）和隐含语气（「公司对前景持保留态度」）。而机器学习分类器受限于训练数据的规模和质量——标注 1000 条金融文本的成本足以让人望而却步。</p>
+<p><strong>LLM 改变了什么？</strong></p>
+<p>LLM 带来了一个范式转变：<strong>你不需要写规则, 也不需要标注训练集——你只需要写一个好的 Prompt。</strong> LLM 本身就是你的分类器。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-02-new.png" class="img-fluid figure-img"></p>
+<figcaption>传统方法 vs LLM 方法对比：词典法和 ML 需要标注, LLM 只需写 Prompt</figcaption>
+</figure>
+</div>
+<p>这个转变的核心逻辑是：LLM 在预训练阶段已经吸收了海量的文本语义知识, 包括对情感、语气、隐含含义的理解。你不再需要教模型「什么是积极情感」——它在训练数据中已经见过足够多了。你只需要告诉它<strong>在这个特定任务中, 什么算「积极」</strong>。</p>
+<p>换句话说, 传统方法是在教模型「语言本身」, 而 LLM 方法是在给模型校准「领域标准」。</p>
+<p><strong>LLM 文本分析的三个核心应用场景：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 11%">
+<col style="width: 25%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>应用</th>
+<th>输入</th>
+<th>输出</th>
+<th>经管研究示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>情感分类</strong></td>
+<td>一段文本</td>
+<td>标签（积极 / 消极 / 中性）</td>
+<td>年报语调与股价崩盘风险; 电话会议情绪与分析师预测</td>
+</tr>
+<tr class="even">
+<td><strong>信息提取</strong></td>
+<td>一段文本</td>
+<td>结构化 JSON</td>
+<td>股东减持公告中提取减持数量、比例、方式、时间窗口</td>
+</tr>
+<tr class="odd">
+<td><strong>主题建模</strong></td>
+<td>多篇文本集合</td>
+<td>主题标签 + 核心摘要</td>
+<td>政策文件主题分类; 文献自动聚类; 新闻报道事件归类</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="prompt-即标注规则" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-即标注规则">2. Prompt 即标注规则</h3>
+<p>用 LLM 做文本分析, 最重要的设计决策是<strong>写 Prompt</strong>。Prompt 的质量直接决定输出的质量——垃圾 Prompt 进, 垃圾标签出。</p>
+<p>两个关键原则：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-03-new.png" class="img-fluid figure-img"></p>
+<figcaption>Prompt 即标注规则：模糊 Prompt 到精确 Prompt 的转变, 带关键词列表</figcaption>
+</figure>
+</div>
+<p><strong>原则一：给出明确的关键词和示例, 把领域知识写进 Prompt。</strong></p>
+<p>不要只说「判断这段话的情感倾向」——LLM 不是金融分析师, 它不知道在你的研究语境中什么算「积极」。你需要告诉它：</p>
+<pre><code>你是金融文本情感分析专家。
+
+积极信号（以下词汇或语境通常表示积极）：
+- 利润增长、收入增加、订单扩大、中标、获批
+- 超出预期、增长强劲、实现扭亏
+- 分红、增持、回购、业绩增长、股权激励
+- 并购重组、获得订单、战略合作
+
+消极信号：
+- 亏损、下滑、诉讼、处罚、资金链紧张
+- ST 预警、低于预期、持续恶化、重大不确定性
+- 减持、退市风险、行政处罚、债务危机
+
+中性信号：
+- 例行披露、股东大会通知、地址变更
+- 纯事实陈述且无明显利好利空倾向</code></pre>
+<p>将「领域知识」写进 Prompt, 比让模型自己猜要稳定得多。你在 Prompt 中列出的关键词列表, 本质上是你的「标注标准」——它让 LLM 知道什么样的文本应该被标记为哪个类别。</p>
+<p><strong>原则二：固定输出格式, 约束模型的生成行为。</strong></p>
+<p>不要让 LLM「自由发挥」——它会给你一段洋洋洒洒的分析, 但你没法批量处理。用固定标签或 JSON 约束输出：</p>
+<pre><code>要求：仅输出以下三个标签中的一个, 不要输出任何解释：
+积极 / 消极 / 中性</code></pre>
+<p>或者更严格：</p>
+<pre><code>要求：仅输出一个词。不要输出任何解释性文字。</code></pre>
+<p>这种约束有两个好处：（1）可以批量解析, 直接写入数据库；（2）减少模型「自行发挥」导致的格式不确定性。</p>
+<p><strong>一个完整的情感分析 Prompt 示例：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 中国上市公司公告情绪分析提示词</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 任务说明</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>你是一名专业的金融分析师。请分析以下上市公司公告内容,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>判断该公告对公司股票价格的潜在影响, 并将情绪分类为：</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性。</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考关键词</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>积极：分红、增持、回购、业绩增长、获得订单、并购重组、股权激励</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>消极：减持、亏损、退市风险、行政处罚、诉讼、债务危机、业绩下滑</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 输出要求</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>请仅输出以下三个标签中的一个, 不要输出任何解释：</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>技巧：</strong> 把领域知识写进 Prompt, 比让模型自己猜更稳定。你怎么教一个研究助理识别金融情感, 就怎么教 LLM——关键词列表就是你的「标注手册」。</p>
+</blockquote>
+</section>
+<section id="多模型交叉验证" class="level3">
+<h3 class="anchored" data-anchor-id="多模型交叉验证">3. 多模型交叉验证</h3>
+<p>单模型分类有一个问题：<strong>模型有偏见。</strong> 不同模型在相同任务上的表现可能差异较大——有的偏保守（倾向中性）, 有的偏激进（倾向给出极性标签）。用单一模型的结果做回归, 你实际上在回归中引入了一个未知的测量误差。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-04-new.png" class="img-fluid figure-img"></p>
+<figcaption>多模型交叉验证流程：5 模型 x N 文件 → 投票 → 最终标签</figcaption>
+</figure>
+</div>
+<p><strong>解决方案：多模型交叉验证。</strong></p>
+<pre><code>5 个模型 x N 个文件 = 5N 次分类
+投票（多数决）→ 最终标签</code></pre>
+<p>具体做法：让多个不同的 LLM 分别对同一批文本做情感分类, 然后以多数投票决定每条文本的最终标签。如果 5 个模型中有 4 个判断为「积极」, 1 个判断为「中性」, 最终标签就是「积极」。</p>
+<p>多模型交叉验证的价值不只是「更准确」——更重要的是<strong>暴露分歧</strong>。当 5 个模型对同一份公告给出不同标签时, 这份公告本身就是值得关注的。可能它确实语义模糊, 可能它包含了同时指向两个方向的信号。这种分歧信息本身对研究很有用——你可以把「模型间分歧程度」作为一个新的变量：当市场对某类信息本身就存在分歧时, 股价反应可能是不确定的。</p>
+<p><strong>课程案例：60 份公告 x 5 个本地模型的完整验证。</strong></p>
+<p>使用的 5 个模型（全部本地部署, 通过 Ollama 调用）：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>模型标签</th>
+<th>实际模型</th>
+<th>参数量级</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>gemma3_31b</td>
+<td>gemma4:31b</td>
+<td>~31B</td>
+</tr>
+<tr class="even">
+<td>qwen3_5_35b</td>
+<td>qwen3.5:35b</td>
+<td>~35B</td>
+</tr>
+<tr class="odd">
+<td>qwen3_5_9b</td>
+<td>qwen3.5:9b</td>
+<td>~9B</td>
+</tr>
+<tr class="even">
+<td>deepseek_r1_32b</td>
+<td>deepseek-r1:32b</td>
+<td>~32B</td>
+</tr>
+<tr class="odd">
+<td>deepseek_r1_14b</td>
+<td>deepseek-r1:14b</td>
+<td>~14B</td>
+</tr>
+</tbody>
+</table>
+<p>5 个模型覆盖了不同架构（Gemma / Qwen / DeepSeek）和不同规模（9B-35B）, 这样做的目的是最大化模型间的独立性——如果 5 个模型都是同一家族的不同尺寸, 它们的「偏见」可能是同质的, 投票就失去了意义。</p>
+<p><strong>实际结果观察（部分）：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 54%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>公告内容</th>
+<th>gemma</th>
+<th>qwen35</th>
+<th>qwen9</th>
+<th>ds32</th>
+<th>ds14</th>
+<th>一致性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2025 年年度权益分派实施公告</td>
+<td>积极</td>
+<td>积极</td>
+<td>积极</td>
+<td>积极</td>
+<td>积极</td>
+<td>5/5</td>
+</tr>
+<tr class="even">
+<td>持股 5% 以上股东减持股份预披露公告</td>
+<td>消极</td>
+<td>消极</td>
+<td>消极</td>
+<td>消极</td>
+<td>消极</td>
+<td>5/5</td>
+</tr>
+<tr class="odd">
+<td>关于发行 H 股获得证监会备案的公告</td>
+<td>积极</td>
+<td>积极</td>
+<td>积极</td>
+<td>中性</td>
+<td>中性</td>
+<td>3/5</td>
+</tr>
+<tr class="even">
+<td>关于签署合作框架协议暨关联交易的公告</td>
+<td>积极</td>
+<td>中性</td>
+<td>中性</td>
+<td>积极</td>
+<td>消极</td>
+<td>分歧</td>
+</tr>
+</tbody>
+</table>
+<p>多数公告五模型一致——这是好消息：对于情感信号明确的公告, LLM 的判断是可靠的。但部分模糊公告存在明显分歧——这恰恰说明多模型交叉验证的必要性。如果只用单一模型, 你可能拿到一个有偏的标签而毫无察觉。</p>
+</section>
+<section id="工程化保障机制" class="level3">
+<h3 class="anchored" data-anchor-id="工程化保障机制">4. 工程化保障机制</h3>
+<p>跑一条文本分析管线不是「写个脚本跑一次」就完事了。实际项目中, 你会面对几十上百个文件、每个文件需要调用模型几秒到几十秒、总耗时可能数小时。这期间, 网络可能中断、模型可能超时、输出格式可能异常——如果没有工程保障, 跑了一半崩溃, 你得从头再来。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-05-new.png" class="img-fluid figure-img"></p>
+<figcaption>工程化保障机制：断点续跑 + 原子写入 + 解析兜底</figcaption>
+</figure>
+</div>
+<p>本课程的案例代码实现了四个关键工程机制：</p>
+<p><strong>（1）断点续跑（Checkpoint）</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 每处理完一份公告就保存 JSON checkpoint</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 中断后从上次断点继续, 不重复处理</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>checkpoint <span class="op">=</span> load_checkpoint(model_name)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> txt_file <span class="kw">in</span> <span class="bu">sorted</span>(DATA_DIR.glob(<span class="st">"*.txt"</span>)):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> txt_file.stem <span class="kw">in</span> checkpoint:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># 已处理, 跳过</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    value, raw <span class="op">=</span> call_model(client, server_model, prompt, text)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    checkpoint[txt_file.stem] <span class="op">=</span> {<span class="st">"value"</span>: value, <span class="st">"raw"</span>: raw}</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    save_checkpoint(model_name, checkpoint)  <span class="co"># 立即保存</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>核心逻辑：</strong> 外层循环模型, 内层循环文件。每个模型有独立的 checkpoint（JSON 文件）。每处理完一份公告就立刻写入——即使程序在第 59 份公告时崩溃, 前 58 份也不会白跑。</p>
+<p><strong>（2）原子写入（Atomic Write）</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 先写 .tmp 再 rename, 防止写入中断导致文件损坏</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_csv_atomic(df, path):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    tmp_path <span class="op">=</span> path.with_suffix(<span class="st">".tmp"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    df.to_csv(tmp_path, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    os.rename(tmp_path, path)  <span class="co"># 原子操作</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>为什么要先写 <code>.tmp</code> 再 <code>rename</code>？因为写大文件时如果进程被强制终止, 你可能得到一份不完整的 CSV——写了一半就中断了。原子写入保证：要么得到完整的旧版本, 要么得到完整的新版本, 永远不会得到损坏的半成品。</p>
+<p><strong>（3）解析兜底（Fallback Parsing）</strong></p>
+<p>LLM 的输出不是 100% 可控的——即使你在 Prompt 里要求「仅输出积极 / 消极 / 中性」, 模型偶尔还是会输出「该公告整体呈现积极倾向」或带着标点符号「积极。」。解析代码需要做容错处理：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_sentiment(raw_output):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    raw <span class="op">=</span> raw_output.strip().lower()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"积极"</span> <span class="kw">in</span> raw <span class="kw">or</span> <span class="st">"positive"</span> <span class="kw">in</span> raw:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"消极"</span> <span class="kw">in</span> raw <span class="kw">or</span> <span class="st">"negative"</span> <span class="kw">in</span> raw:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"中性"</span> <span class="kw">in</span> raw <span class="kw">or</span> <span class="st">"neutral"</span> <span class="kw">in</span> raw:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 解析失败, 降级为中性并记录日志</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        log_warning(<span class="ss">f"Parse fallback: </span><span class="sc">{</span>raw_output[:<span class="dv">50</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>宁可少给一个极性标签（降级为中性）, 也不要因为解析错误而给错标签。同时, 所有解析失败的情况都要记录日志, 以便事后人工复核。</p>
+<p><strong>（4）文本截断</strong></p>
+<p>LLM 有上下文窗口限制, 且处理超长文本时速度显著下降。对于上市公司公告, 关键信息通常在前半部分——标题、导语、主要条款。超过 6000 字符的部分往往是模板化的披露声明和法律条款, 对情感分析贡献很小：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>MAX_CHARS <span class="op">=</span> <span class="dv">6000</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> text[:MAX_CHARS] <span class="cf">if</span> <span class="bu">len</span>(text) <span class="op">&gt;</span> MAX_CHARS <span class="cf">else</span> text</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="公告情感分析完整案例" class="level3">
+<h3 class="anchored" data-anchor-id="公告情感分析完整案例">5. 公告情感分析完整案例</h3>
+<p>让我们把上述所有组件串联起来, 看一条完整的分析管线是怎么跑的。</p>
+<p><strong>数据来源：</strong> 巨潮网爬取的 60 份上市公司公告 TXT 文件。文件名格式为 <code>STOCKID_PUBID_TITLE.txt</code>：</p>
+<pre><code>000597_1225370066_2025 年年度权益分派实施公告.txt
+000949_1225372625_持股 5 以上股东减持股份预披露公告.txt
+002475_1225369948_关于发行境外上市外资股 H 股获得中国证监会备案的公告.txt</code></pre>
+<p><strong>工作流：</strong></p>
+<ol type="1">
+<li><strong>读取 Prompt：</strong> 从 <code>sentiment_prompt.md</code> 加载情感分析提示词</li>
+<li><strong>外层循环模型, 内层循环文件：</strong> 对于 5 个模型中的每一个, 逐文件调用 Ollama API, 传入 Prompt + 公告文本</li>
+<li><strong>解析输出 + 写 Checkpoint：</strong> 每次调用后立即解析模型输出（1 / -1 / 0）, 写入 JSON checkpoint</li>
+<li><strong>汇总为 CSV：</strong> 所有模型跑完后, 将 checkpoint 合并为一张完整的 <code>sentiment.csv</code></li>
+<li><strong>人工抽检：</strong> 对存在分歧的公告进行人工复核</li>
+</ol>
+<p><strong>输出文件 <code>sentiment.csv</code> 的结构：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 9%">
+<col style="width: 25%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>STOCKID</th>
+<th>PUBID</th>
+<th>TITLE</th>
+<th>gemma3_31b</th>
+<th>qwen3_5_35b</th>
+<th>qwen3_5_9b</th>
+<th>deepseek_r1_32b</th>
+<th>deepseek_r1_14b</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>000597</td>
+<td>1225370066</td>
+<td>2025 年年度权益分派实施公告</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>000949</td>
+<td>1225372625</td>
+<td>减持预披露公告</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键经验：</strong></p>
+<ol type="1">
+<li><strong>用户提示词很短, 但 Agent 需要展开大量工程细节。</strong> 「读取 TODO.md 并执行」——这 8 个字背后是：加载 5 个模型、循环 60 个文件、写 checkpoint、解析输出、原子写 CSV。Agent 需要自己补全这些上下文。</li>
+<li><strong>TODO 文件是人和 Agent 协作的「需求文档」。</strong> 把需求从一句话展开为可验证的 checklist（模型列表、输出格式、循环顺序、错误处理）, 是高效使用 Agent 的好习惯。</li>
+<li><strong>长耗时 LLM 任务必须有 checkpoint + 可恢复机制。</strong> 跑 5x60=300 次模型调用, 总耗时可能超过 1 小时。如果没有断点续跑, 一次网络抖动就可能前功尽弃。</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>案例材料位置：</strong> <code>task10/Text_Juchao/</code>——<code>sentiment_prompt.md</code>（提示词）、<code>sentiment_analysis.py</code>（分析脚本）、<code>sentiment.csv</code>（5 模型对比结果）。</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="下节多-agent-辩论与信息提取" class="level2">
+<h2 class="anchored" data-anchor-id="下节多-agent-辩论与信息提取">下节：多 Agent 辩论与信息提取</h2>
+<section id="多-agent-辩论不止于一个标签" class="level3">
+<h3 class="anchored" data-anchor-id="多-agent-辩论不止于一个标签">6. 多 Agent 辩论：不止于一个标签</h3>
+<p>单模型情感分类有一个根本限制：<strong>它只输出一个标签, 你无法知道它在「纠结」什么。</strong> 模型内部可能认为某条信息既有利好也有利空, 但按照 Prompt 的指令, 它被迫只输出一个词。你不知道它的推理过程, 也不知道有哪些反对论据被它压下去了。</p>
+<p><strong>多 Agent 辩论提供了另一种思路：不要一个裁判, 要两个律师。</strong></p>
+<p>想象这样的场景——一份公告包含复杂信息：公司宣布定向增发, 大股东参与认购, 锁定期 18 个月, 但资金投向一个公司从未涉足的行业。单模型可能直接给「积极」（因为大股东参与）, 也可能给「消极」（因为转型风险高）。无论哪个标签, 都丢失了另一半信息。</p>
+<p>多 Agent 辩论的核心思想：<strong>让正方和反方各陈己见, 交叉反驳, 最后由中立裁判裁决。</strong> 你不仅得到最终判决, 还得到完整的论辩记录——正反双方的论据、反驳、关键交锋点。这些远比一个标签有价值。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-06-new.png" class="img-fluid figure-img"></p>
+<figcaption>多 Agent 辩论五阶段架构：正方→反方→开篇→反驳 1→反驳 2→总结→裁判裁决</figcaption>
+</figure>
+</div>
+<p><strong>五阶段辩论架构：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 28%">
+<col style="width: 28%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>正方 (Pro)</th>
+<th>反方 (Con)</th>
+<th>字数限制</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>开篇陈述</strong> (Round 0)</td>
+<td>论证积极影响, 引用原文证据</td>
+<td>论证消极影响, 引用原文证据</td>
+<td>200-400 词</td>
+</tr>
+<tr class="even">
+<td><strong>反驳 1</strong> (Round 1)</td>
+<td>针对反方开篇论据逐条回应</td>
+<td>针对正方开篇论据逐条回应</td>
+<td>150-300 词</td>
+</tr>
+<tr class="odd">
+<td><strong>反驳 2</strong> (Round 2)</td>
+<td>针对反方反驳 1 进一步交锋</td>
+<td>针对正方反驳 1 进一步交锋</td>
+<td>150-300 词</td>
+</tr>
+<tr class="even">
+<td><strong>总结陈词</strong> (Round 3)</td>
+<td>归纳已方核心论点</td>
+<td>归纳已方核心论点</td>
+<td>150-250 词</td>
+</tr>
+<tr class="odd">
+<td><strong>裁决</strong></td>
+<td>—</td>
+<td>—</td>
+<td>200-400 词</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键设计：</strong></p>
+<ul>
+<li><strong>正反方使用相同模型</strong>, 消除系统性偏差——如果 Pro 用强模型、Con 用弱模型, 辩论结果就失去了意义</li>
+<li><strong>每轮正反方同时启动</strong>（并行执行）, 互不等待对方输出——这保证了双方在同一信息基础上辩论, 不会出现「反方看到了正方论据后才构思反驳」的不公平</li>
+<li><strong>裁判使用独立的、推理能力更强的模型</strong>, 只读双方的论辩记录, 从论证强度、反驳质量、证据质量、逻辑一致性、修辞效果五个维度评估</li>
+</ul>
+<p>这个架构的本质是模拟学术同行评议：两位审稿人各自写意见 → 互相看到对方意见 → 进一步回应 → 编辑做最终裁决。</p>
+</section>
+<section id="辩论案例顺景科技定向增发公告" class="level3">
+<h3 class="anchored" data-anchor-id="辩论案例顺景科技定向增发公告">7. 辩论案例：顺景科技定向增发公告</h3>
+<p><strong>案件背景：</strong> 顺景科技（603007）发布 2026 年度定向增发预案——拟向不超过 35 名特定对象发行不超过总股本 30% 的股份（不超过 2.65 亿股）, 募集不超过 10.77 亿元, 投向压力传感器生产线（2.12 亿）、IMU 生产线（3.98 亿）、研发中心（3.07 亿）和补充流动资金（1.6 亿）。公司此前经历两次行业跳跃：园林工程 → 金属油箱 → 汽车传感器。</p>
+<p><strong>辩论命题：</strong> 这份公告对股票价格是正向影响还是负向影响？</p>
+<p><strong>正方核心论点（积极）：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>论点</th>
+<th>核心逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>战略转型高增长市场</strong></td>
+<td>中国汽车传感器市场约 982 亿元, IMU 全球市场 CAGR 8.2%; 国产替代政策背书; 从低端制造向高端精密制造跃升</td>
+</tr>
+<tr class="even">
+<td><strong>大股东 18 个月锁仓 = 强烈信号</strong></td>
+<td>控股股东苏州辰顺锁仓期（18 个月）是其他认购对象的 3 倍——说明大股东用真金白银和时间赌股价上涨</td>
+</tr>
+<tr class="odd">
+<td><strong>现有客户 = 现成需求通道</strong></td>
+<td>已向理想、零跑、奇瑞、岚图、上汽大通等整车厂供应金属油箱——交叉销售传感器产品的商业化摩擦低</td>
+</tr>
+</tbody>
+</table>
+<p><strong>反方核心论点（消极）：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>论点</th>
+<th>核心逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>毁灭性稀释, 无近期回报</strong></td>
+<td>最多稀释 30% EPS; 项目建设期 36 个月; 公司在 MEMS 传感器领域经验为零——投资者当下买单, 回报遥不可及</td>
+</tr>
+<tr class="even">
+<td><strong>控股股东是空壳, 不是信号</strong></td>
+<td>苏州辰顺 2025 年收入为 0、净亏损 571 万元——一个亏损空壳参与 10 亿增发是红旗而非信心; 18 个月锁仓是证监会硬性要求, 不是自愿行为</td>
+</tr>
+<tr class="odd">
+<td><strong>三次行业跳跃, 零信用积累</strong></td>
+<td>园林工程 → 金属油箱 → MEMS 传感器——三个毫无交集的行业; 无半导体 IP、无 MEMS 制造经验、尚无备案环评</td>
+</tr>
+</tbody>
+</table>
+<p><strong>裁决结果：反方（消极）险胜。</strong></p>
+<p>裁判的关键判断：</p>
+<ul>
+<li><strong>反方最强点：</strong> 成功将正方「锁仓 = 信号」解构为「锁仓 = 监管要求 ≠ 自愿信心」——这直接击穿了正方论证的基础</li>
+<li><strong>正方最强点：</strong> 已有的汽车 OEM 关系确实可降低商业化摩擦——但过度依赖市场总规模和政策叙事, 未能充分解释为什么<strong>顺景科技这家公司</strong>能在合理时间内抓住机会</li>
+<li><strong>辩论转折：</strong> Round 2 反方的反驳将「18 个月锁仓是证监会针对控股股东的硬性要求」这一事实嵌入论证——正方未能有效回应, 核心论据被瓦解</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-07-new.png" class="img-fluid figure-img"></p>
+<figcaption>辩论案例：定增公告 → 两方论据 → 裁决</figcaption>
+</figure>
+</div>
+<p><strong>多 Agent 辩论的核心价值不在于「更准确」, 而在于暴露推理过程。</strong> 你会看到 AI 在纠结什么、哪些证据被两方同时引用、最终裁决的依据是什么。这对经管研究尤其重要——你可以把论证逻辑写进论文, 而不是只报告一个标签。</p>
+<p><strong>关键经验总结：</strong></p>
+<ol type="1">
+<li><strong>多 Agent 协作范式</strong> 不是单个模型多次推理, 而是<strong>两个对等 Agent + 一个裁判 Agent</strong> 的真人辩论模拟</li>
+<li><strong>对称模型保障公平</strong>——Pro 和 Con 用相同模型、相同上下文窗口, 消除系统性偏差</li>
+<li><strong>裁判能识别「空洞」</strong>——不会因语言自信而加分, 会察觉「用市场总规模替代公司前景」等逻辑漏洞</li>
+<li><strong>从单模型分析到多模型辩证</strong>——同一篇公告, 单模型只能给标签; 多 Agent 辩论能揭示分歧背后的深层逻辑</li>
+</ol>
+</section>
+<section id="信息提取从非结构化文本到结构化-json" class="level3">
+<h3 class="anchored" data-anchor-id="信息提取从非结构化文本到结构化-json">8. 信息提取：从非结构化文本到结构化 JSON</h3>
+<p>情感分析输出标签。信息提取输出结构化数据——更难, 但更有用。</p>
+<p>想想你做一个实证研究需要什么。如果研究「股东减持对股价的影响」, 你需要的不只是一个「这份公告和减持有关」的标签——你需要<strong>减持股东是谁、减持了多少股、减持比例、减持方式、减持时间段</strong>。这些是回归的变量, 必须从文本中提取为结构化数字。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-08-new.png" class="img-fluid figure-img"></p>
+<figcaption>信息提取流程：公告文本 → 结构化 JSON</figcaption>
+</figure>
+</div>
+<p><strong>案例：从 60 份公告中提取股东减持的结构化信息。</strong></p>
+<p>需要提取的字段：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"relevant"</span><span class="fu">:</span> <span class="kw">true</span><span class="fu">,</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"reductions"</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">{</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"shareholder_name"</span><span class="fu">:</span> <span class="st">"深圳顺景科技合伙企业（有限合伙）"</span><span class="fu">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"share_count"</span><span class="fu">:</span> <span class="dv">16568900</span><span class="fu">,</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"share_ratio"</span><span class="fu">:</span> <span class="st">"3.85%"</span><span class="fu">,</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"method"</span><span class="fu">:</span> <span class="st">"集中竞价"</span><span class="fu">,</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"period_start"</span><span class="fu">:</span> <span class="st">"2026-01-15"</span><span class="fu">,</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"period_end"</span><span class="fu">:</span> <span class="st">"2026-07-14"</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="ot">]</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>系统 Prompt 设计（关键部分）：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## 任务说明</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>阅读以下上市公司公告, 判断是否与股东减持股份有关。</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">## 提取字段</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>shareholder_name（股东全称）</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>share_count（减持数量, 股）</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>share_ratio（减持比例, 保留原始格式如 "1%"）</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>method（减持方式：集中竞价 / 大宗交易 / 协议转让 / 司法拍卖）</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## 输出格式</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>仅输出合法 JSON, 不要包含其他文字。</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>如果公告与减持无关, 输出 {"relevant": false, "reductions": []}。</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>如果某字段无法从公告中确定, 填写 "未披露"。</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>技巧：</strong> 要求 JSON 输出, 方便后续直接解析和写入 CSV。不要给模型自由发挥的空间——JSON Schema 就是约束。</p>
+</blockquote>
+</section>
+<section id="信息提取的四个关键挑战" class="level3">
+<h3 class="anchored" data-anchor-id="信息提取的四个关键挑战">9. 信息提取的四个关键挑战</h3>
+<p>将自然语言中的信息转化为结构化字段, 会遇到一些传统 NLP 任务不常见但实际项目中必然遇到的挑战：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-09-new.png" class="img-fluid figure-img"></p>
+<figcaption>信息提取四个挑战：标题不一致 / 数字转换 / 多股东 / 未披露</figcaption>
+</figure>
+</div>
+<p><strong>挑战 1：标题不一致——「减持」不一定真减持。</strong></p>
+<p>公告标题写了「减持」, 但正文可能是：减持计划已到期（无实际减持）、减持预披露（只有意向）、减持完成（结果公告）。标题判断会带来严重误判。Prompt 必须要求模型<strong>先读正文再判断</strong>, 而非依赖标题。</p>
+<p><strong>挑战 2：自然语言数字转换。</strong></p>
+<p>中文公告中的数字格式多样：「1,656.89 万股」→ <code>16568900</code>, 「不超过 5%」→ 比例而非绝对数, 「减持后持股 11.58%」→ 这是减持后的剩余比例, 不是减持比例。Prompt 需要明确要求模型进行单位转换, 并区分不同语境下的数字含义。</p>
+<p><strong>挑战 3：多股东 + 多方式组合。</strong></p>
+<p>一份公告可能涉及多个股东, 每个股东的减持方式、数量、时间段各不相同。例如：「股东 A 通过集中竞价减持不超过 1%, 股东 B 通过大宗交易减持不超过 2%」。输出需要是一个数组, 每个元素对应一个股东的一次减持行为。</p>
+<p><strong>挑战 4：未披露信息。</strong></p>
+<p>有些公告对关键信息做了模糊化处理——「减持数量将根据市场情况确定」「减持期间为公告之日起 6 个月内」——这意味着具体数量和日期可能无法精确提取。Prompt 需要告诉 LLM：如果某字段无法确定, 输出「未披露」而不是编造一个值。<strong>LLM 的幻觉在这个场景中代价极高</strong>——如果你把一个编造的数字放入回归, 你的结果是不可信的。</p>
+<p><strong>解决方案总结：</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>挑战</th>
+<th>解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>标题不一致</td>
+<td>Prompt 要求「先读正文再判断相关性, 不要依赖标题」</td>
+</tr>
+<tr class="even">
+<td>数字转换</td>
+<td>Prompt 明确要求股数转换为整数、比例保留百分比格式</td>
+</tr>
+<tr class="odd">
+<td>多股东</td>
+<td>输出 JSON 数组, 每个元素一个股东；后处理展平为多行</td>
+</tr>
+<tr class="even">
+<td>未披露</td>
+<td>Prompt 明确「不确定时输出’未披露’, 不要猜测」；人工复核</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="完整文本分析管线" class="level3">
+<h3 class="anchored" data-anchor-id="完整文本分析管线">10. 完整文本分析管线</h3>
+<p>现在我们把上半节和下半节的组件整合起来, 画出一条完整的文本分析管线。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-10-new.png" class="img-fluid figure-img"></p>
+<figcaption>文本分析完整管线：原始文本 → 预处理 → LLM 分析 → 验证 → 输出 → 抽检</figcaption>
+</figure>
+</div>
+<p><strong>管线六阶段：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 47%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>做什么</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1. 原始文本准备</strong></td>
+<td>爬虫获取 PDF → PyMuPDF 转为 TXT → 按统一格式命名</td>
+<td><code>data/txts/</code></td>
+</tr>
+<tr class="even">
+<td><strong>2. 预处理</strong></td>
+<td>文本截断（6000 字符）、去除无关字符、检查文件完整性</td>
+<td>清洗后的文本</td>
+</tr>
+<tr class="odd">
+<td><strong>3. LLM 分析</strong></td>
+<td>加载 Prompt → 多模型分类 / 信息提取 → Checkpoint 保存</td>
+<td>JSON checkpoint</td>
+</tr>
+<tr class="even">
+<td><strong>4. 交叉验证</strong></td>
+<td>多模型多数投票 → 识别分歧 → 记录一致性指标</td>
+<td>最终标签 + 分歧日志</td>
+</tr>
+<tr class="odd">
+<td><strong>5. 结果输出</strong></td>
+<td>合并为 CSV → 原子写入 → 关联原始元数据</td>
+<td><code>sentiment.csv</code> / <code>stock_sell.csv</code></td>
+</tr>
+<tr class="even">
+<td><strong>6. 人工抽检</strong></td>
+<td>10% 随机抽样 → 人工标注 → 计算一致率 → 修正系统性问题</td>
+<td>抽检报告</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="人工抽检不能省略的最后一步" class="level3">
+<h3 class="anchored" data-anchor-id="人工抽检不能省略的最后一步">11. 人工抽检：不能省略的最后一步</h3>
+<p>无论 Prompt 写得多好、交叉验证做得多严密, <strong>人工抽检是文本分析管线的最后一道防线。</strong> LLM 降低了标注成本, 但金融领域的最终判断仍需人工把关。尤其当你把 LLM 生成的标签作为回归变量时, 标签质量的系统性问题会被放大——Garbage in, garbage out。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-11-new.png" class="img-fluid figure-img"></p>
+<figcaption>人工抽检方法论：10% 随机抽样 → 人工标注 → 对比 → 一致率</figcaption>
+</figure>
+</div>
+<p><strong>标准抽检流程：</strong></p>
+<ol type="1">
+<li><strong>随机抽样：</strong> 从全量文本中随机抽取 10%（20 条数据就抽 2 条, 100 条抽 10 条）, 保证样本代表性</li>
+<li><strong>人工标注：</strong> 研究者本人（而非 LLM）独立阅读文本, 按照相同的分类标准给出标签</li>
+<li><strong>对比计算：</strong> 将人工标注结果与 LLM 标注结果逐条对比, 计算一致率 = 一致条数 / 总条数</li>
+<li><strong>分歧分析：</strong> 对所有不一致的条目, 逐一分析原因——是 LLM 误判？还是分类标准不清晰？还是文本本身确实模糊？</li>
+<li><strong>系统修正：</strong> 如果发现 LLM 存在系统性偏差（如一致性地将某类公告判错）, 修正 Prompt 并重新运行</li>
+</ol>
+<p><strong>一个务实的标准：</strong> 一致率 ≥ 90%——可以接受, 在论文中报告一致率。一致率 &lt; 90%——需要检查 Prompt 是否存在问题, 修正后重新验证。一致率 &lt; 80%——Prompt 设计有重大缺陷, 不能用于正式分析。</p>
+<p><strong>经验法则：</strong> 如果你的研究方向对标签精度要求特别高（如法律文本、财务舞弊识别）, 建议将抽检比例提高到 20-30%, 并对所有 LLM 判定为边界的样本进行全量人工复核。</p>
+</section>
+<section id="经管文本分析的应用全景" class="level3">
+<h3 class="anchored" data-anchor-id="经管文本分析的应用全景">12. 经管文本分析的应用全景</h3>
+<p>本讲以公告情感分析和股东减持信息提取为例展示了技术方法。但 LLM 文本分析的应用远不止于此。以下是经管研究中常见的文本分析场景：</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-12-new2.png" class="img-fluid figure-img"></p>
+<figcaption>经管文本分析应用全景：年报 / 电话会议 / 新闻 / 政策文本 / 社交媒体</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 29%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>文本来源</th>
+<th>分析任务</th>
+<th>典型研究问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>年报（MD&amp;A）</strong></td>
+<td>情感分析、前瞻性信息披露、风险披露</td>
+<td>年报语调能否预测未来盈余？管理层讨论是否隐藏负面信息？</td>
+</tr>
+<tr class="even">
+<td><strong>电话会议纪要</strong></td>
+<td>情感分析、Q&amp;A 语气分析、管理者人格</td>
+<td>电话会议中的情绪波动是否预示股价异动？CFO vs CEO 的语言差异？</td>
+</tr>
+<tr class="odd">
+<td><strong>新闻报道</strong></td>
+<td>事件分类、情感分析、媒体偏见</td>
+<td>媒体报道对企业融资约束的影响？正面报道是否具有信息含量？</td>
+</tr>
+<tr class="even">
+<td><strong>政策文件</strong></td>
+<td>主题建模、政策力度量化、政策不确定性</td>
+<td>产业政策文本中「鼓励」vs「要求」的区分？政策不确定性的文本度量？</td>
+</tr>
+<tr class="odd">
+<td><strong>社交媒体</strong></td>
+<td>情绪分析、信息传播、投资者关注度</td>
+<td>微博 / 股吧情绪与次日股价的相关性？散户关注度对 IPO 抑价的影响？</td>
+</tr>
+<tr class="even">
+<td><strong>分析师报告</strong></td>
+<td>情感分析、预测提取、信息增量</td>
+<td>分析师报告中的情感是否独立于基本面？乐观偏差的系统性来源？</td>
+</tr>
+<tr class="odd">
+<td><strong>专利文本</strong></td>
+<td>技术创新测度、知识溢出、技术距离</td>
+<td>专利摘要中的文本相似度能否测度知识溢出？</td>
+</tr>
+<tr class="even">
+<td><strong>诉讼文书</strong></td>
+<td>实体识别、案件分类、判决结果提取</td>
+<td>环境诉讼对企业环境行为的威慑效应？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关键洞察：</strong> 以上所有应用共享同一套底层方法论——Prompt 设计 + 多模型验证 + 工程化保障 + 人工抽检。学会了一个场景, 你就学会了所有场景。</p>
+</section>
+<section id="prompt-设计前后对比" class="level3">
+<h3 class="anchored" data-anchor-id="prompt-设计前后对比">13. Prompt 设计前后对比</h3>
+<p>最后, 我们通过一个前后对比来加深对「Prompt 即标注规则」的理解。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s07-image-13-new.png" class="img-fluid figure-img"></p>
+<figcaption>Prompt 设计前后对比示例：情感分析的具体案例</figcaption>
+</figure>
+</div>
+<p><strong>差的 Prompt（模糊、无约束）：</strong></p>
+<pre><code>请判断下面这段上市公司公告的情感倾向。</code></pre>
+<p>为什么差？LLM 不知道你的分类标准是什么, 不知道输出格式是什么, 可能会给你一段 200 字的分析——你没法批量处理。</p>
+<p><strong>好的 Prompt（精确、有约束）：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># 中国上市公司公告情绪分析提示词</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## 任务说明</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>你是一名专业的金融分析师。请分析以下公告内容,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>判断该公告对公司股票价格的潜在影响, 并将情绪分类为：</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性。</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考关键词</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>积极：分红、增持、回购、业绩增长、获得订单、并购重组、股权激励</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>消极：减持、亏损、退市风险、行政处罚、诉讼、债务危机、业绩下滑</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## 输出要求</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>请仅输出以下三个标签中的一个, 不要输出任何解释：</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>为什么好？明确了角色（金融分析师）、判断标准（对股价的影响）、关键词列表（什么是积极 / 消极）、输出格式（三个标签之一, 不给解释）。这四个要素构成了一张完整的「标注规则」——任何一个研究助理看到这个提示词, 都可以开始标注了。LLM 也一样。</p>
+<hr>
+</section>
+</section>
+<section id="实战任务" class="level2">
+<h2 class="anchored" data-anchor-id="实战任务">实战任务</h2>
+<p>本次课后, 请完成以下实战练习：</p>
+<p><strong>任务：</strong> 收集 20-50 份与你研究方向相关的文本（公司公告、年报、新闻报道、政策文件等）, 用 LLM 做批量文本分析。</p>
+<p><strong>步骤：</strong></p>
+<ol type="1">
+<li><strong>准备文本：</strong> 将 20-50 份文本文件放入 <code>input/texts/</code>, 统一 TXT 格式</li>
+<li><strong>定义任务：</strong> 确定分析类型——情感分类 / 主题分类 / 信息提取（三选一）</li>
+<li><strong>编写 Prompt：</strong> 先写 Prompt, 用 3 份文本手工测试; 调整直到输出稳定</li>
+<li><strong>搭建管线：</strong> 复用课程案例代码（<code>sentiment_analysis.py</code> 或 <code>extract_reduction.py</code>）, 适配你的任务</li>
+<li><strong>批量运行：</strong> 至少使用 2 个模型交叉验证（建议 3 个以上）</li>
+<li><strong>抽检验证：</strong> 随机抽样 10% 做人工检查, 计算一致率</li>
+<li><strong>输出报告：</strong> 报告分析结果 + 抽检一致率 + 典型分歧案例</li>
+</ol>
+<p><strong>进阶挑战（二选一）：</strong></p>
+<ul>
+<li><strong>多 Agent 辩论：</strong> 对至少 3 份存在不确定性的文本, 运行多 Agent 辩论, 对比辩论结果与单模型分类结果的差异</li>
+<li><strong>信息提取管线：</strong> 从你自己的研究文本中定义提取字段, 设计 JSON Schema, 跑通完整的提取管线</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>参考案例：</strong> <code>B 班 -Agent 课程 /Text_Juchao/</code>——完整的情感分析和信息提取项目, 包含 Prompt 文件、分析脚本、输出结果和文档。</p>
+</blockquote>
+<hr>
+</section>
+<section id="案例材料索引" class="level2">
+<h2 class="anchored" data-anchor-id="案例材料索引">案例材料索引</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 45%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>材料</th>
+<th>位置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>情感分析 Prompt</td>
+<td><code>task10/Text_Juchao/sentiment_prompt.md</code></td>
+<td>完整的中国上市公司公告情感分析提示词</td>
+</tr>
+<tr class="even">
+<td>情感分析脚本</td>
+<td><code>task10/Text_Juchao/sentiment_analysis.py</code></td>
+<td>5 模型交叉验证的完整 Python 实现</td>
+</tr>
+<tr class="odd">
+<td>5 模型对比结果</td>
+<td><code>task10/Text_Juchao/sentiment.csv</code></td>
+<td>60 份公告 x 5 个模型的情感标签</td>
+</tr>
+<tr class="even">
+<td>减持信息提取需求</td>
+<td><code>task10/Text_Juchao/TODO_extrac.md</code></td>
+<td>信息提取任务的需求文档</td>
+</tr>
+<tr class="odd">
+<td>信息提取脚本</td>
+<td><code>task10/Text_Juchao/extract_reduction.py</code></td>
+<td>从公告中提取减持结构化信息的脚本</td>
+</tr>
+<tr class="even">
+<td>提取结果</td>
+<td><code>task10/Text_Juchao/stock_sell.csv</code></td>
+<td>提取的股东减持结构化数据</td>
+</tr>
+<tr class="odd">
+<td>多 Agent 辩论案例</td>
+<td><code>task11/Multi-Agent-Debate/</code></td>
+<td>顺景科技定增公告辩论的完整记录</td>
+</tr>
+<tr class="even">
+<td>辩论 TODO</td>
+<td><code>task11/Multi-Agent-Debate/TODO.md</code></td>
+<td>多 Agent 辩论任务的需求文档</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="本讲核心概念回顾" class="level2">
+<h2 class="anchored" data-anchor-id="本讲核心概念回顾">本讲核心概念回顾</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>概念</th>
+<th>一句话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LLM 作为文本分析引擎</strong></td>
+<td>不需要标注训练集——写一个好的 Prompt, LLM 就是你的分类器</td>
+</tr>
+<tr class="even">
+<td><strong>Prompt 即标注规则</strong></td>
+<td>Prompt 中的关键词列表 = 你的标注标准; JSON 约束 = 你的输出格式要求</td>
+</tr>
+<tr class="odd">
+<td><strong>多模型交叉验证</strong></td>
+<td>5 个模型对同一批文本分类, 多数投票决定最终标签——暴露分歧, 提高可靠性</td>
+</tr>
+<tr class="even">
+<td><strong>断点续跑</strong></td>
+<td>每处理完一个文件就保存 checkpoint——中断后不重复处理, 不丢失进度</td>
+</tr>
+<tr class="odd">
+<td><strong>原子写入</strong></td>
+<td>先写 .tmp 再 rename——永远不会得到损坏的半成品文件</td>
+</tr>
+<tr class="even">
+<td><strong>解析兜底</strong></td>
+<td>LLM 输出异常时降级为默认值 + 记录日志——不让一条异常拖垮整条管线</td>
+</tr>
+<tr class="odd">
+<td><strong>多 Agent 辩论</strong></td>
+<td>正方 + 反方 + 裁判, 五阶段交叉辩论——暴露推理过程而非只输出标签</td>
+</tr>
+<tr class="even">
+<td><strong>结构化信息提取</strong></td>
+<td>从自然语言到 JSON——把文本中的数字、实体、关系变成可直接回归的变量</td>
+</tr>
+<tr class="odd">
+<td><strong>人工抽检</strong></td>
+<td>10% 随机抽样 + 人工标注 + 一致率——LLM 结果不能代替最终把关</td>
+</tr>
+<tr class="even">
+<td><strong>完整管线</strong></td>
+<td>原始文本 → 预处理 → LLM 分析 → 多模型验证 → 输出 → 人工抽检</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="下一讲预告" class="level2">
+<h2 class="anchored" data-anchor-id="下一讲预告">下一讲预告</h2>
+<p><strong>第八讲：AI 辅助规范实证研究。</strong> 我们将从文本分析走向因果推断——用 Agent 完成从研究设计到回归输出的完整实证流程。你将看到：如何让 Agent 帮你在 DID、IV、RD 之间选择识别策略？如何搭建规范的 Stata 项目标准？以及一个致命的错误——为什么标准误的聚类层级决定了你的结果是否可信。</p>
+<hr>
+<blockquote class="blockquote">
+<p>完整案例文件见task目录。</p>
+<p><strong>前序讲次：</strong> 第六讲 AI 辅助数据采集 | <strong>后续讲次：</strong> 第八讲 AI 辅助规范实证研究</p>
+</blockquote>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<!-- 登录门禁：登录框 + 校验逻辑 -->
+<div id="book-auth-gate" hidden="">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="auth-kicker">课程教材 · 需登录</span>
+      <h1>人工智能在经济管理研究中的应用</h1>
+      <p>请输入用户名和密码以继续阅读</p>
+    </div>
+    <form id="book-auth-form" autocomplete="off">
+      <div class="auth-field">
+        <label for="book-auth-user">用户名</label>
+        <input type="text" id="book-auth-user" name="username" placeholder="请输入用户名" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label for="book-auth-pass">密码</label>
+        <input type="password" id="book-auth-pass" name="password" placeholder="请输入密码" autocomplete="current-password">
+      </div>
+      <div class="auth-error" id="book-auth-error">用户名或密码错误，请重试。</div>
+      <button type="submit" class="auth-submit" id="book-auth-submit">登 录</button>
+      <div class="auth-hint">登录状态仅在本浏览器当前会话内有效</div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ---------- 纯 JS SHA-256（ASCII） ---------- */
+  function sha256(ascii) {
+    function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var result = '';
+    var words = [];
+    var asciiBitLength = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [];
+    var k = sha256.k = sha256.k || [];
+    var primeCounter = k.length;
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (var i = 0; i < 313; i += candidate) { isComposite[i] = candidate; }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (var i = 0; i < ascii.length; i++) {
+      var j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = ((asciiBitLength / maxWord) | 0);
+    words[words.length] = (asciiBitLength);
+    for (var j2 = 0; j2 < words.length;) {
+      var w = words.slice(j2, j2 += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (var i2 = 0; i2 < 64; i2++) {
+        var w15 = w[i2 - 15], w2 = w[i2 - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i2]
+          + (w[i2] = (i2 < 16) ? w[i2] : (
+              w[i2 - 16]
+              + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+              + w[i2 - 7]
+              + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+            ) | 0
+          );
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (var i3 = 0; i3 < 8; i3++) { hash[i3] = (hash[i3] + oldHash[i3]) | 0; }
+    }
+    for (var i4 = 0; i4 < 8; i4++) {
+      for (var j3 = 3; j3 + 1; j3--) {
+        var b = (hash[i4] >> (j3 * 8)) & 255;
+        result += ((b < 16) ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  /* 校验值：sha256("pisces_chen_30")（用户名与密码相同） */
+  var CRED_HASH = "98dcd99562737bd3e3240000ed05df35168050efb866fe569d4602f31b26643f";
+
+  var gate = document.getElementById("book-auth-gate");
+  var form = document.getElementById("book-auth-form");
+  var userInput = document.getElementById("book-auth-user");
+  var passInput = document.getElementById("book-auth-pass");
+  var errEl = document.getElementById("book-auth-error");
+
+  function isLocked() {
+    return document.documentElement.classList.contains("auth-locked");
+  }
+
+  function unlock() {
+    try { sessionStorage.setItem("BOOK_AUTH_OK", "1"); } catch (e) {}
+    document.documentElement.classList.remove("auth-locked");
+    if (gate) gate.hidden = true;
+  }
+
+  /* 初始化：已登录则直接隐藏登录框，未登录则显示 */
+  if (isLocked()) {
+    gate.hidden = false;
+  } else {
+    gate.hidden = true;
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var u = userInput.value || "";
+      var p = passInput.value || "";
+      if (sha256(u) === CRED_HASH && sha256(p) === CRED_HASH) {
+        errEl.style.display = "none";
+        unlock();
+      } else {
+        errEl.style.display = "block";
+        passInput.value = "";
+        passInput.focus();
+      }
+    });
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-data-collection.html" class="pagination-link" aria-label="第六讲：AI 辅助数据采集">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第六讲：AI 辅助数据采集</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08-empirical-research.html" class="pagination-link" aria-label="第八讲：AI 辅助规范实证研究">
+        <span class="nav-page-text">第八讲：AI 辅助规范实证研究</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "第七讲：AI 辅助文本分析"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **课程：** 人工智能在经济管理研究中的应用</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **授课人：** 张晨（西北农林科技大学经济管理学院）</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **讲次：** 第 7 次课（2 课时）</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **日期：** 2026 年夏季学期</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本讲概览</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>第六讲我们学会了爬虫——拿到了文本数据。但拿到文本只是第一步。爬虫解决的是「把文本取回来」，本讲解决的是「把文本读明白」。</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>上市公司公告、年报、电话会议纪要、政府政策文件——这些非结构化文本中藏着对经管研究至关重要的信息：情绪、事件、实体关系。传统上，研究者需要用词典法或人工标注来从中提取变量。这不仅耗时耗力, 而且质量难以保证。</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>本讲的核心命题：**如何用大语言模型（LLM）批量、系统地分析非结构化文本, 从中提取研究所需的变量？**</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>分两步展开。**上半节（LLM 文本分类与情感分析）：** 从传统文本分析方法的局限出发, 引入 LLM 作为文本分析引擎的新范式——核心是「Prompt 即标注规则」, 配合多模型交叉验证和工程化保障, 最后以公告情感分析为完整案例。</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>**下半节（多 Agent 辩论与信息提取）：** 处理两个更高级的场景——当单一模型分类不够时, 用多 Agent 辩论暴露推理过程; 当需要结构化数据而非标签时, 用 LLM 从文本中抽取 JSON 字段。最后整合为一条完整的文本分析管线。</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="al">![LLM 文本分析三大应用：情感分类、信息提取、主题建模](images/s07-image-01-new.png)</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本次教学目标</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>学完本讲后, 你将能够：</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>理解 LLM 作为文本分析引擎的核心优势, 以及与词典法、传统 ML 分类器的本质差异</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>掌握「Prompt 即标注规则」的设计原则——用关键词和 JSON 约束替代模糊指令</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>搭建多模型交叉验证流程, 用「5 模型 x N 文件 → 投票 → 最终标签」的管线提升可靠性</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>实现断点续跑、原子写入、解析兜底等工程化保障机制</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>理解多 Agent 辩论的五阶段架构, 以及它相对于单模型分类的独特价值</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用 LLM 从非结构化公告中提取结构化 JSON（股东名称、减持数量、比例、方式）</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>设计并跑通一条完整的文本分析管线——从原始文本到最终分析报告</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## 上节：LLM 文本分类与情感分析</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. 传统方法的局限与 LLM 的新范式</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>在经管研究中, 文本分析最常见的就是情感分类——判断一段文本的情感倾向（积极 / 消极 / 中性）, 然后将其作为回归模型中的解释变量。年报语调、电话会议情绪、新闻情绪——这些都是经管顶刊中常见的研究变量。</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>**传统方法怎么做？**</span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 方法                   <span class="pp">|</span> 原理                                                                                  <span class="pp">|</span> 代表工具               <span class="pp">|</span> 核心痛点                                                                                <span class="pp">|</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------</span> <span class="pp">| -------------------------------------------------------------------------------------</span> <span class="pp">| ----------------------</span> <span class="pp">| ---------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **词典法**       <span class="pp">|</span> 预定义情感词表, 统计正面词和负面词的出现频次, 用 (正面-负面)/(正面+负面) 构建情绪指数 <span class="pp">|</span> LM 词典、HowNet、NTUSD <span class="pp">|</span> 词典是通用的, 但语境是特定的——「ST 预警」在金融文本中是负面信号, 但通用词典可能不收录 <span class="pp">|</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **传统机器学习** <span class="pp">|</span> 人工标注训练集 → 特征工程（TF-IDF / n-gram）→ 训练分类器（SVM / 随机森林）→ 预测   <span class="pp">|</span> scikit-learn           <span class="pp">|</span> 需要标注大量训练样本, 标注成本高; 且模型难以捕捉长距离语义依赖                          <span class="pp">|</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>两种方法共享一个根本问题：**规则是死的, 语言是活的。** 词典无法处理否定句式（「并没有亏损」）、条件句式（「如果市场好转, 则...」）和隐含语气（「公司对前景持保留态度」）。而机器学习分类器受限于训练数据的规模和质量——标注 1000 条金融文本的成本足以让人望而却步。</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>**LLM 改变了什么？**</span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>LLM 带来了一个范式转变：**你不需要写规则, 也不需要标注训练集——你只需要写一个好的 Prompt。** LLM 本身就是你的分类器。</span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="al">![传统方法 vs LLM 方法对比：词典法和 ML 需要标注, LLM 只需写 Prompt](images/s07-image-02-new.png)</span></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>这个转变的核心逻辑是：LLM 在预训练阶段已经吸收了海量的文本语义知识, 包括对情感、语气、隐含含义的理解。你不再需要教模型「什么是积极情感」——它在训练数据中已经见过足够多了。你只需要告诉它**在这个特定任务中, 什么算「积极」**。</span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>换句话说, 传统方法是在教模型「语言本身」, 而 LLM 方法是在给模型校准「领域标准」。</span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>**LLM 文本分析的三个核心应用场景：**</span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 应用               <span class="pp">|</span> 输入         <span class="pp">|</span> 输出                       <span class="pp">|</span> 经管研究示例                                     <span class="pp">|</span></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------------------</span> <span class="pp">| ------------</span> <span class="pp">| --------------------------</span> <span class="pp">| ------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **情感分类** <span class="pp">|</span> 一段文本     <span class="pp">|</span> 标签（积极 / 消极 / 中性） <span class="pp">|</span> 年报语调与股价崩盘风险; 电话会议情绪与分析师预测 <span class="pp">|</span></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **信息提取** <span class="pp">|</span> 一段文本     <span class="pp">|</span> 结构化 JSON                <span class="pp">|</span> 股东减持公告中提取减持数量、比例、方式、时间窗口 <span class="pp">|</span></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **主题建模** <span class="pp">|</span> 多篇文本集合 <span class="pp">|</span> 主题标签 + 核心摘要        <span class="pp">|</span> 政策文件主题分类; 文献自动聚类; 新闻报道事件归类 <span class="pp">|</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Prompt 即标注规则</span></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>用 LLM 做文本分析, 最重要的设计决策是**写 Prompt**。Prompt 的质量直接决定输出的质量——垃圾 Prompt 进, 垃圾标签出。</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>两个关键原则：</span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="al">![Prompt 即标注规则：模糊 Prompt 到精确 Prompt 的转变, 带关键词列表](images/s07-image-03-new.png)</span></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>**原则一：给出明确的关键词和示例, 把领域知识写进 Prompt。**</span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>不要只说「判断这段话的情感倾向」——LLM 不是金融分析师, 它不知道在你的研究语境中什么算「积极」。你需要告诉它：</span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a><span class="in">你是金融文本情感分析专家。</span></span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a><span class="in">积极信号（以下词汇或语境通常表示积极）：</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a><span class="in">- 利润增长、收入增加、订单扩大、中标、获批</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="in">- 超出预期、增长强劲、实现扭亏</span></span>
+<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a><span class="in">- 分红、增持、回购、业绩增长、股权激励</span></span>
+<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="in">- 并购重组、获得订单、战略合作</span></span>
+<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a><span class="in">消极信号：</span></span>
+<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a><span class="in">- 亏损、下滑、诉讼、处罚、资金链紧张</span></span>
+<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a><span class="in">- ST 预警、低于预期、持续恶化、重大不确定性</span></span>
+<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a><span class="in">- 减持、退市风险、行政处罚、债务危机</span></span>
+<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a><span class="in">中性信号：</span></span>
+<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="in">- 例行披露、股东大会通知、地址变更</span></span>
+<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a><span class="in">- 纯事实陈述且无明显利好利空倾向</span></span>
+<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a>将「领域知识」写进 Prompt, 比让模型自己猜要稳定得多。你在 Prompt 中列出的关键词列表, 本质上是你的「标注标准」——它让 LLM 知道什么样的文本应该被标记为哪个类别。</span>
+<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a>**原则二：固定输出格式, 约束模型的生成行为。**</span>
+<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a>不要让 LLM「自由发挥」——它会给你一段洋洋洒洒的分析, 但你没法批量处理。用固定标签或 JSON 约束输出：</span>
+<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a><span class="in">要求：仅输出以下三个标签中的一个, 不要输出任何解释：</span></span>
+<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a><span class="in">积极 / 消极 / 中性</span></span>
+<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>或者更严格：</span>
+<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a><span class="in">要求：仅输出一个词。不要输出任何解释性文字。</span></span>
+<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>这种约束有两个好处：（1）可以批量解析, 直接写入数据库；（2）减少模型「自行发挥」导致的格式不确定性。</span>
+<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>**一个完整的情感分析 Prompt 示例：**</span>
+<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a><span class="fu"># 中国上市公司公告情绪分析提示词</span></span>
+<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## 任务说明</span></span>
+<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>你是一名专业的金融分析师。请分析以下上市公司公告内容,</span>
+<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>判断该公告对公司股票价格的潜在影响, 并将情绪分类为：</span>
+<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性。</span>
+<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考关键词</span></span>
+<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>积极：分红、增持、回购、业绩增长、获得订单、并购重组、股权激励</span>
+<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>消极：减持、亏损、退市风险、行政处罚、诉讼、债务危机、业绩下滑</span>
+<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## 输出要求</span></span>
+<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a>请仅输出以下三个标签中的一个, 不要输出任何解释：</span>
+<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性</span>
+<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **技巧：** 把领域知识写进 Prompt, 比让模型自己猜更稳定。你怎么教一个研究助理识别金融情感, 就怎么教 LLM——关键词列表就是你的「标注手册」。</span></span>
+<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. 多模型交叉验证</span></span>
+<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a>单模型分类有一个问题：**模型有偏见。** 不同模型在相同任务上的表现可能差异较大——有的偏保守（倾向中性）, 有的偏激进（倾向给出极性标签）。用单一模型的结果做回归, 你实际上在回归中引入了一个未知的测量误差。</span>
+<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a><span class="al">![多模型交叉验证流程：5 模型 x N 文件 → 投票 → 最终标签](images/s07-image-04-new.png)</span></span>
+<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a>**解决方案：多模型交叉验证。**</span>
+<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a><span class="in">5 个模型 x N 个文件 = 5N 次分类</span></span>
+<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a><span class="in">投票（多数决）→ 最终标签</span></span>
+<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a>具体做法：让多个不同的 LLM 分别对同一批文本做情感分类, 然后以多数投票决定每条文本的最终标签。如果 5 个模型中有 4 个判断为「积极」, 1 个判断为「中性」, 最终标签就是「积极」。</span>
+<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a>多模型交叉验证的价值不只是「更准确」——更重要的是**暴露分歧**。当 5 个模型对同一份公告给出不同标签时, 这份公告本身就是值得关注的。可能它确实语义模糊, 可能它包含了同时指向两个方向的信号。这种分歧信息本身对研究很有用——你可以把「模型间分歧程度」作为一个新的变量：当市场对某类信息本身就存在分歧时, 股价反应可能是不确定的。</span>
+<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a>**课程案例：60 份公告 x 5 个本地模型的完整验证。**</span>
+<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>使用的 5 个模型（全部本地部署, 通过 Ollama 调用）：</span>
+<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 模型标签        <span class="pp">|</span> 实际模型        <span class="pp">|</span> 参数量级 <span class="pp">|</span></span>
+<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---------------</span> <span class="pp">| ---------------</span> <span class="pp">| --------</span> <span class="pp">|</span></span>
+<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> gemma3_31b      <span class="pp">|</span> gemma4:31b      <span class="pp">|</span> ~31B     <span class="pp">|</span></span>
+<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> qwen3_5_35b     <span class="pp">|</span> qwen3.5:35b     <span class="pp">|</span> ~35B     <span class="pp">|</span></span>
+<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> qwen3_5_9b      <span class="pp">|</span> qwen3.5:9b      <span class="pp">|</span> ~9B      <span class="pp">|</span></span>
+<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> deepseek_r1_32b <span class="pp">|</span> deepseek-r1:32b <span class="pp">|</span> ~32B     <span class="pp">|</span></span>
+<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> deepseek_r1_14b <span class="pp">|</span> deepseek-r1:14b <span class="pp">|</span> ~14B     <span class="pp">|</span></span>
+<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a>5 个模型覆盖了不同架构（Gemma / Qwen / DeepSeek）和不同规模（9B-35B）, 这样做的目的是最大化模型间的独立性——如果 5 个模型都是同一家族的不同尺寸, 它们的「偏见」可能是同质的, 投票就失去了意义。</span>
+<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a>**实际结果观察（部分）：**</span>
+<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 公告内容                             <span class="pp">|</span> gemma <span class="pp">|</span> qwen35 <span class="pp">|</span> qwen9 <span class="pp">|</span> ds32 <span class="pp">|</span> ds14 <span class="pp">|</span> 一致性 <span class="pp">|</span></span>
+<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------------------------------------</span> <span class="pp">| -----</span> <span class="pp">| ------</span> <span class="pp">| -----</span> <span class="pp">| ----</span> <span class="pp">| ----</span> <span class="pp">| ------</span> <span class="pp">|</span></span>
+<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2025 年年度权益分派实施公告          <span class="pp">|</span> 积极  <span class="pp">|</span> 积极   <span class="pp">|</span> 积极  <span class="pp">|</span> 积极 <span class="pp">|</span> 积极 <span class="pp">|</span> 5/5    <span class="pp">|</span></span>
+<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 持股 5% 以上股东减持股份预披露公告   <span class="pp">|</span> 消极  <span class="pp">|</span> 消极   <span class="pp">|</span> 消极  <span class="pp">|</span> 消极 <span class="pp">|</span> 消极 <span class="pp">|</span> 5/5    <span class="pp">|</span></span>
+<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 关于发行 H 股获得证监会备案的公告    <span class="pp">|</span> 积极  <span class="pp">|</span> 积极   <span class="pp">|</span> 积极  <span class="pp">|</span> 中性 <span class="pp">|</span> 中性 <span class="pp">|</span> 3/5    <span class="pp">|</span></span>
+<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 关于签署合作框架协议暨关联交易的公告 <span class="pp">|</span> 积极  <span class="pp">|</span> 中性   <span class="pp">|</span> 中性  <span class="pp">|</span> 积极 <span class="pp">|</span> 消极 <span class="pp">|</span> 分歧   <span class="pp">|</span></span>
+<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a>多数公告五模型一致——这是好消息：对于情感信号明确的公告, LLM 的判断是可靠的。但部分模糊公告存在明显分歧——这恰恰说明多模型交叉验证的必要性。如果只用单一模型, 你可能拿到一个有偏的标签而毫无察觉。</span>
+<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. 工程化保障机制</span></span>
+<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a>跑一条文本分析管线不是「写个脚本跑一次」就完事了。实际项目中, 你会面对几十上百个文件、每个文件需要调用模型几秒到几十秒、总耗时可能数小时。这期间, 网络可能中断、模型可能超时、输出格式可能异常——如果没有工程保障, 跑了一半崩溃, 你得从头再来。</span>
+<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="al">![工程化保障机制：断点续跑 + 原子写入 + 解析兜底](images/s07-image-05-new.png)</span></span>
+<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>本课程的案例代码实现了四个关键工程机制：</span>
+<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>**（1）断点续跑（Checkpoint）**</span>
+<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a><span class="co"># 每处理完一份公告就保存 JSON checkpoint</span></span>
+<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a><span class="co"># 中断后从上次断点继续, 不重复处理</span></span>
+<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a>checkpoint <span class="op">=</span> load_checkpoint(model_name)</span>
+<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> txt_file <span class="kw">in</span> <span class="bu">sorted</span>(DATA_DIR.glob(<span class="st">"*.txt"</span>)):</span>
+<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> txt_file.stem <span class="kw">in</span> checkpoint:</span>
+<span id="cb15-208"><a href="#cb15-208" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span>  <span class="co"># 已处理, 跳过</span></span>
+<span id="cb15-209"><a href="#cb15-209" aria-hidden="true" tabindex="-1"></a>    value, raw <span class="op">=</span> call_model(client, server_model, prompt, text)</span>
+<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a>    checkpoint[txt_file.stem] <span class="op">=</span> {<span class="st">"value"</span>: value, <span class="st">"raw"</span>: raw}</span>
+<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>    save_checkpoint(model_name, checkpoint)  <span class="co"># 立即保存</span></span>
+<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a>**核心逻辑：** 外层循环模型, 内层循环文件。每个模型有独立的 checkpoint（JSON 文件）。每处理完一份公告就立刻写入——即使程序在第 59 份公告时崩溃, 前 58 份也不会白跑。</span>
+<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a>**（2）原子写入（Atomic Write）**</span>
+<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb15-219"><a href="#cb15-219" aria-hidden="true" tabindex="-1"></a><span class="co"># 先写 .tmp 再 rename, 防止写入中断导致文件损坏</span></span>
+<span id="cb15-220"><a href="#cb15-220" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_csv_atomic(df, path):</span>
+<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a>    tmp_path <span class="op">=</span> path.with_suffix(<span class="st">".tmp"</span>)</span>
+<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a>    df.to_csv(tmp_path, index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a>    os.rename(tmp_path, path)  <span class="co"># 原子操作</span></span>
+<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a>为什么要先写 <span class="in">`.tmp`</span> 再 <span class="in">`rename`</span>？因为写大文件时如果进程被强制终止, 你可能得到一份不完整的 CSV——写了一半就中断了。原子写入保证：要么得到完整的旧版本, 要么得到完整的新版本, 永远不会得到损坏的半成品。</span>
+<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a>**（3）解析兜底（Fallback Parsing）**</span>
+<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a>LLM 的输出不是 100% 可控的——即使你在 Prompt 里要求「仅输出积极 / 消极 / 中性」, 模型偶尔还是会输出「该公告整体呈现积极倾向」或带着标点符号「积极。」。解析代码需要做容错处理：</span>
+<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_sentiment(raw_output):</span>
+<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a>    raw <span class="op">=</span> raw_output.strip().lower()</span>
+<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"积极"</span> <span class="kw">in</span> raw <span class="kw">or</span> <span class="st">"positive"</span> <span class="kw">in</span> raw:</span>
+<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"消极"</span> <span class="kw">in</span> raw <span class="kw">or</span> <span class="st">"negative"</span> <span class="kw">in</span> raw:</span>
+<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb15-239"><a href="#cb15-239" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"中性"</span> <span class="kw">in</span> raw <span class="kw">or</span> <span class="st">"neutral"</span> <span class="kw">in</span> raw:</span>
+<span id="cb15-240"><a href="#cb15-240" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 解析失败, 降级为中性并记录日志</span></span>
+<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a>        log_warning(<span class="ss">f"Parse fallback: </span><span class="sc">{</span>raw_output[:<span class="dv">50</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a>宁可少给一个极性标签（降级为中性）, 也不要因为解析错误而给错标签。同时, 所有解析失败的情况都要记录日志, 以便事后人工复核。</span>
+<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a>**（4）文本截断**</span>
+<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-251"><a href="#cb15-251" aria-hidden="true" tabindex="-1"></a>LLM 有上下文窗口限制, 且处理超长文本时速度显著下降。对于上市公司公告, 关键信息通常在前半部分——标题、导语、主要条款。超过 6000 字符的部分往往是模板化的披露声明和法律条款, 对情感分析贡献很小：</span>
+<span id="cb15-252"><a href="#cb15-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="in">```python</span></span>
+<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a>MAX_CHARS <span class="op">=</span> <span class="dv">6000</span></span>
+<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> text[:MAX_CHARS] <span class="cf">if</span> <span class="bu">len</span>(text) <span class="op">&gt;</span> MAX_CHARS <span class="cf">else</span> text</span>
+<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. 公告情感分析完整案例</span></span>
+<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a>让我们把上述所有组件串联起来, 看一条完整的分析管线是怎么跑的。</span>
+<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a>**数据来源：** 巨潮网爬取的 60 份上市公司公告 TXT 文件。文件名格式为 <span class="in">`STOCKID_PUBID_TITLE.txt`</span>：</span>
+<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a><span class="in">000597_1225370066_2025 年年度权益分派实施公告.txt</span></span>
+<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a><span class="in">000949_1225372625_持股 5 以上股东减持股份预披露公告.txt</span></span>
+<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a><span class="in">002475_1225369948_关于发行境外上市外资股 H 股获得中国证监会备案的公告.txt</span></span>
+<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a>**工作流：**</span>
+<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**读取 Prompt：** 从 <span class="in">`sentiment_prompt.md`</span> 加载情感分析提示词</span>
+<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**外层循环模型, 内层循环文件：** 对于 5 个模型中的每一个, 逐文件调用 Ollama API, 传入 Prompt + 公告文本</span>
+<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**解析输出 + 写 Checkpoint：** 每次调用后立即解析模型输出（1 / -1 / 0）, 写入 JSON checkpoint</span>
+<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**汇总为 CSV：** 所有模型跑完后, 将 checkpoint 合并为一张完整的 <span class="in">`sentiment.csv`</span></span>
+<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**人工抽检：** 对存在分歧的公告进行人工复核</span>
+<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>**输出文件 `sentiment.csv` 的结构：**</span>
+<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> STOCKID <span class="pp">|</span> PUBID      <span class="pp">|</span> TITLE                       <span class="pp">|</span> gemma3_31b <span class="pp">|</span> qwen3_5_35b <span class="pp">|</span> qwen3_5_9b <span class="pp">|</span> deepseek_r1_32b <span class="pp">|</span> deepseek_r1_14b <span class="pp">|</span></span>
+<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a><span class="pp">| -------</span> <span class="pp">| ----------</span> <span class="pp">| ---------------------------</span> <span class="pp">| ----------</span> <span class="pp">| -----------</span> <span class="pp">| ----------</span> <span class="pp">| ---------------</span> <span class="pp">| ---------------</span> <span class="pp">|</span></span>
+<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 000597  <span class="pp">|</span> 1225370066 <span class="pp">|</span> 2025 年年度权益分派实施公告 <span class="pp">|</span> 1          <span class="pp">|</span> 1           <span class="pp">|</span> 1          <span class="pp">|</span> 1               <span class="pp">|</span> 1               <span class="pp">|</span></span>
+<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 000949  <span class="pp">|</span> 1225372625 <span class="pp">|</span> 减持预披露公告              <span class="pp">|</span> -1         <span class="pp">|</span> -1          <span class="pp">|</span> -1         <span class="pp">|</span> -1              <span class="pp">|</span> -1              <span class="pp">|</span></span>
+<span id="cb15-284"><a href="#cb15-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-285"><a href="#cb15-285" aria-hidden="true" tabindex="-1"></a>**关键经验：**</span>
+<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**用户提示词很短, 但 Agent 需要展开大量工程细节。** 「读取 TODO.md 并执行」——这 8 个字背后是：加载 5 个模型、循环 60 个文件、写 checkpoint、解析输出、原子写 CSV。Agent 需要自己补全这些上下文。</span>
+<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**TODO 文件是人和 Agent 协作的「需求文档」。** 把需求从一句话展开为可验证的 checklist（模型列表、输出格式、循环顺序、错误处理）, 是高效使用 Agent 的好习惯。</span>
+<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**长耗时 LLM 任务必须有 checkpoint + 可恢复机制。** 跑 5x60=300 次模型调用, 总耗时可能超过 1 小时。如果没有断点续跑, 一次网络抖动就可能前功尽弃。</span>
+<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **案例材料位置：** </span><span class="in">`task10/Text_Juchao/`</span><span class="at">——</span><span class="in">`sentiment_prompt.md`</span><span class="at">（提示词）、</span><span class="in">`sentiment_analysis.py`</span><span class="at">（分析脚本）、</span><span class="in">`sentiment.csv`</span><span class="at">（5 模型对比结果）。</span></span>
+<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a><span class="fu">## 下节：多 Agent 辩论与信息提取</span></span>
+<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. 多 Agent 辩论：不止于一个标签</span></span>
+<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-299"><a href="#cb15-299" aria-hidden="true" tabindex="-1"></a>单模型情感分类有一个根本限制：**它只输出一个标签, 你无法知道它在「纠结」什么。** 模型内部可能认为某条信息既有利好也有利空, 但按照 Prompt 的指令, 它被迫只输出一个词。你不知道它的推理过程, 也不知道有哪些反对论据被它压下去了。</span>
+<span id="cb15-300"><a href="#cb15-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-301"><a href="#cb15-301" aria-hidden="true" tabindex="-1"></a>**多 Agent 辩论提供了另一种思路：不要一个裁判, 要两个律师。**</span>
+<span id="cb15-302"><a href="#cb15-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-303"><a href="#cb15-303" aria-hidden="true" tabindex="-1"></a>想象这样的场景——一份公告包含复杂信息：公司宣布定向增发, 大股东参与认购, 锁定期 18 个月, 但资金投向一个公司从未涉足的行业。单模型可能直接给「积极」（因为大股东参与）, 也可能给「消极」（因为转型风险高）。无论哪个标签, 都丢失了另一半信息。</span>
+<span id="cb15-304"><a href="#cb15-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-305"><a href="#cb15-305" aria-hidden="true" tabindex="-1"></a>多 Agent 辩论的核心思想：**让正方和反方各陈己见, 交叉反驳, 最后由中立裁判裁决。** 你不仅得到最终判决, 还得到完整的论辩记录——正反双方的论据、反驳、关键交锋点。这些远比一个标签有价值。</span>
+<span id="cb15-306"><a href="#cb15-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-307"><a href="#cb15-307" aria-hidden="true" tabindex="-1"></a><span class="al">![多 Agent 辩论五阶段架构：正方→反方→开篇→反驳 1→反驳 2→总结→裁判裁决](images/s07-image-06-new.png)</span></span>
+<span id="cb15-308"><a href="#cb15-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a>**五阶段辩论架构：**</span>
+<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 阶段                         <span class="pp">|</span> 正方 (Pro)                 <span class="pp">|</span> 反方 (Con)                 <span class="pp">|</span> 字数限制   <span class="pp">|</span></span>
+<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------------</span> <span class="pp">| --------------------------</span> <span class="pp">| --------------------------</span> <span class="pp">| ----------</span> <span class="pp">|</span></span>
+<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **开篇陈述** (Round 0) <span class="pp">|</span> 论证积极影响, 引用原文证据 <span class="pp">|</span> 论证消极影响, 引用原文证据 <span class="pp">|</span> 200-400 词 <span class="pp">|</span></span>
+<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **反驳 1** (Round 1)   <span class="pp">|</span> 针对反方开篇论据逐条回应   <span class="pp">|</span> 针对正方开篇论据逐条回应   <span class="pp">|</span> 150-300 词 <span class="pp">|</span></span>
+<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **反驳 2** (Round 2)   <span class="pp">|</span> 针对反方反驳 1 进一步交锋  <span class="pp">|</span> 针对正方反驳 1 进一步交锋  <span class="pp">|</span> 150-300 词 <span class="pp">|</span></span>
+<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **总结陈词** (Round 3) <span class="pp">|</span> 归纳已方核心论点           <span class="pp">|</span> 归纳已方核心论点           <span class="pp">|</span> 150-250 词 <span class="pp">|</span></span>
+<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **裁决**               <span class="pp">|</span> —                         <span class="pp">|</span> —                         <span class="pp">|</span> 200-400 词 <span class="pp">|</span></span>
+<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a>**关键设计：**</span>
+<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**正反方使用相同模型**, 消除系统性偏差——如果 Pro 用强模型、Con 用弱模型, 辩论结果就失去了意义</span>
+<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**每轮正反方同时启动**（并行执行）, 互不等待对方输出——这保证了双方在同一信息基础上辩论, 不会出现「反方看到了正方论据后才构思反驳」的不公平</span>
+<span id="cb15-323"><a href="#cb15-323" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**裁判使用独立的、推理能力更强的模型**, 只读双方的论辩记录, 从论证强度、反驳质量、证据质量、逻辑一致性、修辞效果五个维度评估</span>
+<span id="cb15-324"><a href="#cb15-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-325"><a href="#cb15-325" aria-hidden="true" tabindex="-1"></a>这个架构的本质是模拟学术同行评议：两位审稿人各自写意见 → 互相看到对方意见 → 进一步回应 → 编辑做最终裁决。</span>
+<span id="cb15-326"><a href="#cb15-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-327"><a href="#cb15-327" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. 辩论案例：顺景科技定向增发公告</span></span>
+<span id="cb15-328"><a href="#cb15-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-329"><a href="#cb15-329" aria-hidden="true" tabindex="-1"></a>**案件背景：** 顺景科技（603007）发布 2026 年度定向增发预案——拟向不超过 35 名特定对象发行不超过总股本 30% 的股份（不超过 2.65 亿股）, 募集不超过 10.77 亿元, 投向压力传感器生产线（2.12 亿）、IMU 生产线（3.98 亿）、研发中心（3.07 亿）和补充流动资金（1.6 亿）。公司此前经历两次行业跳跃：园林工程 → 金属油箱 → 汽车传感器。</span>
+<span id="cb15-330"><a href="#cb15-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-331"><a href="#cb15-331" aria-hidden="true" tabindex="-1"></a>**辩论命题：** 这份公告对股票价格是正向影响还是负向影响？</span>
+<span id="cb15-332"><a href="#cb15-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-333"><a href="#cb15-333" aria-hidden="true" tabindex="-1"></a>**正方核心论点（积极）：**</span>
+<span id="cb15-334"><a href="#cb15-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 论点                                    <span class="pp">|</span> 核心逻辑                                                                                              <span class="pp">|</span></span>
+<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a><span class="pp">| ---------------------------------------</span> <span class="pp">| -----------------------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **战略转型高增长市场**            <span class="pp">|</span> 中国汽车传感器市场约 982 亿元, IMU 全球市场 CAGR 8.2%; 国产替代政策背书; 从低端制造向高端精密制造跃升 <span class="pp">|</span></span>
+<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **大股东 18 个月锁仓 = 强烈信号** <span class="pp">|</span> 控股股东苏州辰顺锁仓期（18 个月）是其他认购对象的 3 倍——说明大股东用真金白银和时间赌股价上涨        <span class="pp">|</span></span>
+<span id="cb15-339"><a href="#cb15-339" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **现有客户 = 现成需求通道**       <span class="pp">|</span> 已向理想、零跑、奇瑞、岚图、上汽大通等整车厂供应金属油箱——交叉销售传感器产品的商业化摩擦低          <span class="pp">|</span></span>
+<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a>**反方核心论点（消极）：**</span>
+<span id="cb15-342"><a href="#cb15-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-343"><a href="#cb15-343" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 论点                               <span class="pp">|</span> 核心逻辑                                                                                                                         <span class="pp">|</span></span>
+<span id="cb15-344"><a href="#cb15-344" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------------------</span> <span class="pp">| --------------------------------------------------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-345"><a href="#cb15-345" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **毁灭性稀释, 无近期回报**   <span class="pp">|</span> 最多稀释 30% EPS; 项目建设期 36 个月; 公司在 MEMS 传感器领域经验为零——投资者当下买单, 回报遥不可及                             <span class="pp">|</span></span>
+<span id="cb15-346"><a href="#cb15-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **控股股东是空壳, 不是信号** <span class="pp">|</span> 苏州辰顺 2025 年收入为 0、净亏损 571 万元——一个亏损空壳参与 10 亿增发是红旗而非信心; 18 个月锁仓是证监会硬性要求, 不是自愿行为 <span class="pp">|</span></span>
+<span id="cb15-347"><a href="#cb15-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **三次行业跳跃, 零信用积累** <span class="pp">|</span> 园林工程 → 金属油箱 → MEMS 传感器——三个毫无交集的行业; 无半导体 IP、无 MEMS 制造经验、尚无备案环评                           <span class="pp">|</span></span>
+<span id="cb15-348"><a href="#cb15-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-349"><a href="#cb15-349" aria-hidden="true" tabindex="-1"></a>**裁决结果：反方（消极）险胜。**</span>
+<span id="cb15-350"><a href="#cb15-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-351"><a href="#cb15-351" aria-hidden="true" tabindex="-1"></a>裁判的关键判断：</span>
+<span id="cb15-352"><a href="#cb15-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-353"><a href="#cb15-353" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**反方最强点：** 成功将正方「锁仓 = 信号」解构为「锁仓 = 监管要求 ≠ 自愿信心」——这直接击穿了正方论证的基础</span>
+<span id="cb15-354"><a href="#cb15-354" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**正方最强点：** 已有的汽车 OEM 关系确实可降低商业化摩擦——但过度依赖市场总规模和政策叙事, 未能充分解释为什么**顺景科技这家公司**能在合理时间内抓住机会</span>
+<span id="cb15-355"><a href="#cb15-355" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**辩论转折：** Round 2 反方的反驳将「18 个月锁仓是证监会针对控股股东的硬性要求」这一事实嵌入论证——正方未能有效回应, 核心论据被瓦解</span>
+<span id="cb15-356"><a href="#cb15-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-357"><a href="#cb15-357" aria-hidden="true" tabindex="-1"></a><span class="al">![辩论案例：定增公告 → 两方论据 → 裁决](images/s07-image-07-new.png)</span></span>
+<span id="cb15-358"><a href="#cb15-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-359"><a href="#cb15-359" aria-hidden="true" tabindex="-1"></a>**多 Agent 辩论的核心价值不在于「更准确」, 而在于暴露推理过程。** 你会看到 AI 在纠结什么、哪些证据被两方同时引用、最终裁决的依据是什么。这对经管研究尤其重要——你可以把论证逻辑写进论文, 而不是只报告一个标签。</span>
+<span id="cb15-360"><a href="#cb15-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-361"><a href="#cb15-361" aria-hidden="true" tabindex="-1"></a>**关键经验总结：**</span>
+<span id="cb15-362"><a href="#cb15-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-363"><a href="#cb15-363" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**多 Agent 协作范式** 不是单个模型多次推理, 而是**两个对等 Agent + 一个裁判 Agent** 的真人辩论模拟</span>
+<span id="cb15-364"><a href="#cb15-364" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**对称模型保障公平**——Pro 和 Con 用相同模型、相同上下文窗口, 消除系统性偏差</span>
+<span id="cb15-365"><a href="#cb15-365" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**裁判能识别「空洞」**——不会因语言自信而加分, 会察觉「用市场总规模替代公司前景」等逻辑漏洞</span>
+<span id="cb15-366"><a href="#cb15-366" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**从单模型分析到多模型辩证**——同一篇公告, 单模型只能给标签; 多 Agent 辩论能揭示分歧背后的深层逻辑</span>
+<span id="cb15-367"><a href="#cb15-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-368"><a href="#cb15-368" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. 信息提取：从非结构化文本到结构化 JSON</span></span>
+<span id="cb15-369"><a href="#cb15-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-370"><a href="#cb15-370" aria-hidden="true" tabindex="-1"></a>情感分析输出标签。信息提取输出结构化数据——更难, 但更有用。</span>
+<span id="cb15-371"><a href="#cb15-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-372"><a href="#cb15-372" aria-hidden="true" tabindex="-1"></a>想想你做一个实证研究需要什么。如果研究「股东减持对股价的影响」, 你需要的不只是一个「这份公告和减持有关」的标签——你需要**减持股东是谁、减持了多少股、减持比例、减持方式、减持时间段**。这些是回归的变量, 必须从文本中提取为结构化数字。</span>
+<span id="cb15-373"><a href="#cb15-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-374"><a href="#cb15-374" aria-hidden="true" tabindex="-1"></a><span class="al">![信息提取流程：公告文本 → 结构化 JSON](images/s07-image-08-new.png)</span></span>
+<span id="cb15-375"><a href="#cb15-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-376"><a href="#cb15-376" aria-hidden="true" tabindex="-1"></a>**案例：从 60 份公告中提取股东减持的结构化信息。**</span>
+<span id="cb15-377"><a href="#cb15-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-378"><a href="#cb15-378" aria-hidden="true" tabindex="-1"></a>需要提取的字段：</span>
+<span id="cb15-379"><a href="#cb15-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-380"><a href="#cb15-380" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb15-381"><a href="#cb15-381" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb15-382"><a href="#cb15-382" aria-hidden="true" tabindex="-1"></a>  <span class="st">"relevant"</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb15-383"><a href="#cb15-383" aria-hidden="true" tabindex="-1"></a>  <span class="st">"reductions"</span><span class="op">:</span> [</span>
+<span id="cb15-384"><a href="#cb15-384" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb15-385"><a href="#cb15-385" aria-hidden="true" tabindex="-1"></a>      <span class="st">"shareholder_name"</span><span class="op">:</span> <span class="st">"深圳顺景科技合伙企业（有限合伙）"</span><span class="op">,</span></span>
+<span id="cb15-386"><a href="#cb15-386" aria-hidden="true" tabindex="-1"></a>      <span class="st">"share_count"</span><span class="op">:</span> <span class="dv">16568900</span><span class="op">,</span></span>
+<span id="cb15-387"><a href="#cb15-387" aria-hidden="true" tabindex="-1"></a>      <span class="st">"share_ratio"</span><span class="op">:</span> <span class="st">"3.85%"</span><span class="op">,</span></span>
+<span id="cb15-388"><a href="#cb15-388" aria-hidden="true" tabindex="-1"></a>      <span class="st">"method"</span><span class="op">:</span> <span class="st">"集中竞价"</span><span class="op">,</span></span>
+<span id="cb15-389"><a href="#cb15-389" aria-hidden="true" tabindex="-1"></a>      <span class="st">"period_start"</span><span class="op">:</span> <span class="st">"2026-01-15"</span><span class="op">,</span></span>
+<span id="cb15-390"><a href="#cb15-390" aria-hidden="true" tabindex="-1"></a>      <span class="st">"period_end"</span><span class="op">:</span> <span class="st">"2026-07-14"</span></span>
+<span id="cb15-391"><a href="#cb15-391" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb15-392"><a href="#cb15-392" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb15-393"><a href="#cb15-393" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-394"><a href="#cb15-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-395"><a href="#cb15-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-396"><a href="#cb15-396" aria-hidden="true" tabindex="-1"></a>**系统 Prompt 设计（关键部分）：**</span>
+<span id="cb15-397"><a href="#cb15-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-398"><a href="#cb15-398" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-399"><a href="#cb15-399" aria-hidden="true" tabindex="-1"></a><span class="fu">## 任务说明</span></span>
+<span id="cb15-400"><a href="#cb15-400" aria-hidden="true" tabindex="-1"></a>阅读以下上市公司公告, 判断是否与股东减持股份有关。</span>
+<span id="cb15-401"><a href="#cb15-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-402"><a href="#cb15-402" aria-hidden="true" tabindex="-1"></a><span class="fu">## 提取字段</span></span>
+<span id="cb15-403"><a href="#cb15-403" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>shareholder_name（股东全称）</span>
+<span id="cb15-404"><a href="#cb15-404" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>share_count（减持数量, 股）</span>
+<span id="cb15-405"><a href="#cb15-405" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>share_ratio（减持比例, 保留原始格式如 "1%"）</span>
+<span id="cb15-406"><a href="#cb15-406" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>method（减持方式：集中竞价 / 大宗交易 / 协议转让 / 司法拍卖）</span>
+<span id="cb15-407"><a href="#cb15-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-408"><a href="#cb15-408" aria-hidden="true" tabindex="-1"></a><span class="fu">## 输出格式</span></span>
+<span id="cb15-409"><a href="#cb15-409" aria-hidden="true" tabindex="-1"></a>仅输出合法 JSON, 不要包含其他文字。</span>
+<span id="cb15-410"><a href="#cb15-410" aria-hidden="true" tabindex="-1"></a>如果公告与减持无关, 输出 {"relevant": false, "reductions": []}。</span>
+<span id="cb15-411"><a href="#cb15-411" aria-hidden="true" tabindex="-1"></a>如果某字段无法从公告中确定, 填写 "未披露"。</span>
+<span id="cb15-412"><a href="#cb15-412" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-413"><a href="#cb15-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-414"><a href="#cb15-414" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **技巧：** 要求 JSON 输出, 方便后续直接解析和写入 CSV。不要给模型自由发挥的空间——JSON Schema 就是约束。</span></span>
+<span id="cb15-415"><a href="#cb15-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-416"><a href="#cb15-416" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9. 信息提取的四个关键挑战</span></span>
+<span id="cb15-417"><a href="#cb15-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-418"><a href="#cb15-418" aria-hidden="true" tabindex="-1"></a>将自然语言中的信息转化为结构化字段, 会遇到一些传统 NLP 任务不常见但实际项目中必然遇到的挑战：</span>
+<span id="cb15-419"><a href="#cb15-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-420"><a href="#cb15-420" aria-hidden="true" tabindex="-1"></a><span class="al">![信息提取四个挑战：标题不一致 / 数字转换 / 多股东 / 未披露](images/s07-image-09-new.png)</span></span>
+<span id="cb15-421"><a href="#cb15-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-422"><a href="#cb15-422" aria-hidden="true" tabindex="-1"></a>**挑战 1：标题不一致——「减持」不一定真减持。**</span>
+<span id="cb15-423"><a href="#cb15-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-424"><a href="#cb15-424" aria-hidden="true" tabindex="-1"></a>公告标题写了「减持」, 但正文可能是：减持计划已到期（无实际减持）、减持预披露（只有意向）、减持完成（结果公告）。标题判断会带来严重误判。Prompt 必须要求模型**先读正文再判断**, 而非依赖标题。</span>
+<span id="cb15-425"><a href="#cb15-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-426"><a href="#cb15-426" aria-hidden="true" tabindex="-1"></a>**挑战 2：自然语言数字转换。**</span>
+<span id="cb15-427"><a href="#cb15-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-428"><a href="#cb15-428" aria-hidden="true" tabindex="-1"></a>中文公告中的数字格式多样：「1,656.89 万股」→ <span class="in">`16568900`</span>, 「不超过 5%」→ 比例而非绝对数, 「减持后持股 11.58%」→ 这是减持后的剩余比例, 不是减持比例。Prompt 需要明确要求模型进行单位转换, 并区分不同语境下的数字含义。</span>
+<span id="cb15-429"><a href="#cb15-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-430"><a href="#cb15-430" aria-hidden="true" tabindex="-1"></a>**挑战 3：多股东 + 多方式组合。**</span>
+<span id="cb15-431"><a href="#cb15-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-432"><a href="#cb15-432" aria-hidden="true" tabindex="-1"></a>一份公告可能涉及多个股东, 每个股东的减持方式、数量、时间段各不相同。例如：「股东 A 通过集中竞价减持不超过 1%, 股东 B 通过大宗交易减持不超过 2%」。输出需要是一个数组, 每个元素对应一个股东的一次减持行为。</span>
+<span id="cb15-433"><a href="#cb15-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-434"><a href="#cb15-434" aria-hidden="true" tabindex="-1"></a>**挑战 4：未披露信息。**</span>
+<span id="cb15-435"><a href="#cb15-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-436"><a href="#cb15-436" aria-hidden="true" tabindex="-1"></a>有些公告对关键信息做了模糊化处理——「减持数量将根据市场情况确定」「减持期间为公告之日起 6 个月内」——这意味着具体数量和日期可能无法精确提取。Prompt 需要告诉 LLM：如果某字段无法确定, 输出「未披露」而不是编造一个值。**LLM 的幻觉在这个场景中代价极高**——如果你把一个编造的数字放入回归, 你的结果是不可信的。</span>
+<span id="cb15-437"><a href="#cb15-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-438"><a href="#cb15-438" aria-hidden="true" tabindex="-1"></a>**解决方案总结：**</span>
+<span id="cb15-439"><a href="#cb15-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-440"><a href="#cb15-440" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 挑战       <span class="pp">|</span> 解决方案                                                <span class="pp">|</span></span>
+<span id="cb15-441"><a href="#cb15-441" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------</span> <span class="pp">| -------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-442"><a href="#cb15-442" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 标题不一致 <span class="pp">|</span> Prompt 要求「先读正文再判断相关性, 不要依赖标题」       <span class="pp">|</span></span>
+<span id="cb15-443"><a href="#cb15-443" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 数字转换   <span class="pp">|</span> Prompt 明确要求股数转换为整数、比例保留百分比格式       <span class="pp">|</span></span>
+<span id="cb15-444"><a href="#cb15-444" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 多股东     <span class="pp">|</span> 输出 JSON 数组, 每个元素一个股东；后处理展平为多行      <span class="pp">|</span></span>
+<span id="cb15-445"><a href="#cb15-445" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 未披露     <span class="pp">|</span> Prompt 明确「不确定时输出'未披露', 不要猜测」；人工复核 <span class="pp">|</span></span>
+<span id="cb15-446"><a href="#cb15-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-447"><a href="#cb15-447" aria-hidden="true" tabindex="-1"></a><span class="fu">### 10. 完整文本分析管线</span></span>
+<span id="cb15-448"><a href="#cb15-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-449"><a href="#cb15-449" aria-hidden="true" tabindex="-1"></a>现在我们把上半节和下半节的组件整合起来, 画出一条完整的文本分析管线。</span>
+<span id="cb15-450"><a href="#cb15-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-451"><a href="#cb15-451" aria-hidden="true" tabindex="-1"></a><span class="al">![文本分析完整管线：原始文本 → 预处理 → LLM 分析 → 验证 → 输出 → 抽检](images/s07-image-10-new.png)</span></span>
+<span id="cb15-452"><a href="#cb15-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-453"><a href="#cb15-453" aria-hidden="true" tabindex="-1"></a>**管线六阶段：**</span>
+<span id="cb15-454"><a href="#cb15-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-455"><a href="#cb15-455" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 阶段                      <span class="pp">|</span> 做什么                                                   <span class="pp">|</span> 产出                                   <span class="pp">|</span></span>
+<span id="cb15-456"><a href="#cb15-456" aria-hidden="true" tabindex="-1"></a><span class="pp">| -------------------------</span> <span class="pp">| --------------------------------------------------------</span> <span class="pp">| --------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-457"><a href="#cb15-457" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **1. 原始文本准备** <span class="pp">|</span> 爬虫获取 PDF → PyMuPDF 转为 TXT → 按统一格式命名       <span class="pp">|</span> <span class="in">`data/txts/`</span>                         <span class="pp">|</span></span>
+<span id="cb15-458"><a href="#cb15-458" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **2. 预处理**       <span class="pp">|</span> 文本截断（6000 字符）、去除无关字符、检查文件完整性      <span class="pp">|</span> 清洗后的文本                           <span class="pp">|</span></span>
+<span id="cb15-459"><a href="#cb15-459" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **3. LLM 分析**     <span class="pp">|</span> 加载 Prompt → 多模型分类 / 信息提取 → Checkpoint 保存  <span class="pp">|</span> JSON checkpoint                        <span class="pp">|</span></span>
+<span id="cb15-460"><a href="#cb15-460" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **4. 交叉验证**     <span class="pp">|</span> 多模型多数投票 → 识别分歧 → 记录一致性指标             <span class="pp">|</span> 最终标签 + 分歧日志                    <span class="pp">|</span></span>
+<span id="cb15-461"><a href="#cb15-461" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **5. 结果输出**     <span class="pp">|</span> 合并为 CSV → 原子写入 → 关联原始元数据                 <span class="pp">|</span> <span class="in">`sentiment.csv`</span> / <span class="in">`stock_sell.csv`</span> <span class="pp">|</span></span>
+<span id="cb15-462"><a href="#cb15-462" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **6. 人工抽检**     <span class="pp">|</span> 10% 随机抽样 → 人工标注 → 计算一致率 → 修正系统性问题 <span class="pp">|</span> 抽检报告                               <span class="pp">|</span></span>
+<span id="cb15-463"><a href="#cb15-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-464"><a href="#cb15-464" aria-hidden="true" tabindex="-1"></a><span class="fu">### 11. 人工抽检：不能省略的最后一步</span></span>
+<span id="cb15-465"><a href="#cb15-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-466"><a href="#cb15-466" aria-hidden="true" tabindex="-1"></a>无论 Prompt 写得多好、交叉验证做得多严密, **人工抽检是文本分析管线的最后一道防线。** LLM 降低了标注成本, 但金融领域的最终判断仍需人工把关。尤其当你把 LLM 生成的标签作为回归变量时, 标签质量的系统性问题会被放大——Garbage in, garbage out。</span>
+<span id="cb15-467"><a href="#cb15-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-468"><a href="#cb15-468" aria-hidden="true" tabindex="-1"></a><span class="al">![人工抽检方法论：10% 随机抽样 → 人工标注 → 对比 → 一致率](images/s07-image-11-new.png)</span></span>
+<span id="cb15-469"><a href="#cb15-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-470"><a href="#cb15-470" aria-hidden="true" tabindex="-1"></a>**标准抽检流程：**</span>
+<span id="cb15-471"><a href="#cb15-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-472"><a href="#cb15-472" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**随机抽样：** 从全量文本中随机抽取 10%（20 条数据就抽 2 条, 100 条抽 10 条）, 保证样本代表性</span>
+<span id="cb15-473"><a href="#cb15-473" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**人工标注：** 研究者本人（而非 LLM）独立阅读文本, 按照相同的分类标准给出标签</span>
+<span id="cb15-474"><a href="#cb15-474" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**对比计算：** 将人工标注结果与 LLM 标注结果逐条对比, 计算一致率 = 一致条数 / 总条数</span>
+<span id="cb15-475"><a href="#cb15-475" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**分歧分析：** 对所有不一致的条目, 逐一分析原因——是 LLM 误判？还是分类标准不清晰？还是文本本身确实模糊？</span>
+<span id="cb15-476"><a href="#cb15-476" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**系统修正：** 如果发现 LLM 存在系统性偏差（如一致性地将某类公告判错）, 修正 Prompt 并重新运行</span>
+<span id="cb15-477"><a href="#cb15-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-478"><a href="#cb15-478" aria-hidden="true" tabindex="-1"></a>**一个务实的标准：** 一致率 ≥ 90%——可以接受, 在论文中报告一致率。一致率 &lt; 90%——需要检查 Prompt 是否存在问题, 修正后重新验证。一致率 &lt; 80%——Prompt 设计有重大缺陷, 不能用于正式分析。</span>
+<span id="cb15-479"><a href="#cb15-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-480"><a href="#cb15-480" aria-hidden="true" tabindex="-1"></a>**经验法则：** 如果你的研究方向对标签精度要求特别高（如法律文本、财务舞弊识别）, 建议将抽检比例提高到 20-30%, 并对所有 LLM 判定为边界的样本进行全量人工复核。</span>
+<span id="cb15-481"><a href="#cb15-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-482"><a href="#cb15-482" aria-hidden="true" tabindex="-1"></a><span class="fu">### 12. 经管文本分析的应用全景</span></span>
+<span id="cb15-483"><a href="#cb15-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-484"><a href="#cb15-484" aria-hidden="true" tabindex="-1"></a>本讲以公告情感分析和股东减持信息提取为例展示了技术方法。但 LLM 文本分析的应用远不止于此。以下是经管研究中常见的文本分析场景：</span>
+<span id="cb15-485"><a href="#cb15-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-486"><a href="#cb15-486" aria-hidden="true" tabindex="-1"></a><span class="al">![经管文本分析应用全景：年报 / 电话会议 / 新闻 / 政策文本 / 社交媒体](images/s07-image-12-new2.png)</span></span>
+<span id="cb15-487"><a href="#cb15-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-488"><a href="#cb15-488" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本来源               <span class="pp">|</span> 分析任务                             <span class="pp">|</span> 典型研究问题                                                     <span class="pp">|</span></span>
+<span id="cb15-489"><a href="#cb15-489" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------</span> <span class="pp">| ------------------------------------</span> <span class="pp">| ----------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-490"><a href="#cb15-490" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **年报（MD&amp;A）** <span class="pp">|</span> 情感分析、前瞻性信息披露、风险披露   <span class="pp">|</span> 年报语调能否预测未来盈余？管理层讨论是否隐藏负面信息？           <span class="pp">|</span></span>
+<span id="cb15-491"><a href="#cb15-491" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **电话会议纪要** <span class="pp">|</span> 情感分析、Q&amp;A 语气分析、管理者人格   <span class="pp">|</span> 电话会议中的情绪波动是否预示股价异动？CFO vs CEO 的语言差异？    <span class="pp">|</span></span>
+<span id="cb15-492"><a href="#cb15-492" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **新闻报道**     <span class="pp">|</span> 事件分类、情感分析、媒体偏见         <span class="pp">|</span> 媒体报道对企业融资约束的影响？正面报道是否具有信息含量？         <span class="pp">|</span></span>
+<span id="cb15-493"><a href="#cb15-493" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **政策文件**     <span class="pp">|</span> 主题建模、政策力度量化、政策不确定性 <span class="pp">|</span> 产业政策文本中「鼓励」vs「要求」的区分？政策不确定性的文本度量？ <span class="pp">|</span></span>
+<span id="cb15-494"><a href="#cb15-494" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **社交媒体**     <span class="pp">|</span> 情绪分析、信息传播、投资者关注度     <span class="pp">|</span> 微博 / 股吧情绪与次日股价的相关性？散户关注度对 IPO 抑价的影响？ <span class="pp">|</span></span>
+<span id="cb15-495"><a href="#cb15-495" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **分析师报告**   <span class="pp">|</span> 情感分析、预测提取、信息增量         <span class="pp">|</span> 分析师报告中的情感是否独立于基本面？乐观偏差的系统性来源？       <span class="pp">|</span></span>
+<span id="cb15-496"><a href="#cb15-496" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **专利文本**     <span class="pp">|</span> 技术创新测度、知识溢出、技术距离     <span class="pp">|</span> 专利摘要中的文本相似度能否测度知识溢出？                         <span class="pp">|</span></span>
+<span id="cb15-497"><a href="#cb15-497" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **诉讼文书**     <span class="pp">|</span> 实体识别、案件分类、判决结果提取     <span class="pp">|</span> 环境诉讼对企业环境行为的威慑效应？                               <span class="pp">|</span></span>
+<span id="cb15-498"><a href="#cb15-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-499"><a href="#cb15-499" aria-hidden="true" tabindex="-1"></a>**关键洞察：** 以上所有应用共享同一套底层方法论——Prompt 设计 + 多模型验证 + 工程化保障 + 人工抽检。学会了一个场景, 你就学会了所有场景。</span>
+<span id="cb15-500"><a href="#cb15-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-501"><a href="#cb15-501" aria-hidden="true" tabindex="-1"></a><span class="fu">### 13. Prompt 设计前后对比</span></span>
+<span id="cb15-502"><a href="#cb15-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-503"><a href="#cb15-503" aria-hidden="true" tabindex="-1"></a>最后, 我们通过一个前后对比来加深对「Prompt 即标注规则」的理解。</span>
+<span id="cb15-504"><a href="#cb15-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-505"><a href="#cb15-505" aria-hidden="true" tabindex="-1"></a><span class="al">![Prompt 设计前后对比示例：情感分析的具体案例](images/s07-image-13-new.png)</span></span>
+<span id="cb15-506"><a href="#cb15-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-507"><a href="#cb15-507" aria-hidden="true" tabindex="-1"></a>**差的 Prompt（模糊、无约束）：**</span>
+<span id="cb15-508"><a href="#cb15-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-509"><a href="#cb15-509" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-510"><a href="#cb15-510" aria-hidden="true" tabindex="-1"></a><span class="in">请判断下面这段上市公司公告的情感倾向。</span></span>
+<span id="cb15-511"><a href="#cb15-511" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-512"><a href="#cb15-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-513"><a href="#cb15-513" aria-hidden="true" tabindex="-1"></a>为什么差？LLM 不知道你的分类标准是什么, 不知道输出格式是什么, 可能会给你一段 200 字的分析——你没法批量处理。</span>
+<span id="cb15-514"><a href="#cb15-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-515"><a href="#cb15-515" aria-hidden="true" tabindex="-1"></a>**好的 Prompt（精确、有约束）：**</span>
+<span id="cb15-516"><a href="#cb15-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-517"><a href="#cb15-517" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb15-518"><a href="#cb15-518" aria-hidden="true" tabindex="-1"></a><span class="fu"># 中国上市公司公告情绪分析提示词</span></span>
+<span id="cb15-519"><a href="#cb15-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-520"><a href="#cb15-520" aria-hidden="true" tabindex="-1"></a><span class="fu">## 任务说明</span></span>
+<span id="cb15-521"><a href="#cb15-521" aria-hidden="true" tabindex="-1"></a>你是一名专业的金融分析师。请分析以下公告内容,</span>
+<span id="cb15-522"><a href="#cb15-522" aria-hidden="true" tabindex="-1"></a>判断该公告对公司股票价格的潜在影响, 并将情绪分类为：</span>
+<span id="cb15-523"><a href="#cb15-523" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性。</span>
+<span id="cb15-524"><a href="#cb15-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-525"><a href="#cb15-525" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考关键词</span></span>
+<span id="cb15-526"><a href="#cb15-526" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>积极：分红、增持、回购、业绩增长、获得订单、并购重组、股权激励</span>
+<span id="cb15-527"><a href="#cb15-527" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>消极：减持、亏损、退市风险、行政处罚、诉讼、债务危机、业绩下滑</span>
+<span id="cb15-528"><a href="#cb15-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-529"><a href="#cb15-529" aria-hidden="true" tabindex="-1"></a><span class="fu">## 输出要求</span></span>
+<span id="cb15-530"><a href="#cb15-530" aria-hidden="true" tabindex="-1"></a>请仅输出以下三个标签中的一个, 不要输出任何解释：</span>
+<span id="cb15-531"><a href="#cb15-531" aria-hidden="true" tabindex="-1"></a>积极 / 消极 / 中性</span>
+<span id="cb15-532"><a href="#cb15-532" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb15-533"><a href="#cb15-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-534"><a href="#cb15-534" aria-hidden="true" tabindex="-1"></a>为什么好？明确了角色（金融分析师）、判断标准（对股价的影响）、关键词列表（什么是积极 / 消极）、输出格式（三个标签之一, 不给解释）。这四个要素构成了一张完整的「标注规则」——任何一个研究助理看到这个提示词, 都可以开始标注了。LLM 也一样。</span>
+<span id="cb15-535"><a href="#cb15-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-536"><a href="#cb15-536" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-537"><a href="#cb15-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-538"><a href="#cb15-538" aria-hidden="true" tabindex="-1"></a><span class="fu">## 实战任务</span></span>
+<span id="cb15-539"><a href="#cb15-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-540"><a href="#cb15-540" aria-hidden="true" tabindex="-1"></a>本次课后, 请完成以下实战练习：</span>
+<span id="cb15-541"><a href="#cb15-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-542"><a href="#cb15-542" aria-hidden="true" tabindex="-1"></a>**任务：** 收集 20-50 份与你研究方向相关的文本（公司公告、年报、新闻报道、政策文件等）, 用 LLM 做批量文本分析。</span>
+<span id="cb15-543"><a href="#cb15-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-544"><a href="#cb15-544" aria-hidden="true" tabindex="-1"></a>**步骤：**</span>
+<span id="cb15-545"><a href="#cb15-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-546"><a href="#cb15-546" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**准备文本：** 将 20-50 份文本文件放入 <span class="in">`input/texts/`</span>, 统一 TXT 格式</span>
+<span id="cb15-547"><a href="#cb15-547" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**定义任务：** 确定分析类型——情感分类 / 主题分类 / 信息提取（三选一）</span>
+<span id="cb15-548"><a href="#cb15-548" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**编写 Prompt：** 先写 Prompt, 用 3 份文本手工测试; 调整直到输出稳定</span>
+<span id="cb15-549"><a href="#cb15-549" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**搭建管线：** 复用课程案例代码（<span class="in">`sentiment_analysis.py`</span> 或 <span class="in">`extract_reduction.py`</span>）, 适配你的任务</span>
+<span id="cb15-550"><a href="#cb15-550" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**批量运行：** 至少使用 2 个模型交叉验证（建议 3 个以上）</span>
+<span id="cb15-551"><a href="#cb15-551" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**抽检验证：** 随机抽样 10% 做人工检查, 计算一致率</span>
+<span id="cb15-552"><a href="#cb15-552" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>**输出报告：** 报告分析结果 + 抽检一致率 + 典型分歧案例</span>
+<span id="cb15-553"><a href="#cb15-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-554"><a href="#cb15-554" aria-hidden="true" tabindex="-1"></a>**进阶挑战（二选一）：**</span>
+<span id="cb15-555"><a href="#cb15-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-556"><a href="#cb15-556" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**多 Agent 辩论：** 对至少 3 份存在不确定性的文本, 运行多 Agent 辩论, 对比辩论结果与单模型分类结果的差异</span>
+<span id="cb15-557"><a href="#cb15-557" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**信息提取管线：** 从你自己的研究文本中定义提取字段, 设计 JSON Schema, 跑通完整的提取管线</span>
+<span id="cb15-558"><a href="#cb15-558" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-559"><a href="#cb15-559" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **参考案例：** </span><span class="in">`B 班 -Agent 课程 /Text_Juchao/`</span><span class="at">——完整的情感分析和信息提取项目, 包含 Prompt 文件、分析脚本、输出结果和文档。</span></span>
+<span id="cb15-560"><a href="#cb15-560" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-561"><a href="#cb15-561" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-562"><a href="#cb15-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-563"><a href="#cb15-563" aria-hidden="true" tabindex="-1"></a><span class="fu">## 案例材料索引</span></span>
+<span id="cb15-564"><a href="#cb15-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-565"><a href="#cb15-565" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 材料              <span class="pp">|</span> 位置                                         <span class="pp">|</span> 说明                                 <span class="pp">|</span></span>
+<span id="cb15-566"><a href="#cb15-566" aria-hidden="true" tabindex="-1"></a><span class="pp">| -----------------</span> <span class="pp">| --------------------------------------------</span> <span class="pp">| ------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-567"><a href="#cb15-567" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 情感分析 Prompt   <span class="pp">|</span> <span class="in">`task10/Text_Juchao/sentiment_prompt.md`</span>   <span class="pp">|</span> 完整的中国上市公司公告情感分析提示词 <span class="pp">|</span></span>
+<span id="cb15-568"><a href="#cb15-568" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 情感分析脚本      <span class="pp">|</span> <span class="in">`task10/Text_Juchao/sentiment_analysis.py`</span> <span class="pp">|</span> 5 模型交叉验证的完整 Python 实现     <span class="pp">|</span></span>
+<span id="cb15-569"><a href="#cb15-569" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 模型对比结果    <span class="pp">|</span> <span class="in">`task10/Text_Juchao/sentiment.csv`</span>         <span class="pp">|</span> 60 份公告 x 5 个模型的情感标签       <span class="pp">|</span></span>
+<span id="cb15-570"><a href="#cb15-570" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 减持信息提取需求  <span class="pp">|</span> <span class="in">`task10/Text_Juchao/TODO_extrac.md`</span>        <span class="pp">|</span> 信息提取任务的需求文档               <span class="pp">|</span></span>
+<span id="cb15-571"><a href="#cb15-571" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 信息提取脚本      <span class="pp">|</span> <span class="in">`task10/Text_Juchao/extract_reduction.py`</span>  <span class="pp">|</span> 从公告中提取减持结构化信息的脚本     <span class="pp">|</span></span>
+<span id="cb15-572"><a href="#cb15-572" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 提取结果          <span class="pp">|</span> <span class="in">`task10/Text_Juchao/stock_sell.csv`</span>        <span class="pp">|</span> 提取的股东减持结构化数据             <span class="pp">|</span></span>
+<span id="cb15-573"><a href="#cb15-573" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 多 Agent 辩论案例 <span class="pp">|</span> <span class="in">`task11/Multi-Agent-Debate/`</span>               <span class="pp">|</span> 顺景科技定增公告辩论的完整记录       <span class="pp">|</span></span>
+<span id="cb15-574"><a href="#cb15-574" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 辩论 TODO         <span class="pp">|</span> <span class="in">`task11/Multi-Agent-Debate/TODO.md`</span>        <span class="pp">|</span> 多 Agent 辩论任务的需求文档          <span class="pp">|</span></span>
+<span id="cb15-575"><a href="#cb15-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-576"><a href="#cb15-576" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-577"><a href="#cb15-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-578"><a href="#cb15-578" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本讲核心概念回顾</span></span>
+<span id="cb15-579"><a href="#cb15-579" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-580"><a href="#cb15-580" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 概念                           <span class="pp">|</span> 一句话解释                                                             <span class="pp">|</span></span>
+<span id="cb15-581"><a href="#cb15-581" aria-hidden="true" tabindex="-1"></a><span class="pp">| ------------------------------</span> <span class="pp">| ----------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb15-582"><a href="#cb15-582" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **LLM 作为文本分析引擎** <span class="pp">|</span> 不需要标注训练集——写一个好的 Prompt, LLM 就是你的分类器              <span class="pp">|</span></span>
+<span id="cb15-583"><a href="#cb15-583" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Prompt 即标注规则**    <span class="pp">|</span> Prompt 中的关键词列表 = 你的标注标准; JSON 约束 = 你的输出格式要求     <span class="pp">|</span></span>
+<span id="cb15-584"><a href="#cb15-584" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **多模型交叉验证**       <span class="pp">|</span> 5 个模型对同一批文本分类, 多数投票决定最终标签——暴露分歧, 提高可靠性 <span class="pp">|</span></span>
+<span id="cb15-585"><a href="#cb15-585" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **断点续跑**             <span class="pp">|</span> 每处理完一个文件就保存 checkpoint——中断后不重复处理, 不丢失进度      <span class="pp">|</span></span>
+<span id="cb15-586"><a href="#cb15-586" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **原子写入**             <span class="pp">|</span> 先写 .tmp 再 rename——永远不会得到损坏的半成品文件                    <span class="pp">|</span></span>
+<span id="cb15-587"><a href="#cb15-587" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **解析兜底**             <span class="pp">|</span> LLM 输出异常时降级为默认值 + 记录日志——不让一条异常拖垮整条管线      <span class="pp">|</span></span>
+<span id="cb15-588"><a href="#cb15-588" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **多 Agent 辩论**        <span class="pp">|</span> 正方 + 反方 + 裁判, 五阶段交叉辩论——暴露推理过程而非只输出标签       <span class="pp">|</span></span>
+<span id="cb15-589"><a href="#cb15-589" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **结构化信息提取**       <span class="pp">|</span> 从自然语言到 JSON——把文本中的数字、实体、关系变成可直接回归的变量    <span class="pp">|</span></span>
+<span id="cb15-590"><a href="#cb15-590" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **人工抽检**             <span class="pp">|</span> 10% 随机抽样 + 人工标注 + 一致率——LLM 结果不能代替最终把关           <span class="pp">|</span></span>
+<span id="cb15-591"><a href="#cb15-591" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **完整管线**             <span class="pp">|</span> 原始文本 → 预处理 → LLM 分析 → 多模型验证 → 输出 → 人工抽检       <span class="pp">|</span></span>
+<span id="cb15-592"><a href="#cb15-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-593"><a href="#cb15-593" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-594"><a href="#cb15-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-595"><a href="#cb15-595" aria-hidden="true" tabindex="-1"></a><span class="fu">## 下一讲预告</span></span>
+<span id="cb15-596"><a href="#cb15-596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-597"><a href="#cb15-597" aria-hidden="true" tabindex="-1"></a>**第八讲：AI 辅助规范实证研究。** 我们将从文本分析走向因果推断——用 Agent 完成从研究设计到回归输出的完整实证流程。你将看到：如何让 Agent 帮你在 DID、IV、RD 之间选择识别策略？如何搭建规范的 Stata 项目标准？以及一个致命的错误——为什么标准误的聚类层级决定了你的结果是否可信。</span>
+<span id="cb15-598"><a href="#cb15-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-599"><a href="#cb15-599" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb15-600"><a href="#cb15-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-601"><a href="#cb15-601" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;  完整案例文件见task目录。</span></span>
+<span id="cb15-602"><a href="#cb15-602" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb15-603"><a href="#cb15-603" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **前序讲次：** 第六讲 AI 辅助数据采集 | **后续讲次：** 第八讲 AI 辅助规范实证研究</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

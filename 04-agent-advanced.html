@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="张晨">
+<meta name="dcterms.date" content="2026-09-29">
+
+<title>第四讲：Agent 进阶 – AI 在经济管理研究中的应用</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-knowledge-base.html" rel="next">
+<link href="./03-agent-basics.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-eec68b17241c1efd3eae2de50d816e3e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d5fb2bd185f07460e4408dd84795c9a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>
+  /* ---------- 登录门禁：页面锁定与登录框样式 ---------- */
+  /* 未登录时隐藏正文（仅保留登录框） */
+  html.auth-locked body > *:not(#book-auth-gate) {
+    visibility: hidden !important;
+  }
+
+  #book-auth-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background: radial-gradient(1200px 700px at 20% 0%, #22303f 0%, #16202b 55%, #101820 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #1a1a1a;
+  }
+  #book-auth-gate[hidden] { display: none !important; }
+
+  .auth-card {
+    width: 100%;
+    max-width: 380px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    padding: 40px 36px 34px;
+    box-sizing: border-box;
+  }
+  .auth-brand {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .auth-brand .auth-kicker {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #0b7285;
+    background: rgba(11, 114, 133, 0.08);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .auth-brand h1 {
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #1a2733;
+  }
+  .auth-brand p {
+    font-size: 13px;
+    color: #7a8794;
+    margin: 0;
+  }
+  .auth-field { margin-bottom: 16px; }
+  .auth-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3c4854;
+    margin-bottom: 6px;
+  }
+  .auth-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    font-size: 15px;
+    color: #1a2733;
+    background: #f6f8fa;
+    border: 1px solid #d7dee5;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-field input:focus {
+    border-color: #0b7285;
+    box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.15);
+    background: #ffffff;
+  }
+  .auth-error {
+    display: none;
+    font-size: 13px;
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.08);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin: -4px 0 14px;
+  }
+  .auth-submit {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0b7285;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .auth-submit:hover { background: #095d6d; }
+  .auth-submit:active { background: #084c59; }
+  .auth-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #a4afba;
+    margin-top: 18px;
+  }
+</style>
+
+<script>
+  /* 立即锁定：若尚未登录，则在正文渲染前隐藏页面内容 */
+  (function () {
+    var ok = false;
+    try {
+      ok = sessionStorage.getItem("BOOK_AUTH_OK") === "1";
+    } catch (e) {
+      ok = false;
+    }
+    if (!ok) {
+      document.documentElement.classList.add("auth-locked");
+    }
+  })();
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-agent-advanced.html">第四讲：Agent 进阶</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">课程讲义</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="切换阅读器模式">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">课程简介</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-ai-cognition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第一讲：AI 认知与工具概览</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-environment-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第二讲：环境安装与引擎配置</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-agent-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第三讲：Agent 基础操作</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-agent-advanced.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第四讲：Agent 进阶</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-knowledge-base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第五讲：知识库构建与学术品味蒸馏</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-data-collection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第六讲：AI 辅助数据采集</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-text-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第七讲：AI 辅助文本分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-empirical-research.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第八讲：AI 辅助规范实证研究</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#本讲概览" id="toc-本讲概览" class="nav-link active" data-scroll-target="#本讲概览">本讲概览</a></li>
+  <li><a href="#上节skills-创建从经验到可复用操作手册" id="toc-上节skills-创建从经验到可复用操作手册" class="nav-link" data-scroll-target="#上节skills-创建从经验到可复用操作手册">上节：Skills 创建——从经验到可复用操作手册</a>
+  <ul class="collapse">
+  <li><a href="#skill-的-min-结构" id="toc-skill-的-min-结构" class="nav-link" data-scroll-target="#skill-的-min-结构">1. Skill 的 min 结构</a></li>
+  <li><a href="#skill-creator复盘工作流" id="toc-skill-creator复盘工作流" class="nav-link" data-scroll-target="#skill-creator复盘工作流">2. skill-creator：复盘工作流</a></li>
+  <li><a href="#实战创建stata-回归skill" id="toc-实战创建stata-回归skill" class="nav-link" data-scroll-target="#实战创建stata-回归skill">3. 实战：创建「Stata 回归」Skill</a></li>
+  </ul></li>
+  <li><a href="#下节多-agent-编排与-mcp" id="toc-下节多-agent-编排与-mcp" class="nav-link" data-scroll-target="#下节多-agent-编排与-mcp">下节：多 Agent 编排与 MCP</a>
+  <ul class="collapse">
+  <li><a href="#do-agent通用多-agent-编排架构" id="toc-do-agent通用多-agent-编排架构" class="nav-link" data-scroll-target="#do-agent通用多-agent-编排架构">4. do-agent：通用多 Agent 编排架构</a></li>
+  <li><a href="#mcp-协议入门" id="toc-mcp-协议入门" class="nav-link" data-scroll-target="#mcp-协议入门">5. MCP 协议入门</a></li>
+  <li><a href="#实战创建-literature-review-skill" id="toc-实战创建-literature-review-skill" class="nav-link" data-scroll-target="#实战创建-literature-review-skill">6. 实战：创建 literature-review Skill</a></li>
+  <li><a href="#本讲核心概念回顾" id="toc-本讲核心概念回顾" class="nav-link" data-scroll-target="#本讲核心概念回顾">7. 本讲核心概念回顾</a></li>
+  <li><a href="#课后任务" id="toc-课后任务" class="nav-link" data-scroll-target="#课后任务">8. 课后任务</a></li>
+  </ul></li>
+  <li><a href="#课堂参考材料" id="toc-课堂参考材料" class="nav-link" data-scroll-target="#课堂参考材料">课堂参考材料</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">第四讲：Agent 进阶</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+<p class="subtitle lead">课程讲义 · 网页教材</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>张晨 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">发布于</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-09-29</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong>课程：</strong> 人工智能在经济管理研究中的应用</p>
+<p><strong>授课人：</strong> 张晨（西北农林科技大学经济管理学院）</p>
+<p><strong>第 4 次课</strong> | <strong>2 课时</strong> | <strong>2026 年夏季学期</strong></p>
+</blockquote>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s04-mindmap.png" class="img-fluid figure-img"></p>
+<figcaption>课程思维导图</figcaption>
+</figure>
+</div>
+<section id="本讲概览" class="level2">
+<h2 class="anchored" data-anchor-id="本讲概览">本讲概览</h2>
+<p>上一讲你学会了怎么用 Skills 和怎么管理 Agent 会话。本讲的目标是：<strong>从「会用」到「会建」</strong>——不再只当 Skills 的消费者，而是自己创造和编排 Skills，搭建属于你自己的 Agent 工作流。</p>
+<p>具体来说，你要掌握三件事：</p>
+<ol type="1">
+<li><strong>创建自定义 Skill</strong>——把成功经验冻干成可复用的操作手册，让 AI 每次都按你的方式干活</li>
+<li><strong>掌握 do-agent 编排架构</strong>——把复杂任务拆成多个子代理并行执行，通过文件系统协作</li>
+<li><strong>理解 MCP 协议</strong>——让 AI 连接外部工具和数据源，扩展 Agent 的能力边界</li>
+</ol>
+<p><strong>教学逻辑：</strong> Skill min 结构（怎么写）→ skill-creator 复盘工作流（怎么写得好）→ do-agent 编排（怎么让多个 Agent 配合）→ MCP（怎么扩展 Agent 的外界连接能力）。</p>
+<hr>
+</section>
+<section id="上节skills-创建从经验到可复用操作手册" class="level2">
+<h2 class="anchored" data-anchor-id="上节skills-创建从经验到可复用操作手册">上节：Skills 创建——从经验到可复用操作手册</h2>
+<section id="skill-的-min-结构" class="level3">
+<h3 class="anchored" data-anchor-id="skill-的-min-结构">1. Skill 的 min 结构</h3>
+<section id="skill.md-的最小骨架" class="level4">
+<h4 class="anchored" data-anchor-id="skill.md-的最小骨架">1.1 SKILL.md 的最小骨架</h4>
+<p>Skill 本质是一个文件夹，里面至少包含一个 <code>SKILL.md</code> 文件。它是用自然语言写的「操作手册」，告诉 AI 遇到某类任务时该怎么做。</p>
+<p>SKILL.md 的最小结构由两部分组成：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">name:</span><span class="co"> my-skill-name</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> 一句话描述这个技能做什么，用于语义匹配</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Skill 标题</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## 何时触发</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>描述什么情况下应该调用这个技能</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## 执行流程</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>第一步做什么</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>第二步做什么</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>...</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 注意事项</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>什么不能做</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>什么需要人工确认</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>第一部分：YAML Frontmatter</strong>（<code>---</code> 包裹的部分）。这是 Skill 的「身份证」——<code>name</code> 是唯一标识，<code>description</code> 用于语义匹配。AI 根据你的任务描述和 Skill 的 description 之间的语义相似度，决定是否触发该 Skill。</p>
+<p><strong>第二部分：Markdown 正文。</strong> 这是 Skill 的「操作手册」，告诉 AI：</p>
+<ul>
+<li><strong>何时触发</strong>：什么情况下调用</li>
+<li><strong>执行流程</strong>：一步步怎么做</li>
+<li><strong>注意事项</strong>：什么不能做、什么需要人工确认</li>
+</ul>
+</section>
+<section id="渐进式加载机制" class="level4">
+<h4 class="anchored" data-anchor-id="渐进式加载机制">1.2 渐进式加载机制</h4>
+<p>这是 Skill 设计中最巧妙的机制：</p>
+<pre><code>启动阶段 → 只加载 YAML frontmatter（name + description），约占 2-3 行
+触发阶段 → 当任务语义匹配到某个 Skill 时，才加载完整 SKILL.md</code></pre>
+<p><strong>好处：</strong> AI 可能装了 30 个 Skills，但每次只加载真正用到的几个。这大幅节省了上下文窗口——如果一次性加载所有 Skills 的全部内容，可能占用几千行上下文，留给实际任务的窗口就很小了。</p>
+</section>
+<section id="两层存储" class="level4">
+<h4 class="anchored" data-anchor-id="两层存储">1.3 两层存储</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 29%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>层级</th>
+<th>路径</th>
+<th>作用范围</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>个人级</strong></td>
+<td><code>~/.claude/skills/</code></td>
+<td>所有项目通用，如 stata-regression、literature-review</td>
+</tr>
+<tr class="even">
+<td><strong>项目级</strong></td>
+<td><code>&lt;project&gt;/.claude/skills/</code></td>
+<td>仅当前项目，如特定数据格式的处理规则</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>建议：</strong> 通用能力放个人级（如 Stata 回归、文献综述），项目特定规则放项目级（如某数据集的特殊清洗步骤）。</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="skill-creator复盘工作流" class="level3">
+<h3 class="anchored" data-anchor-id="skill-creator复盘工作流">2. skill-creator：复盘工作流</h3>
+<section id="核心原则不要从零写-skill" class="level4">
+<h4 class="anchored" data-anchor-id="核心原则不要从零写-skill">2.1 核心原则：不要从零写 Skill</h4>
+<p>从零写 Skill 就像闭门造车——你以为你知道需要什么，但实际使用中总会漏掉关键步骤。</p>
+<p>正确的创建流程是一个「复盘蒸馏」的过程：</p>
+<pre><code>跑通一个任务（多轮人机交互）
+  → 在同一个会话窗口里（不清空上下文）
+  → 调用 skill-creator
+  → AI 复盘整个交互过程
+  → 蒸馏为可复用的 SKILL.md</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/a1-a1-skill-distill.png" class="img-fluid figure-img"></p>
+<figcaption>Skill 蒸馏流程</figcaption>
+</figure>
+</div>
+</section>
+<section id="为什么一定要在同一个会话窗口" class="level4">
+<h4 class="anchored" data-anchor-id="为什么一定要在同一个会话窗口">2.2 为什么一定要在同一个会话窗口？</h4>
+<p>因为上下文里保留了完整的交互历史——每一步怎么做的、踩了什么坑、哪个参数需要调整、你纠正了 AI 哪一步。skill-creator 需要这些「经验」才能写出好的 Skill。</p>
+<p><strong>比喻：</strong> 在同一个会话窗口里复盘 = 带着全部记忆洗澡反思。如果在全新会话里创建 Skill = 凭印象写回忆录，一定会漏掉很多细节。</p>
+</section>
+<section id="skill-creator-工作流详解" class="level4">
+<h4 class="anchored" data-anchor-id="skill-creator-工作流详解">2.3 skill-creator 工作流详解</h4>
+<pre><code>第一步：跑通任务
+你: 「帮我做一次完整的回归分析，读数据 → 描述统计 → 基准回归 → 输出表格」
+AI: 执行（可能会试错、你在中途纠正）
+你: 纠正变量的选择、标准误的聚类层级等
+
+第二步：复盘（同一个会话，不要 /clear）
+你: 「请调用 skill-creator，根据我们刚才的整个交互过程，
+     帮我创建一个 Skill。」（描述 Skill 应具备的功能）
+
+第三步：skill-creator 复盘
+AI 分析上下文中的：
+  - 你用了什么命令
+  - 你踩了什么坑
+  - 你纠正了哪些参数
+  - 哪些步骤容易出错
+  - 什么需要人工确认
+
+第四步：蒸馏为 SKILL.md
+AI 生成结构化操作手册，包含：
+  - 完整的执行步骤
+  - 每个步骤的常见错误和处理方法
+  - 人工确认节点（哪些结果必须人看）
+  - 输出格式要求
+
+第五步：审核和修改
+你通读 SKILL.md，修改不满意的地方，保存到 skills 目录。</code></pre>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/a1-a1-skill-types.png" class="img-fluid figure-img"></p>
+<figcaption>Skill 类型总览</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="实战创建stata-回归skill" class="level3">
+<h3 class="anchored" data-anchor-id="实战创建stata-回归skill">3. 实战：创建「Stata 回归」Skill</h3>
+<section id="准备工作" class="level4">
+<h4 class="anchored" data-anchor-id="准备工作">3.1 准备工作</h4>
+<p>确保你的环境中已经安装了 Stata，并且 AI 能够通过命令行调用它。参考第一部分的安装教程中关于命令行环境配置的内容。</p>
+</section>
+<section id="操作步骤" class="level4">
+<h4 class="anchored" data-anchor-id="操作步骤">3.2 操作步骤</h4>
+<p><strong>第一步：跑通一次完整的回归流程</strong></p>
+<p>在 Agent 中完成一次完整的回归任务：</p>
+<pre><code>请帮我完成以下分析：
+1. 读取当前目录下的 mydata.dta 文件
+2. 生成主要变量的描述统计表格
+3. 运行基准回归：y = x1 + x2 + x3，控制固定效应，标准误聚类到个体层面
+4. 使用 esttab 输出回归表格到 output/ 目录</code></pre>
+<p>在这个过程中，如果遇到问题（如变量名不存在、缺失值处理），和 AI 一起解决。<strong>记录下每个踩坑的点。</strong></p>
+<p><strong>第二步：调用 skill-creator 复盘</strong></p>
+<p>在同一个会话中（不要 /clear），输入：</p>
+<pre><code>请调用 skill-creator，根据我们刚才的整个交互过程，
+帮我创建一个 "stata-regression" Skill。
+
+这个 Skill 应该能：
+- 读取 .dta 文件并确认变量名
+- 生成描述统计（summarize, tabstat）
+- 执行基准回归并输出 esttab 表格
+- 处理常见的 Stata 错误（如变量名不存在、缺失值警告、标准误聚类层级问题）
+- 在关键节点设置人工确认点（模型规格确认、回归结果审核）</code></pre>
+<p><strong>第三步：审核生成的 SKILL.md</strong></p>
+<p>重点关注：</p>
+<ul>
+<li>执行步骤是否完整、顺序是否正确</li>
+<li>常见错误列表是否覆盖了你实际遇到的情况</li>
+<li>人工确认节点的设置是否合理</li>
+<li>输出格式是否符合你的论文写作习惯</li>
+</ul>
+<p><strong>第四步：保存和测试</strong></p>
+<p>保存到 <code>~/.claude/skills/stata-regression/SKILL.md</code>。</p>
+<p>新开一个会话，用另一份数据测试你刚创建的 Skill：</p>
+<pre><code>请按照 stata-regression Skill 的流程，帮我分析 newdata.dta</code></pre>
+<p>如果发现有遗漏或不合理的地方，回到原会话修改 SKILL.md。</p>
+</section>
+<section id="skill-迭代原则" class="level4">
+<h4 class="anchored" data-anchor-id="skill-迭代原则">3.3 Skill 迭代原则</h4>
+<ul>
+<li><strong>第一次不可能完美。</strong> 用几次后根据实际输出修改规则，越磨越好用</li>
+<li><strong>每个 Skill 保持单一职责。</strong> 不要让一个 Skill 同时做回归、做图、做文献——拆分比合并好</li>
+<li><strong>Skill 要反映你的研究范式。</strong> 不同领域的回归规范不同（聚类层级、固定效应选择、控制变量集合），Skill 应该体现你的学科惯例</li>
+</ul>
+<hr>
+</section>
+</section>
+</section>
+<section id="下节多-agent-编排与-mcp" class="level2">
+<h2 class="anchored" data-anchor-id="下节多-agent-编排与-mcp">下节：多 Agent 编排与 MCP</h2>
+<section id="do-agent通用多-agent-编排架构" class="level3">
+<h3 class="anchored" data-anchor-id="do-agent通用多-agent-编排架构">4. do-agent：通用多 Agent 编排架构</h3>
+<section id="什么是-do-agent" class="level4">
+<h4 class="anchored" data-anchor-id="什么是-do-agent">4.1 什么是 do-agent？</h4>
+<p>do-agent 是一个极简但极其强大的编排 Skill——核心 <code>SKILL.md</code> 只有约 20 行，但它编码了让多个 Agent 高效协作的完整方法论。</p>
+<p><strong>核心思想：</strong> 复杂任务不要交给一个 Agent 硬做——拆成多个子任务，每个分配给专门的子代理，通过文件系统交接结果，最后合成。</p>
+</section>
+<section id="四大原则" class="level4">
+<h4 class="anchored" data-anchor-id="四大原则">4.2 四大原则</h4>
+<p><strong>原则一：先探索-思考-规划，再执行</strong></p>
+<p>不要一上来就动手。先理解任务全貌，设计执行方案，列出子任务清单，再开始分配。</p>
+<pre><code>错误做法：「帮我做一个文献综述」→ AI 直接开始逐篇读
+正确做法：「帮我做一个文献综述」→ AI 先列出步骤计划 → 你确认 → AI 执行</code></pre>
+<p><strong>原则二：设计多 Agent 多阶段执行计划</strong></p>
+<p>把复杂任务拆成独立的子任务，每个子任务分配给一个专门的子代理。子代理之间不直接通信，通过文件系统交接。</p>
+<p><strong>原则三：子代理通过文件通信（最重要！）</strong></p>
+<blockquote class="blockquote">
+<p><strong>严禁将子代理的完整输出返回给主代理。</strong> 每个子代理必须将结果立即保存到本地文件，主代理只读到状态摘要。</p>
+</blockquote>
+<p><strong>原因：上下文窗口是稀缺资源。</strong> 如果 5 个子代理各返回 2000 行输出，主代理的上下文被占满，无法有效整合结果。</p>
+<p><strong>原则四：审查-修订循环</strong></p>
+<p>子代理产出结果 → 主代理（或另一个审查代理）检查 → 发现问题 → 修订 → 再检查。直到质量合格。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s04-do-agent-workflow.png" class="img-fluid figure-img"></p>
+<figcaption>工具 vs 伙伴</figcaption>
+</figure>
+</div>
+</section>
+<section id="do-agent-工作流示意" class="level4">
+<h4 class="anchored" data-anchor-id="do-agent-工作流示意">4.3 do-agent 工作流示意</h4>
+<pre><code>主代理（编排者）
+  │
+  ├── 分析任务，拆解为 3 个子任务
+  │
+  ├── 委派 子代理A
+  │     ├── 读取 notes/task_a.md  （任务说明）
+  │     └── 输出 notes/result_a.md （结果，不返回主代理）
+  │
+  ├── 委派 子代理B
+  │     ├── 读取 notes/task_b.md
+  │     └── 输出 notes/result_b.md
+  │
+  ├── 委派 子代理C
+  │     ├── 读取 notes/task_c.md
+  │     └── 输出 notes/result_c.md
+  │
+  ├── 审查代理
+  │     ├── 读取 notes/result_a.md, result_b.md, result_c.md
+  │     ├── 检查一致性、发现错误和遗漏
+  │     └── 输出 notes/review.md
+  │
+  └── 合成代理
+        ├── 读取所有 result 文件 + review.md
+        └── 输出 output/final.md</code></pre>
+</section>
+<section id="文件通信的具体实现" class="level4">
+<h4 class="anchored" data-anchor-id="文件通信的具体实现">4.4 文件通信的具体实现</h4>
+<p>每个子代理的任务说明写在独立的文件中：</p>
+<pre><code>notes/task_a.md
+
+任务：读取并分析论文 A
+输入：input/papers/paper_a.pdf
+要求：
+  1. 提取研究问题、识别策略、主要结论、核心贡献
+  2. 分析研究方法（数据来源、样本量、计量模型）
+  3. 列出论文的主要局限
+输出：notes/paper_a_summary.md
+格式：使用 ## 标题分段，每条信息单独成行</code></pre>
+<p>子代理完成后，主代理读取 <code>notes/paper_a_summary.md</code> 的内容摘要（而不是让子代理把全文吐回上下文）。</p>
+<hr>
+</section>
+</section>
+<section id="mcp-协议入门" class="level3">
+<h3 class="anchored" data-anchor-id="mcp-协议入门">5. MCP 协议入门</h3>
+<section id="什么是-mcp" class="level4">
+<h4 class="anchored" data-anchor-id="什么是-mcp">5.1 什么是 MCP？</h4>
+<p>MCP（Model Context Protocol）是一种标准化协议，让 AI Agent 能连接外部工具和数据源。</p>
+<blockquote class="blockquote">
+<p><strong>比喻：</strong> MCP 是「<strong>AI 世界的 USB-C 接口</strong>」——插上什么设备，AI 就能用什么工具。插上数据库，AI 能查询数据；插上搜索引擎，AI 能搜索网页；插上 Zotero，AI 能管理文献。</p>
+</blockquote>
+</section>
+<section id="mcp-可以连接什么" class="level4">
+<h4 class="anchored" data-anchor-id="mcp-可以连接什么">5.2 MCP 可以连接什么？</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 15%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>连接对象</th>
+<th>功能</th>
+<th>典型场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>数据库（SQLite、PostgreSQL）</td>
+<td>直接查询数据库</td>
+<td>「帮我查一下 2020 年 CHFS 样本的户均收入」</td>
+</tr>
+<tr class="even">
+<td>搜索引擎（Brave Search、Tavily）</td>
+<td>搜索网页</td>
+<td>「搜索最近关于数字金融的最新文献」</td>
+</tr>
+<tr class="odd">
+<td>文献管理（Zotero）</td>
+<td>读写文献库</td>
+<td>「把我的 Zotero 库中关于 DID 的论文列出来」</td>
+</tr>
+<tr class="even">
+<td>文件系统</td>
+<td>读写本地文件</td>
+<td>「遍历 input/ 下所有 CSV 文件」</td>
+</tr>
+<tr class="odd">
+<td>API 服务</td>
+<td>调用外部 API</td>
+<td>「通过 Crossref API 查询这篇论文的被引次数」</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="一个典型的-mcp-配置" class="level4">
+<h4 class="anchored" data-anchor-id="一个典型的-mcp-配置">5.3 一个典型的 MCP 配置</h4>
+<p>在 Claude Code 中，MCP 通过配置文件定义：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"brave-search"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"npx"</span><span class="fu">,</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-y"</span><span class="ot">,</span> <span class="st">"@anthropic-ai/mcp-server-brave-search"</span><span class="ot">]</span><span class="fu">,</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"env"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">"BRAVE_API_KEY"</span><span class="fu">:</span> <span class="st">"your-key-here"</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></div>
+<p>配置后，Agent 就可以直接搜索网页，而不需要你手动复制粘贴链接。</p>
+</section>
+<section id="skill-vs-mcp什么时候用什么" class="level4">
+<h4 class="anchored" data-anchor-id="skill-vs-mcp什么时候用什么">5.4 Skill vs MCP：什么时候用什么？</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 47%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>Skill</th>
+<th>MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>定位</td>
+<td>封装<strong>工作流程和专业知识</strong>（怎么做）</td>
+<td>连接<strong>外部工具和数据源</strong>（用什么做）</td>
+</tr>
+<tr class="even">
+<td>形式</td>
+<td>Markdown 文件（自然语言操作手册）</td>
+<td>JSON 配置 + 服务端程序</td>
+</tr>
+<tr class="odd">
+<td>举例</td>
+<td>「如何一步步做文献综述」</td>
+<td>「如何连接 Zotero 数据库」</td>
+</tr>
+<tr class="even">
+<td>关系</td>
+<td>互补——Skill 里可以调用 MCP 工具</td>
+<td>MCP 为 Skill 提供外部能力</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>一句话：</strong> Skill 告诉 AI 怎么做，MCP 给 AI 提供做的工具。两者常常一起使用——一个文献综述 Skill，调用 MCP 连接的搜索引擎来搜索文献，调用 MCP 连接的 Zotero 来管理引用。</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="实战创建-literature-review-skill" class="level3">
+<h3 class="anchored" data-anchor-id="实战创建-literature-review-skill">6. 实战：创建 literature-review Skill</h3>
+<section id="任务描述" class="level4">
+<h4 class="anchored" data-anchor-id="任务描述">6.1 任务描述</h4>
+<p>将上一讲实战中多 Agent 文献综述的完整流程封装为一个可复用的 Skill。</p>
+</section>
+<section id="操作步骤-1" class="level4">
+<h4 class="anchored" data-anchor-id="操作步骤-1">6.2 操作步骤</h4>
+<p><strong>第一步：回顾上一讲的交互过程</strong></p>
+<p>打开上一讲文献综述实战的会话记录（在 <code>~/.claude/projects/</code> 目录下），回顾：</p>
+<ul>
+<li>你是怎么给 AI 下指令的</li>
+<li>AI 怎么拆分子任务</li>
+<li>子代理怎么并行工作</li>
+<li>汇总阶段遇到了什么问题</li>
+<li>你做了哪些纠正</li>
+</ul>
+<p><strong>第二步：调用 skill-creator 复盘蒸馏</strong></p>
+<p>在与文献综述实战相同（或基于 notes/ 记录重建）的会话中：</p>
+<pre><code>请调用 skill-creator，将我们做文献综述的完整流程封装为 Skill。
+
+要求：
+- Skill 名称：literature-review
+- 功能：输入一个包含 PDF 论文的文件夹，输出一份结构化的文献综述
+- 流程：
+  1. 扫描 input/papers/ 目录，列出所有 PDF 文件
+  2. 将 PDF 转换为 Markdown 格式以便 AI 阅读（调用 markitdown 或相关转换工具）
+  3. 并行委派子代理提取每篇论文的关键信息
+  4. 子代理将结构化摘要写入 notes/ 目录
+  5. 审查代理检查各摘要的一致性和完整性
+  6. 合成代理汇总为文献综述初稿，输出到 output/
+- 注意事项：
+  - 子代理必须通过文件通信，不得将完整输出返回主代理
+  - 引用的文献信息必须标注「需人工核实」
+  - 每篇论文的引用格式必须统一
+  - 综述中不得编造文献引用</code></pre>
+<p><strong>第三步：审核和修改</strong></p>
+<p>检查生成的 SKILL.md：</p>
+<ul>
+<li>步骤是否完整、可操作</li>
+<li>是否包含了「引文必须人工核实」的警告</li>
+<li>输出格式是否符合学术规范</li>
+<li>是否设置了合理的人工确认节点</li>
+</ul>
+<p><strong>第四步：保存</strong></p>
+<p>保存到 <code>~/.claude/skills/literature-review/SKILL.md</code>。</p>
+<p><strong>第五步：测试</strong></p>
+<p>新开一个会话，放入另一组论文（与创建时不同的论文），用刚创建的 Skill 跑一次：</p>
+<pre><code>请按 literature-review Skill 的要求，分析 input/papers/ 中的论文，
+生成文献综述初稿。</code></pre>
+<p>观察：</p>
+<ul>
+<li>Skill 是否正确触发</li>
+<li>执行流程是否按预期进行</li>
+<li>输出质量是否符合要求</li>
+<li>有哪些地方需要改进</li>
+</ul>
+<p><strong>第六步：迭代优化</strong></p>
+<p>根据测试结果修改 SKILL.md。重点优化：</p>
+<ul>
+<li>触发条件的描述是否准确</li>
+<li>执行步骤是否需要调整顺序</li>
+<li>注意事项是否需要补充</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="本讲核心概念回顾" class="level3">
+<h3 class="anchored" data-anchor-id="本讲核心概念回顾">7. 本讲核心概念回顾</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>概念</th>
+<th>一句话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>SKILL.md min 结构</strong></td>
+<td>YAML frontmatter（name + description）+ Markdown 操作手册</td>
+</tr>
+<tr class="even">
+<td><strong>渐进式加载</strong></td>
+<td>启动时只加载 frontmatter，触发时才加载完整内容——节省上下文窗口</td>
+</tr>
+<tr class="odd">
+<td><strong>skill-creator 复盘工作流</strong></td>
+<td>跑通 → 复盘（同一会话）→ 蒸馏 → 审核 → 保存 → 测试</td>
+</tr>
+<tr class="even">
+<td><strong>do-agent 四原则</strong></td>
+<td>先规划 → 多 Agent 委派 → 文件通信 → 审查修订</td>
+</tr>
+<tr class="odd">
+<td><strong>文件通信铁律</strong></td>
+<td>子代理结果必须写入文件，严禁将完整输出返回主代理</td>
+</tr>
+<tr class="even">
+<td><strong>MCP = USB-C</strong></td>
+<td>连接外部工具和数据源的标准化协议</td>
+</tr>
+<tr class="odd">
+<td><strong>Skill vs MCP</strong></td>
+<td>Skill 告诉怎么做，MCP 给做的工具——两者互补</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="课后任务" class="level3">
+<h3 class="anchored" data-anchor-id="课后任务">8. 课后任务</h3>
+<ol type="1">
+<li>创建一个自定义 Skill（至少一个），可以是你领域常用的：
+<ul>
+<li>Stata 回归分析 Skill</li>
+<li>论文审稿 Skill</li>
+<li>文献综述 Skill</li>
+<li>数据清洗 Skill</li>
+</ul></li>
+<li>用 do-agent 四原则完成一次至少包含 3 个子代理的复杂任务</li>
+<li>尝试配置一个 MCP 服务（如 Brave Search 或 Tavily），让 AI 能直接搜索网页</li>
+<li>将你创建的所有 Skill 保存到 <code>~/.claude/skills/</code>，确保跨项目可用</li>
+<li>为你创建的每个 Skill 写一条测试用例，新会话中验证可用性</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="课堂参考材料" class="level2">
+<h2 class="anchored" data-anchor-id="课堂参考材料">课堂参考材料</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Part1-AI工具介绍与环境配置.md</code></td>
+<td>Skills 安装与 Agent 创建基础</td>
+</tr>
+<tr class="even">
+<td><code>Part2-Agent操作与知识库构建.md</code></td>
+<td>本讲详细教学内容</td>
+</tr>
+</tbody>
+</table>
+<p><strong>参考图片目录：</strong> <code>reference/html/A1 构建工作台/_files/</code></p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<!-- 登录门禁：登录框 + 校验逻辑 -->
+<div id="book-auth-gate" hidden="">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="auth-kicker">课程教材 · 需登录</span>
+      <h1>人工智能在经济管理研究中的应用</h1>
+      <p>请输入用户名和密码以继续阅读</p>
+    </div>
+    <form id="book-auth-form" autocomplete="off">
+      <div class="auth-field">
+        <label for="book-auth-user">用户名</label>
+        <input type="text" id="book-auth-user" name="username" placeholder="请输入用户名" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label for="book-auth-pass">密码</label>
+        <input type="password" id="book-auth-pass" name="password" placeholder="请输入密码" autocomplete="current-password">
+      </div>
+      <div class="auth-error" id="book-auth-error">用户名或密码错误，请重试。</div>
+      <button type="submit" class="auth-submit" id="book-auth-submit">登 录</button>
+      <div class="auth-hint">登录状态仅在本浏览器当前会话内有效</div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ---------- 纯 JS SHA-256（ASCII） ---------- */
+  function sha256(ascii) {
+    function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var result = '';
+    var words = [];
+    var asciiBitLength = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [];
+    var k = sha256.k = sha256.k || [];
+    var primeCounter = k.length;
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (var i = 0; i < 313; i += candidate) { isComposite[i] = candidate; }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (var i = 0; i < ascii.length; i++) {
+      var j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = ((asciiBitLength / maxWord) | 0);
+    words[words.length] = (asciiBitLength);
+    for (var j2 = 0; j2 < words.length;) {
+      var w = words.slice(j2, j2 += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (var i2 = 0; i2 < 64; i2++) {
+        var w15 = w[i2 - 15], w2 = w[i2 - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i2]
+          + (w[i2] = (i2 < 16) ? w[i2] : (
+              w[i2 - 16]
+              + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+              + w[i2 - 7]
+              + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+            ) | 0
+          );
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (var i3 = 0; i3 < 8; i3++) { hash[i3] = (hash[i3] + oldHash[i3]) | 0; }
+    }
+    for (var i4 = 0; i4 < 8; i4++) {
+      for (var j3 = 3; j3 + 1; j3--) {
+        var b = (hash[i4] >> (j3 * 8)) & 255;
+        result += ((b < 16) ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  /* 校验值：sha256("pisces_chen_30")（用户名与密码相同） */
+  var CRED_HASH = "98dcd99562737bd3e3240000ed05df35168050efb866fe569d4602f31b26643f";
+
+  var gate = document.getElementById("book-auth-gate");
+  var form = document.getElementById("book-auth-form");
+  var userInput = document.getElementById("book-auth-user");
+  var passInput = document.getElementById("book-auth-pass");
+  var errEl = document.getElementById("book-auth-error");
+
+  function isLocked() {
+    return document.documentElement.classList.contains("auth-locked");
+  }
+
+  function unlock() {
+    try { sessionStorage.setItem("BOOK_AUTH_OK", "1"); } catch (e) {}
+    document.documentElement.classList.remove("auth-locked");
+    if (gate) gate.hidden = true;
+  }
+
+  /* 初始化：已登录则直接隐藏登录框，未登录则显示 */
+  if (isLocked()) {
+    gate.hidden = false;
+  } else {
+    gate.hidden = true;
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var u = userInput.value || "";
+      var p = passInput.value || "";
+      if (sha256(u) === CRED_HASH && sha256(p) === CRED_HASH) {
+        errEl.style.display = "none";
+        unlock();
+      } else {
+        errEl.style.display = "block";
+        passInput.value = "";
+        passInput.focus();
+      }
+    });
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-agent-basics.html" class="pagination-link" aria-label="第三讲：Agent 基础操作">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第三讲：Agent 基础操作</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05-knowledge-base.html" class="pagination-link" aria-label="第五讲：知识库构建与学术品味蒸馏">
+        <span class="nav-page-text">第五讲：知识库构建与学术品味蒸馏</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "第四讲：Agent 进阶"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **课程：** 人工智能在经济管理研究中的应用</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **授课人：** 张晨（西北农林科技大学经济管理学院）</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **第 4 次课** | **2 课时** | **2026 年夏季学期**</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="al">![课程思维导图](images/s04-mindmap.png)</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本讲概览</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>上一讲你学会了怎么用 Skills 和怎么管理 Agent 会话。本讲的目标是：**从「会用」到「会建」**——不再只当 Skills 的消费者，而是自己创造和编排 Skills，搭建属于你自己的 Agent 工作流。</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>具体来说，你要掌握三件事：</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**创建自定义 Skill**——把成功经验冻干成可复用的操作手册，让 AI 每次都按你的方式干活</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**掌握 do-agent 编排架构**——把复杂任务拆成多个子代理并行执行，通过文件系统协作</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**理解 MCP 协议**——让 AI 连接外部工具和数据源，扩展 Agent 的能力边界</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>**教学逻辑：** Skill min 结构（怎么写）→ skill-creator 复盘工作流（怎么写得好）→ do-agent 编排（怎么让多个 Agent 配合）→ MCP（怎么扩展 Agent 的外界连接能力）。</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## 上节：Skills 创建——从经验到可复用操作手册</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Skill 的 min 结构</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 1.1 SKILL.md 的最小骨架</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>Skill 本质是一个文件夹，里面至少包含一个 <span class="in">`SKILL.md`</span> 文件。它是用自然语言写的「操作手册」，告诉 AI 遇到某类任务时该怎么做。</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>SKILL.md 的最小结构由两部分组成：</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="in">```markdown</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>name: my-skill-name</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>description: 一句话描述这个技能做什么，用于语义匹配</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="fu"># Skill 标题</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## 何时触发</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>描述什么情况下应该调用这个技能</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## 执行流程</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>第一步做什么</span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>第二步做什么</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>...</span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## 注意事项</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>什么不能做</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>什么需要人工确认</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a><span class="in">**第一部分：YAML Frontmatter**（`---` 包裹的部分）。这是 Skill 的「身份证」——`name` 是唯一标识，`description` 用于语义匹配。AI 根据你的任务描述和 Skill 的 description 之间的语义相似度，决定是否触发该 Skill。</span></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a><span class="in">**第二部分：Markdown 正文。** 这是 Skill 的「操作手册」，告诉 AI：</span></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a><span class="in">- **何时触发**：什么情况下调用</span></span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a><span class="in">- **执行流程**：一步步怎么做</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="in">- **注意事项**：什么不能做、什么需要人工确认</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a><span class="in">#### 1.2 渐进式加载机制</span></span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a><span class="in">这是 Skill 设计中最巧妙的机制：</span></span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>启动阶段 → 只加载 YAML frontmatter（name + description），约占 2-3 行</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>触发阶段 → 当任务语义匹配到某个 Skill 时，才加载完整 SKILL.md</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="in">**好处：** AI 可能装了 30 个 Skills，但每次只加载真正用到的几个。这大幅节省了上下文窗口——如果一次性加载所有 Skills 的全部内容，可能占用几千行上下文，留给实际任务的窗口就很小了。</span></span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a><span class="in">#### 1.3 两层存储</span></span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a><span class="in">| 层级             | 路径                          | 作用范围                                             |</span></span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a><span class="in">| ---------------- | ----------------------------- | ---------------------------------------------------- |</span></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a><span class="in">| **个人级** | `~/.claude/skills/`         | 所有项目通用，如 stata-regression、literature-review |</span></span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a><span class="in">| **项目级** | `&lt;project&gt;/.claude/skills/` | 仅当前项目，如特定数据格式的处理规则                 |</span></span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a><span class="in">&gt; **建议：** 通用能力放个人级（如 Stata 回归、文献综述），项目特定规则放项目级（如某数据集的特殊清洗步骤）。</span></span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a><span class="in">---</span></span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a><span class="in">### 2. skill-creator：复盘工作流</span></span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a><span class="in">#### 2.1 核心原则：不要从零写 Skill</span></span>
+<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a><span class="in">从零写 Skill 就像闭门造车——你以为你知道需要什么，但实际使用中总会漏掉关键步骤。</span></span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a><span class="in">正确的创建流程是一个「复盘蒸馏」的过程：</span></span>
+<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a>跑通一个任务（多轮人机交互）</span>
+<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a>  → 在同一个会话窗口里（不清空上下文）</span>
+<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a>  → 调用 skill-creator</span>
+<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a>  → AI 复盘整个交互过程</span>
+<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>  → 蒸馏为可复用的 SKILL.md</span>
+<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a><span class="in">![Skill 蒸馏流程](images/a1-a1-skill-distill.png)</span></span>
+<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a><span class="in">#### 2.2 为什么一定要在同一个会话窗口？</span></span>
+<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a><span class="in">因为上下文里保留了完整的交互历史——每一步怎么做的、踩了什么坑、哪个参数需要调整、你纠正了 AI 哪一步。skill-creator 需要这些「经验」才能写出好的 Skill。</span></span>
+<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a><span class="in">**比喻：** 在同一个会话窗口里复盘 = 带着全部记忆洗澡反思。如果在全新会话里创建 Skill = 凭印象写回忆录，一定会漏掉很多细节。</span></span>
+<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a><span class="in">#### 2.3 skill-creator 工作流详解</span></span>
+<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a>第一步：跑通任务</span>
+<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a>你: 「帮我做一次完整的回归分析，读数据 → 描述统计 → 基准回归 → 输出表格」</span>
+<span id="cb14-120"><a href="#cb14-120" aria-hidden="true" tabindex="-1"></a>AI: 执行（可能会试错、你在中途纠正）</span>
+<span id="cb14-121"><a href="#cb14-121" aria-hidden="true" tabindex="-1"></a>你: 纠正变量的选择、标准误的聚类层级等</span>
+<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a>第二步：复盘（同一个会话，不要 /clear）</span>
+<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a>你: 「请调用 skill-creator，根据我们刚才的整个交互过程，</span>
+<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a>     帮我创建一个 Skill。」（描述 Skill 应具备的功能）</span>
+<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a>第三步：skill-creator 复盘</span>
+<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a>AI 分析上下文中的：</span>
+<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>你用了什么命令</span>
+<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>你踩了什么坑</span>
+<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>你纠正了哪些参数</span>
+<span id="cb14-132"><a href="#cb14-132" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>哪些步骤容易出错</span>
+<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>什么需要人工确认</span>
+<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a>第四步：蒸馏为 SKILL.md</span>
+<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a>AI 生成结构化操作手册，包含：</span>
+<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>完整的执行步骤</span>
+<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>每个步骤的常见错误和处理方法</span>
+<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>人工确认节点（哪些结果必须人看）</span>
+<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>输出格式要求</span>
+<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a>第五步：审核和修改</span>
+<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a>你通读 SKILL.md，修改不满意的地方，保存到 skills 目录。</span>
+<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a><span class="al">![Skill 类型总览](images/a1-a1-skill-types.png)</span></span>
+<span id="cb14-147"><a href="#cb14-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-148"><a href="#cb14-148" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. 实战：创建「Stata 回归」Skill</span></span>
+<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 3.1 准备工作</span></span>
+<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a>确保你的环境中已经安装了 Stata，并且 AI 能够通过命令行调用它。参考第一部分的安装教程中关于命令行环境配置的内容。</span>
+<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 3.2 操作步骤</span></span>
+<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a>**第一步：跑通一次完整的回归流程**</span>
+<span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a>在 Agent 中完成一次完整的回归任务：</span>
+<span id="cb14-161"><a href="#cb14-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a><span class="in">请帮我完成以下分析：</span></span>
+<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a><span class="in">1. 读取当前目录下的 mydata.dta 文件</span></span>
+<span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a><span class="in">2. 生成主要变量的描述统计表格</span></span>
+<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a><span class="in">3. 运行基准回归：y = x1 + x2 + x3，控制固定效应，标准误聚类到个体层面</span></span>
+<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a><span class="in">4. 使用 esttab 输出回归表格到 output/ 目录</span></span>
+<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a>在这个过程中，如果遇到问题（如变量名不存在、缺失值处理），和 AI 一起解决。**记录下每个踩坑的点。**</span>
+<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a>**第二步：调用 skill-creator 复盘**</span>
+<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a>在同一个会话中（不要 /clear），输入：</span>
+<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-176"><a href="#cb14-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-177"><a href="#cb14-177" aria-hidden="true" tabindex="-1"></a><span class="in">请调用 skill-creator，根据我们刚才的整个交互过程，</span></span>
+<span id="cb14-178"><a href="#cb14-178" aria-hidden="true" tabindex="-1"></a><span class="in">帮我创建一个 "stata-regression" Skill。</span></span>
+<span id="cb14-179"><a href="#cb14-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-180"><a href="#cb14-180" aria-hidden="true" tabindex="-1"></a><span class="in">这个 Skill 应该能：</span></span>
+<span id="cb14-181"><a href="#cb14-181" aria-hidden="true" tabindex="-1"></a><span class="in">- 读取 .dta 文件并确认变量名</span></span>
+<span id="cb14-182"><a href="#cb14-182" aria-hidden="true" tabindex="-1"></a><span class="in">- 生成描述统计（summarize, tabstat）</span></span>
+<span id="cb14-183"><a href="#cb14-183" aria-hidden="true" tabindex="-1"></a><span class="in">- 执行基准回归并输出 esttab 表格</span></span>
+<span id="cb14-184"><a href="#cb14-184" aria-hidden="true" tabindex="-1"></a><span class="in">- 处理常见的 Stata 错误（如变量名不存在、缺失值警告、标准误聚类层级问题）</span></span>
+<span id="cb14-185"><a href="#cb14-185" aria-hidden="true" tabindex="-1"></a><span class="in">- 在关键节点设置人工确认点（模型规格确认、回归结果审核）</span></span>
+<span id="cb14-186"><a href="#cb14-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-187"><a href="#cb14-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-188"><a href="#cb14-188" aria-hidden="true" tabindex="-1"></a>**第三步：审核生成的 SKILL.md**</span>
+<span id="cb14-189"><a href="#cb14-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-190"><a href="#cb14-190" aria-hidden="true" tabindex="-1"></a>重点关注：</span>
+<span id="cb14-191"><a href="#cb14-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-192"><a href="#cb14-192" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>执行步骤是否完整、顺序是否正确</span>
+<span id="cb14-193"><a href="#cb14-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>常见错误列表是否覆盖了你实际遇到的情况</span>
+<span id="cb14-194"><a href="#cb14-194" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>人工确认节点的设置是否合理</span>
+<span id="cb14-195"><a href="#cb14-195" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>输出格式是否符合你的论文写作习惯</span>
+<span id="cb14-196"><a href="#cb14-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-197"><a href="#cb14-197" aria-hidden="true" tabindex="-1"></a>**第四步：保存和测试**</span>
+<span id="cb14-198"><a href="#cb14-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-199"><a href="#cb14-199" aria-hidden="true" tabindex="-1"></a>保存到 <span class="in">`~/.claude/skills/stata-regression/SKILL.md`</span>。</span>
+<span id="cb14-200"><a href="#cb14-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-201"><a href="#cb14-201" aria-hidden="true" tabindex="-1"></a>新开一个会话，用另一份数据测试你刚创建的 Skill：</span>
+<span id="cb14-202"><a href="#cb14-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-203"><a href="#cb14-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-204"><a href="#cb14-204" aria-hidden="true" tabindex="-1"></a><span class="in">请按照 stata-regression Skill 的流程，帮我分析 newdata.dta</span></span>
+<span id="cb14-205"><a href="#cb14-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-206"><a href="#cb14-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-207"><a href="#cb14-207" aria-hidden="true" tabindex="-1"></a>如果发现有遗漏或不合理的地方，回到原会话修改 SKILL.md。</span>
+<span id="cb14-208"><a href="#cb14-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-209"><a href="#cb14-209" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 3.3 Skill 迭代原则</span></span>
+<span id="cb14-210"><a href="#cb14-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-211"><a href="#cb14-211" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**第一次不可能完美。** 用几次后根据实际输出修改规则，越磨越好用</span>
+<span id="cb14-212"><a href="#cb14-212" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**每个 Skill 保持单一职责。** 不要让一个 Skill 同时做回归、做图、做文献——拆分比合并好</span>
+<span id="cb14-213"><a href="#cb14-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Skill 要反映你的研究范式。** 不同领域的回归规范不同（聚类层级、固定效应选择、控制变量集合），Skill 应该体现你的学科惯例</span>
+<span id="cb14-214"><a href="#cb14-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-215"><a href="#cb14-215" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-216"><a href="#cb14-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-217"><a href="#cb14-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## 下节：多 Agent 编排与 MCP</span></span>
+<span id="cb14-218"><a href="#cb14-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-219"><a href="#cb14-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. do-agent：通用多 Agent 编排架构</span></span>
+<span id="cb14-220"><a href="#cb14-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-221"><a href="#cb14-221" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 4.1 什么是 do-agent？</span></span>
+<span id="cb14-222"><a href="#cb14-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-223"><a href="#cb14-223" aria-hidden="true" tabindex="-1"></a>do-agent 是一个极简但极其强大的编排 Skill——核心 <span class="in">`SKILL.md`</span> 只有约 20 行，但它编码了让多个 Agent 高效协作的完整方法论。</span>
+<span id="cb14-224"><a href="#cb14-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-225"><a href="#cb14-225" aria-hidden="true" tabindex="-1"></a>**核心思想：** 复杂任务不要交给一个 Agent 硬做——拆成多个子任务，每个分配给专门的子代理，通过文件系统交接结果，最后合成。</span>
+<span id="cb14-226"><a href="#cb14-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-227"><a href="#cb14-227" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 4.2 四大原则</span></span>
+<span id="cb14-228"><a href="#cb14-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-229"><a href="#cb14-229" aria-hidden="true" tabindex="-1"></a>**原则一：先探索-思考-规划，再执行**</span>
+<span id="cb14-230"><a href="#cb14-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-231"><a href="#cb14-231" aria-hidden="true" tabindex="-1"></a>不要一上来就动手。先理解任务全貌，设计执行方案，列出子任务清单，再开始分配。</span>
+<span id="cb14-232"><a href="#cb14-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-233"><a href="#cb14-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-234"><a href="#cb14-234" aria-hidden="true" tabindex="-1"></a><span class="in">错误做法：「帮我做一个文献综述」→ AI 直接开始逐篇读</span></span>
+<span id="cb14-235"><a href="#cb14-235" aria-hidden="true" tabindex="-1"></a><span class="in">正确做法：「帮我做一个文献综述」→ AI 先列出步骤计划 → 你确认 → AI 执行</span></span>
+<span id="cb14-236"><a href="#cb14-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-237"><a href="#cb14-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-238"><a href="#cb14-238" aria-hidden="true" tabindex="-1"></a>**原则二：设计多 Agent 多阶段执行计划**</span>
+<span id="cb14-239"><a href="#cb14-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-240"><a href="#cb14-240" aria-hidden="true" tabindex="-1"></a>把复杂任务拆成独立的子任务，每个子任务分配给一个专门的子代理。子代理之间不直接通信，通过文件系统交接。</span>
+<span id="cb14-241"><a href="#cb14-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-242"><a href="#cb14-242" aria-hidden="true" tabindex="-1"></a>**原则三：子代理通过文件通信（最重要！）**</span>
+<span id="cb14-243"><a href="#cb14-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-244"><a href="#cb14-244" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **严禁将子代理的完整输出返回给主代理。** 每个子代理必须将结果立即保存到本地文件，主代理只读到状态摘要。</span></span>
+<span id="cb14-245"><a href="#cb14-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-246"><a href="#cb14-246" aria-hidden="true" tabindex="-1"></a>**原因：上下文窗口是稀缺资源。** 如果 5 个子代理各返回 2000 行输出，主代理的上下文被占满，无法有效整合结果。</span>
+<span id="cb14-247"><a href="#cb14-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-248"><a href="#cb14-248" aria-hidden="true" tabindex="-1"></a>**原则四：审查-修订循环**</span>
+<span id="cb14-249"><a href="#cb14-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-250"><a href="#cb14-250" aria-hidden="true" tabindex="-1"></a>子代理产出结果 → 主代理（或另一个审查代理）检查 → 发现问题 → 修订 → 再检查。直到质量合格。</span>
+<span id="cb14-251"><a href="#cb14-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-252"><a href="#cb14-252" aria-hidden="true" tabindex="-1"></a><span class="al">![工具 vs 伙伴](images/s04-do-agent-workflow.png)</span></span>
+<span id="cb14-253"><a href="#cb14-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-254"><a href="#cb14-254" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 4.3 do-agent 工作流示意</span></span>
+<span id="cb14-255"><a href="#cb14-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-256"><a href="#cb14-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-257"><a href="#cb14-257" aria-hidden="true" tabindex="-1"></a><span class="in">主代理（编排者）</span></span>
+<span id="cb14-258"><a href="#cb14-258" aria-hidden="true" tabindex="-1"></a><span class="in">  │</span></span>
+<span id="cb14-259"><a href="#cb14-259" aria-hidden="true" tabindex="-1"></a><span class="in">  ├── 分析任务，拆解为 3 个子任务</span></span>
+<span id="cb14-260"><a href="#cb14-260" aria-hidden="true" tabindex="-1"></a><span class="in">  │</span></span>
+<span id="cb14-261"><a href="#cb14-261" aria-hidden="true" tabindex="-1"></a><span class="in">  ├── 委派 子代理A</span></span>
+<span id="cb14-262"><a href="#cb14-262" aria-hidden="true" tabindex="-1"></a><span class="in">  │     ├── 读取 notes/task_a.md  （任务说明）</span></span>
+<span id="cb14-263"><a href="#cb14-263" aria-hidden="true" tabindex="-1"></a><span class="in">  │     └── 输出 notes/result_a.md （结果，不返回主代理）</span></span>
+<span id="cb14-264"><a href="#cb14-264" aria-hidden="true" tabindex="-1"></a><span class="in">  │</span></span>
+<span id="cb14-265"><a href="#cb14-265" aria-hidden="true" tabindex="-1"></a><span class="in">  ├── 委派 子代理B</span></span>
+<span id="cb14-266"><a href="#cb14-266" aria-hidden="true" tabindex="-1"></a><span class="in">  │     ├── 读取 notes/task_b.md</span></span>
+<span id="cb14-267"><a href="#cb14-267" aria-hidden="true" tabindex="-1"></a><span class="in">  │     └── 输出 notes/result_b.md</span></span>
+<span id="cb14-268"><a href="#cb14-268" aria-hidden="true" tabindex="-1"></a><span class="in">  │</span></span>
+<span id="cb14-269"><a href="#cb14-269" aria-hidden="true" tabindex="-1"></a><span class="in">  ├── 委派 子代理C</span></span>
+<span id="cb14-270"><a href="#cb14-270" aria-hidden="true" tabindex="-1"></a><span class="in">  │     ├── 读取 notes/task_c.md</span></span>
+<span id="cb14-271"><a href="#cb14-271" aria-hidden="true" tabindex="-1"></a><span class="in">  │     └── 输出 notes/result_c.md</span></span>
+<span id="cb14-272"><a href="#cb14-272" aria-hidden="true" tabindex="-1"></a><span class="in">  │</span></span>
+<span id="cb14-273"><a href="#cb14-273" aria-hidden="true" tabindex="-1"></a><span class="in">  ├── 审查代理</span></span>
+<span id="cb14-274"><a href="#cb14-274" aria-hidden="true" tabindex="-1"></a><span class="in">  │     ├── 读取 notes/result_a.md, result_b.md, result_c.md</span></span>
+<span id="cb14-275"><a href="#cb14-275" aria-hidden="true" tabindex="-1"></a><span class="in">  │     ├── 检查一致性、发现错误和遗漏</span></span>
+<span id="cb14-276"><a href="#cb14-276" aria-hidden="true" tabindex="-1"></a><span class="in">  │     └── 输出 notes/review.md</span></span>
+<span id="cb14-277"><a href="#cb14-277" aria-hidden="true" tabindex="-1"></a><span class="in">  │</span></span>
+<span id="cb14-278"><a href="#cb14-278" aria-hidden="true" tabindex="-1"></a><span class="in">  └── 合成代理</span></span>
+<span id="cb14-279"><a href="#cb14-279" aria-hidden="true" tabindex="-1"></a><span class="in">        ├── 读取所有 result 文件 + review.md</span></span>
+<span id="cb14-280"><a href="#cb14-280" aria-hidden="true" tabindex="-1"></a><span class="in">        └── 输出 output/final.md</span></span>
+<span id="cb14-281"><a href="#cb14-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-282"><a href="#cb14-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-283"><a href="#cb14-283" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 4.4 文件通信的具体实现</span></span>
+<span id="cb14-284"><a href="#cb14-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-285"><a href="#cb14-285" aria-hidden="true" tabindex="-1"></a>每个子代理的任务说明写在独立的文件中：</span>
+<span id="cb14-286"><a href="#cb14-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-287"><a href="#cb14-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-288"><a href="#cb14-288" aria-hidden="true" tabindex="-1"></a><span class="in">notes/task_a.md</span></span>
+<span id="cb14-289"><a href="#cb14-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-290"><a href="#cb14-290" aria-hidden="true" tabindex="-1"></a><span class="in">任务：读取并分析论文 A</span></span>
+<span id="cb14-291"><a href="#cb14-291" aria-hidden="true" tabindex="-1"></a><span class="in">输入：input/papers/paper_a.pdf</span></span>
+<span id="cb14-292"><a href="#cb14-292" aria-hidden="true" tabindex="-1"></a><span class="in">要求：</span></span>
+<span id="cb14-293"><a href="#cb14-293" aria-hidden="true" tabindex="-1"></a><span class="in">  1. 提取研究问题、识别策略、主要结论、核心贡献</span></span>
+<span id="cb14-294"><a href="#cb14-294" aria-hidden="true" tabindex="-1"></a><span class="in">  2. 分析研究方法（数据来源、样本量、计量模型）</span></span>
+<span id="cb14-295"><a href="#cb14-295" aria-hidden="true" tabindex="-1"></a><span class="in">  3. 列出论文的主要局限</span></span>
+<span id="cb14-296"><a href="#cb14-296" aria-hidden="true" tabindex="-1"></a><span class="in">输出：notes/paper_a_summary.md</span></span>
+<span id="cb14-297"><a href="#cb14-297" aria-hidden="true" tabindex="-1"></a><span class="in">格式：使用 ## 标题分段，每条信息单独成行</span></span>
+<span id="cb14-298"><a href="#cb14-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-299"><a href="#cb14-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-300"><a href="#cb14-300" aria-hidden="true" tabindex="-1"></a>子代理完成后，主代理读取 <span class="in">`notes/paper_a_summary.md`</span> 的内容摘要（而不是让子代理把全文吐回上下文）。</span>
+<span id="cb14-301"><a href="#cb14-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-302"><a href="#cb14-302" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-303"><a href="#cb14-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-304"><a href="#cb14-304" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. MCP 协议入门</span></span>
+<span id="cb14-305"><a href="#cb14-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-306"><a href="#cb14-306" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.1 什么是 MCP？</span></span>
+<span id="cb14-307"><a href="#cb14-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-308"><a href="#cb14-308" aria-hidden="true" tabindex="-1"></a>MCP（Model Context Protocol）是一种标准化协议，让 AI Agent 能连接外部工具和数据源。</span>
+<span id="cb14-309"><a href="#cb14-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-310"><a href="#cb14-310" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **比喻：** MCP 是「**AI 世界的 USB-C 接口**」——插上什么设备，AI 就能用什么工具。插上数据库，AI 能查询数据；插上搜索引擎，AI 能搜索网页；插上 Zotero，AI 能管理文献。</span></span>
+<span id="cb14-311"><a href="#cb14-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-312"><a href="#cb14-312" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.2 MCP 可以连接什么？</span></span>
+<span id="cb14-313"><a href="#cb14-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-314"><a href="#cb14-314" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 连接对象                         <span class="pp">|</span> 功能           <span class="pp">|</span> 典型场景                                     <span class="pp">|</span></span>
+<span id="cb14-315"><a href="#cb14-315" aria-hidden="true" tabindex="-1"></a><span class="pp">| --------------------------------</span> <span class="pp">| --------------</span> <span class="pp">| --------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb14-316"><a href="#cb14-316" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 数据库（SQLite、PostgreSQL）     <span class="pp">|</span> 直接查询数据库 <span class="pp">|</span> 「帮我查一下 2020 年 CHFS 样本的户均收入」   <span class="pp">|</span></span>
+<span id="cb14-317"><a href="#cb14-317" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 搜索引擎（Brave Search、Tavily） <span class="pp">|</span> 搜索网页       <span class="pp">|</span> 「搜索最近关于数字金融的最新文献」           <span class="pp">|</span></span>
+<span id="cb14-318"><a href="#cb14-318" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文献管理（Zotero）               <span class="pp">|</span> 读写文献库     <span class="pp">|</span> 「把我的 Zotero 库中关于 DID 的论文列出来」  <span class="pp">|</span></span>
+<span id="cb14-319"><a href="#cb14-319" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文件系统                         <span class="pp">|</span> 读写本地文件   <span class="pp">|</span> 「遍历 input/ 下所有 CSV 文件」              <span class="pp">|</span></span>
+<span id="cb14-320"><a href="#cb14-320" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> API 服务                         <span class="pp">|</span> 调用外部 API   <span class="pp">|</span> 「通过 Crossref API 查询这篇论文的被引次数」 <span class="pp">|</span></span>
+<span id="cb14-321"><a href="#cb14-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-322"><a href="#cb14-322" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3 一个典型的 MCP 配置</span></span>
+<span id="cb14-323"><a href="#cb14-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-324"><a href="#cb14-324" aria-hidden="true" tabindex="-1"></a>在 Claude Code 中，MCP 通过配置文件定义：</span>
+<span id="cb14-325"><a href="#cb14-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-326"><a href="#cb14-326" aria-hidden="true" tabindex="-1"></a><span class="in">```json</span></span>
+<span id="cb14-327"><a href="#cb14-327" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb14-328"><a href="#cb14-328" aria-hidden="true" tabindex="-1"></a>  <span class="st">"mcpServers"</span><span class="op">:</span> {</span>
+<span id="cb14-329"><a href="#cb14-329" aria-hidden="true" tabindex="-1"></a>    <span class="st">"brave-search"</span><span class="op">:</span> {</span>
+<span id="cb14-330"><a href="#cb14-330" aria-hidden="true" tabindex="-1"></a>      <span class="st">"command"</span><span class="op">:</span> <span class="st">"npx"</span><span class="op">,</span></span>
+<span id="cb14-331"><a href="#cb14-331" aria-hidden="true" tabindex="-1"></a>      <span class="st">"args"</span><span class="op">:</span> [<span class="st">"-y"</span><span class="op">,</span> <span class="st">"@anthropic-ai/mcp-server-brave-search"</span>]<span class="op">,</span></span>
+<span id="cb14-332"><a href="#cb14-332" aria-hidden="true" tabindex="-1"></a>      <span class="st">"env"</span><span class="op">:</span> {</span>
+<span id="cb14-333"><a href="#cb14-333" aria-hidden="true" tabindex="-1"></a>        <span class="st">"BRAVE_API_KEY"</span><span class="op">:</span> <span class="st">"your-key-here"</span></span>
+<span id="cb14-334"><a href="#cb14-334" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb14-335"><a href="#cb14-335" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-336"><a href="#cb14-336" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-337"><a href="#cb14-337" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-338"><a href="#cb14-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-339"><a href="#cb14-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-340"><a href="#cb14-340" aria-hidden="true" tabindex="-1"></a>配置后，Agent 就可以直接搜索网页，而不需要你手动复制粘贴链接。</span>
+<span id="cb14-341"><a href="#cb14-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-342"><a href="#cb14-342" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.4 Skill vs MCP：什么时候用什么？</span></span>
+<span id="cb14-343"><a href="#cb14-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-344"><a href="#cb14-344" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 维度 <span class="pp">|</span> Skill                                      <span class="pp">|</span> MCP                                        <span class="pp">|</span></span>
+<span id="cb14-345"><a href="#cb14-345" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----</span> <span class="pp">| ------------------------------------------</span> <span class="pp">| ------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb14-346"><a href="#cb14-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 定位 <span class="pp">|</span> 封装**工作流程和专业知识**（怎么做） | 连接**外部工具和数据源**（用什么做） <span class="pp">|</span></span>
+<span id="cb14-347"><a href="#cb14-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 形式 <span class="pp">|</span> Markdown 文件（自然语言操作手册）          <span class="pp">|</span> JSON 配置 + 服务端程序                     <span class="pp">|</span></span>
+<span id="cb14-348"><a href="#cb14-348" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 举例 <span class="pp">|</span> 「如何一步步做文献综述」                   <span class="pp">|</span> 「如何连接 Zotero 数据库」                 <span class="pp">|</span></span>
+<span id="cb14-349"><a href="#cb14-349" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 关系 <span class="pp">|</span> 互补——Skill 里可以调用 MCP 工具          <span class="pp">|</span> MCP 为 Skill 提供外部能力                  <span class="pp">|</span></span>
+<span id="cb14-350"><a href="#cb14-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-351"><a href="#cb14-351" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **一句话：** Skill 告诉 AI 怎么做，MCP 给 AI 提供做的工具。两者常常一起使用——一个文献综述 Skill，调用 MCP 连接的搜索引擎来搜索文献，调用 MCP 连接的 Zotero 来管理引用。</span></span>
+<span id="cb14-352"><a href="#cb14-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-353"><a href="#cb14-353" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-354"><a href="#cb14-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-355"><a href="#cb14-355" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. 实战：创建 literature-review Skill</span></span>
+<span id="cb14-356"><a href="#cb14-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-357"><a href="#cb14-357" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 6.1 任务描述</span></span>
+<span id="cb14-358"><a href="#cb14-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-359"><a href="#cb14-359" aria-hidden="true" tabindex="-1"></a>将上一讲实战中多 Agent 文献综述的完整流程封装为一个可复用的 Skill。</span>
+<span id="cb14-360"><a href="#cb14-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-361"><a href="#cb14-361" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 6.2 操作步骤</span></span>
+<span id="cb14-362"><a href="#cb14-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-363"><a href="#cb14-363" aria-hidden="true" tabindex="-1"></a>**第一步：回顾上一讲的交互过程**</span>
+<span id="cb14-364"><a href="#cb14-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-365"><a href="#cb14-365" aria-hidden="true" tabindex="-1"></a>打开上一讲文献综述实战的会话记录（在 <span class="in">`~/.claude/projects/`</span> 目录下），回顾：</span>
+<span id="cb14-366"><a href="#cb14-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-367"><a href="#cb14-367" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>你是怎么给 AI 下指令的</span>
+<span id="cb14-368"><a href="#cb14-368" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>AI 怎么拆分子任务</span>
+<span id="cb14-369"><a href="#cb14-369" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>子代理怎么并行工作</span>
+<span id="cb14-370"><a href="#cb14-370" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>汇总阶段遇到了什么问题</span>
+<span id="cb14-371"><a href="#cb14-371" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>你做了哪些纠正</span>
+<span id="cb14-372"><a href="#cb14-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-373"><a href="#cb14-373" aria-hidden="true" tabindex="-1"></a>**第二步：调用 skill-creator 复盘蒸馏**</span>
+<span id="cb14-374"><a href="#cb14-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-375"><a href="#cb14-375" aria-hidden="true" tabindex="-1"></a>在与文献综述实战相同（或基于 notes/ 记录重建）的会话中：</span>
+<span id="cb14-376"><a href="#cb14-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-377"><a href="#cb14-377" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-378"><a href="#cb14-378" aria-hidden="true" tabindex="-1"></a><span class="in">请调用 skill-creator，将我们做文献综述的完整流程封装为 Skill。</span></span>
+<span id="cb14-379"><a href="#cb14-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-380"><a href="#cb14-380" aria-hidden="true" tabindex="-1"></a><span class="in">要求：</span></span>
+<span id="cb14-381"><a href="#cb14-381" aria-hidden="true" tabindex="-1"></a><span class="in">- Skill 名称：literature-review</span></span>
+<span id="cb14-382"><a href="#cb14-382" aria-hidden="true" tabindex="-1"></a><span class="in">- 功能：输入一个包含 PDF 论文的文件夹，输出一份结构化的文献综述</span></span>
+<span id="cb14-383"><a href="#cb14-383" aria-hidden="true" tabindex="-1"></a><span class="in">- 流程：</span></span>
+<span id="cb14-384"><a href="#cb14-384" aria-hidden="true" tabindex="-1"></a><span class="in">  1. 扫描 input/papers/ 目录，列出所有 PDF 文件</span></span>
+<span id="cb14-385"><a href="#cb14-385" aria-hidden="true" tabindex="-1"></a><span class="in">  2. 将 PDF 转换为 Markdown 格式以便 AI 阅读（调用 markitdown 或相关转换工具）</span></span>
+<span id="cb14-386"><a href="#cb14-386" aria-hidden="true" tabindex="-1"></a><span class="in">  3. 并行委派子代理提取每篇论文的关键信息</span></span>
+<span id="cb14-387"><a href="#cb14-387" aria-hidden="true" tabindex="-1"></a><span class="in">  4. 子代理将结构化摘要写入 notes/ 目录</span></span>
+<span id="cb14-388"><a href="#cb14-388" aria-hidden="true" tabindex="-1"></a><span class="in">  5. 审查代理检查各摘要的一致性和完整性</span></span>
+<span id="cb14-389"><a href="#cb14-389" aria-hidden="true" tabindex="-1"></a><span class="in">  6. 合成代理汇总为文献综述初稿，输出到 output/</span></span>
+<span id="cb14-390"><a href="#cb14-390" aria-hidden="true" tabindex="-1"></a><span class="in">- 注意事项：</span></span>
+<span id="cb14-391"><a href="#cb14-391" aria-hidden="true" tabindex="-1"></a><span class="in">  - 子代理必须通过文件通信，不得将完整输出返回主代理</span></span>
+<span id="cb14-392"><a href="#cb14-392" aria-hidden="true" tabindex="-1"></a><span class="in">  - 引用的文献信息必须标注「需人工核实」</span></span>
+<span id="cb14-393"><a href="#cb14-393" aria-hidden="true" tabindex="-1"></a><span class="in">  - 每篇论文的引用格式必须统一</span></span>
+<span id="cb14-394"><a href="#cb14-394" aria-hidden="true" tabindex="-1"></a><span class="in">  - 综述中不得编造文献引用</span></span>
+<span id="cb14-395"><a href="#cb14-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-396"><a href="#cb14-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-397"><a href="#cb14-397" aria-hidden="true" tabindex="-1"></a>**第三步：审核和修改**</span>
+<span id="cb14-398"><a href="#cb14-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-399"><a href="#cb14-399" aria-hidden="true" tabindex="-1"></a>检查生成的 SKILL.md：</span>
+<span id="cb14-400"><a href="#cb14-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-401"><a href="#cb14-401" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>步骤是否完整、可操作</span>
+<span id="cb14-402"><a href="#cb14-402" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否包含了「引文必须人工核实」的警告</span>
+<span id="cb14-403"><a href="#cb14-403" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>输出格式是否符合学术规范</span>
+<span id="cb14-404"><a href="#cb14-404" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>是否设置了合理的人工确认节点</span>
+<span id="cb14-405"><a href="#cb14-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-406"><a href="#cb14-406" aria-hidden="true" tabindex="-1"></a>**第四步：保存**</span>
+<span id="cb14-407"><a href="#cb14-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-408"><a href="#cb14-408" aria-hidden="true" tabindex="-1"></a>保存到 <span class="in">`~/.claude/skills/literature-review/SKILL.md`</span>。</span>
+<span id="cb14-409"><a href="#cb14-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-410"><a href="#cb14-410" aria-hidden="true" tabindex="-1"></a>**第五步：测试**</span>
+<span id="cb14-411"><a href="#cb14-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-412"><a href="#cb14-412" aria-hidden="true" tabindex="-1"></a>新开一个会话，放入另一组论文（与创建时不同的论文），用刚创建的 Skill 跑一次：</span>
+<span id="cb14-413"><a href="#cb14-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-414"><a href="#cb14-414" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-415"><a href="#cb14-415" aria-hidden="true" tabindex="-1"></a><span class="in">请按 literature-review Skill 的要求，分析 input/papers/ 中的论文，</span></span>
+<span id="cb14-416"><a href="#cb14-416" aria-hidden="true" tabindex="-1"></a><span class="in">生成文献综述初稿。</span></span>
+<span id="cb14-417"><a href="#cb14-417" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-418"><a href="#cb14-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-419"><a href="#cb14-419" aria-hidden="true" tabindex="-1"></a>观察：</span>
+<span id="cb14-420"><a href="#cb14-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-421"><a href="#cb14-421" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Skill 是否正确触发</span>
+<span id="cb14-422"><a href="#cb14-422" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>执行流程是否按预期进行</span>
+<span id="cb14-423"><a href="#cb14-423" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>输出质量是否符合要求</span>
+<span id="cb14-424"><a href="#cb14-424" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>有哪些地方需要改进</span>
+<span id="cb14-425"><a href="#cb14-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-426"><a href="#cb14-426" aria-hidden="true" tabindex="-1"></a>**第六步：迭代优化**</span>
+<span id="cb14-427"><a href="#cb14-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-428"><a href="#cb14-428" aria-hidden="true" tabindex="-1"></a>根据测试结果修改 SKILL.md。重点优化：</span>
+<span id="cb14-429"><a href="#cb14-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-430"><a href="#cb14-430" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>触发条件的描述是否准确</span>
+<span id="cb14-431"><a href="#cb14-431" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>执行步骤是否需要调整顺序</span>
+<span id="cb14-432"><a href="#cb14-432" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>注意事项是否需要补充</span>
+<span id="cb14-433"><a href="#cb14-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-434"><a href="#cb14-434" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-435"><a href="#cb14-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-436"><a href="#cb14-436" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. 本讲核心概念回顾</span></span>
+<span id="cb14-437"><a href="#cb14-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-438"><a href="#cb14-438" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 概念                               <span class="pp">|</span> 一句话解释                                                       <span class="pp">|</span></span>
+<span id="cb14-439"><a href="#cb14-439" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------------------</span> <span class="pp">| ----------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb14-440"><a href="#cb14-440" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **SKILL.md min 结构**        <span class="pp">|</span> YAML frontmatter（name + description）+ Markdown 操作手册        <span class="pp">|</span></span>
+<span id="cb14-441"><a href="#cb14-441" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **渐进式加载**               <span class="pp">|</span> 启动时只加载 frontmatter，触发时才加载完整内容——节省上下文窗口 <span class="pp">|</span></span>
+<span id="cb14-442"><a href="#cb14-442" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **skill-creator 复盘工作流** <span class="pp">|</span> 跑通 → 复盘（同一会话）→ 蒸馏 → 审核 → 保存 → 测试          <span class="pp">|</span></span>
+<span id="cb14-443"><a href="#cb14-443" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **do-agent 四原则**          <span class="pp">|</span> 先规划 → 多 Agent 委派 → 文件通信 → 审查修订                  <span class="pp">|</span></span>
+<span id="cb14-444"><a href="#cb14-444" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **文件通信铁律**             <span class="pp">|</span> 子代理结果必须写入文件，严禁将完整输出返回主代理                 <span class="pp">|</span></span>
+<span id="cb14-445"><a href="#cb14-445" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **MCP = USB-C**              <span class="pp">|</span> 连接外部工具和数据源的标准化协议                                 <span class="pp">|</span></span>
+<span id="cb14-446"><a href="#cb14-446" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Skill vs MCP**             <span class="pp">|</span> Skill 告诉怎么做，MCP 给做的工具——两者互补                     <span class="pp">|</span></span>
+<span id="cb14-447"><a href="#cb14-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-448"><a href="#cb14-448" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-449"><a href="#cb14-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-450"><a href="#cb14-450" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. 课后任务</span></span>
+<span id="cb14-451"><a href="#cb14-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-452"><a href="#cb14-452" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>创建一个自定义 Skill（至少一个），可以是你领域常用的：</span>
+<span id="cb14-453"><a href="#cb14-453" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Stata 回归分析 Skill</span>
+<span id="cb14-454"><a href="#cb14-454" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>论文审稿 Skill</span>
+<span id="cb14-455"><a href="#cb14-455" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>文献综述 Skill</span>
+<span id="cb14-456"><a href="#cb14-456" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>数据清洗 Skill</span>
+<span id="cb14-457"><a href="#cb14-457" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>用 do-agent 四原则完成一次至少包含 3 个子代理的复杂任务</span>
+<span id="cb14-458"><a href="#cb14-458" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>尝试配置一个 MCP 服务（如 Brave Search 或 Tavily），让 AI 能直接搜索网页</span>
+<span id="cb14-459"><a href="#cb14-459" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>将你创建的所有 Skill 保存到 <span class="in">`~/.claude/skills/`</span>，确保跨项目可用</span>
+<span id="cb14-460"><a href="#cb14-460" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>为你创建的每个 Skill 写一条测试用例，新会话中验证可用性</span>
+<span id="cb14-461"><a href="#cb14-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-462"><a href="#cb14-462" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb14-463"><a href="#cb14-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-464"><a href="#cb14-464" aria-hidden="true" tabindex="-1"></a><span class="fu">## 课堂参考材料</span></span>
+<span id="cb14-465"><a href="#cb14-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-466"><a href="#cb14-466" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文件                               <span class="pp">|</span> 内容                         <span class="pp">|</span></span>
+<span id="cb14-467"><a href="#cb14-467" aria-hidden="true" tabindex="-1"></a><span class="pp">| ----------------------------------</span> <span class="pp">| ----------------------------</span> <span class="pp">|</span></span>
+<span id="cb14-468"><a href="#cb14-468" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Part1-AI工具介绍与环境配置.md`</span>  <span class="pp">|</span> Skills 安装与 Agent 创建基础 <span class="pp">|</span></span>
+<span id="cb14-469"><a href="#cb14-469" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`Part2-Agent操作与知识库构建.md`</span> <span class="pp">|</span> 本讲详细教学内容             <span class="pp">|</span></span>
+<span id="cb14-470"><a href="#cb14-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-471"><a href="#cb14-471" aria-hidden="true" tabindex="-1"></a>**参考图片目录：** <span class="in">`reference/html/A1 构建工作台/_files/`</span></span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

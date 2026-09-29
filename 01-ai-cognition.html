@@ -1,0 +1,2905 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="张晨">
+<meta name="dcterms.date" content="2026-09-29">
+
+<title>第一讲：AI 认知与工具概览 – AI 在经济管理研究中的应用</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-environment-setup.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-eec68b17241c1efd3eae2de50d816e3e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d5fb2bd185f07460e4408dd84795c9a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>
+  /* ---------- 登录门禁：页面锁定与登录框样式 ---------- */
+  /* 未登录时隐藏正文（仅保留登录框） */
+  html.auth-locked body > *:not(#book-auth-gate) {
+    visibility: hidden !important;
+  }
+
+  #book-auth-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background: radial-gradient(1200px 700px at 20% 0%, #22303f 0%, #16202b 55%, #101820 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #1a1a1a;
+  }
+  #book-auth-gate[hidden] { display: none !important; }
+
+  .auth-card {
+    width: 100%;
+    max-width: 380px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    padding: 40px 36px 34px;
+    box-sizing: border-box;
+  }
+  .auth-brand {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .auth-brand .auth-kicker {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #0b7285;
+    background: rgba(11, 114, 133, 0.08);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .auth-brand h1 {
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #1a2733;
+  }
+  .auth-brand p {
+    font-size: 13px;
+    color: #7a8794;
+    margin: 0;
+  }
+  .auth-field { margin-bottom: 16px; }
+  .auth-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3c4854;
+    margin-bottom: 6px;
+  }
+  .auth-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    font-size: 15px;
+    color: #1a2733;
+    background: #f6f8fa;
+    border: 1px solid #d7dee5;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-field input:focus {
+    border-color: #0b7285;
+    box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.15);
+    background: #ffffff;
+  }
+  .auth-error {
+    display: none;
+    font-size: 13px;
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.08);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin: -4px 0 14px;
+  }
+  .auth-submit {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0b7285;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .auth-submit:hover { background: #095d6d; }
+  .auth-submit:active { background: #084c59; }
+  .auth-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #a4afba;
+    margin-top: 18px;
+  }
+</style>
+
+<script>
+  /* 立即锁定：若尚未登录，则在正文渲染前隐藏页面内容 */
+  (function () {
+    var ok = false;
+    try {
+      ok = sessionStorage.getItem("BOOK_AUTH_OK") === "1";
+    } catch (e) {
+      ok = false;
+    }
+    if (!ok) {
+      document.documentElement.classList.add("auth-locked");
+    }
+  })();
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-ai-cognition.html">第一讲：AI 认知与工具概览</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">课程讲义</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="切换阅读器模式">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">课程简介</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-ai-cognition.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第一讲：AI 认知与工具概览</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-environment-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第二讲：环境安装与引擎配置</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-agent-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第三讲：Agent 基础操作</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-agent-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第四讲：Agent 进阶</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-knowledge-base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第五讲：知识库构建与学术品味蒸馏</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-data-collection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第六讲：AI 辅助数据采集</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-text-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第七讲：AI 辅助文本分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-empirical-research.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第八讲：AI 辅助规范实证研究</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#本次教学目标" id="toc-本次教学目标" class="nav-link active" data-scroll-target="#本次教学目标">本次教学目标</a></li>
+  <li><a href="#课前说明" id="toc-课前说明" class="nav-link" data-scroll-target="#课前说明">课前说明</a></li>
+  <li><a href="#上节认识-llm从原理到能力边界" id="toc-上节认识-llm从原理到能力边界" class="nav-link" data-scroll-target="#上节认识-llm从原理到能力边界">上节：认识 LLM——从原理到能力边界</a>
+  <ul class="collapse">
+  <li><a href="#什么是生成式大语言模型llm" id="toc-什么是生成式大语言模型llm" class="nav-link" data-scroll-target="#什么是生成式大语言模型llm">1.1 什么是生成式大语言模型（LLM）？</a>
+  <ul class="collapse">
+  <li><a href="#技术定义" id="toc-技术定义" class="nav-link" data-scroll-target="#技术定义">技术定义</a></li>
+  <li><a href="#年主流模型概览" id="toc-年主流模型概览" class="nav-link" data-scroll-target="#年主流模型概览">2026 年主流模型概览</a></li>
+  <li><a href="#一个帮助你建立直觉的类比" id="toc-一个帮助你建立直觉的类比" class="nav-link" data-scroll-target="#一个帮助你建立直觉的类比">一个帮助你建立直觉的类比</a></li>
+  <li><a href="#一个简单的思维实验" id="toc-一个简单的思维实验" class="nav-link" data-scroll-target="#一个简单的思维实验">一个简单的思维实验</a></li>
+  </ul></li>
+  <li><a href="#llm-能做什么" id="toc-llm-能做什么" class="nav-link" data-scroll-target="#llm-能做什么">1.2 LLM 能做什么？</a>
+  <ul class="collapse">
+  <li><a href="#核心通用能力" id="toc-核心通用能力" class="nav-link" data-scroll-target="#核心通用能力">核心通用能力</a></li>
+  <li><a href="#在研究各环节的具体应用" id="toc-在研究各环节的具体应用" class="nav-link" data-scroll-target="#在研究各环节的具体应用">在研究各环节的具体应用</a></li>
+  <li><a href="#学界初步共识" id="toc-学界初步共识" class="nav-link" data-scroll-target="#学界初步共识">学界初步共识</a></li>
+  </ul></li>
+  <li><a href="#llm-有什么缺陷上节重点" id="toc-llm-有什么缺陷上节重点" class="nav-link" data-scroll-target="#llm-有什么缺陷上节重点">1.3 LLM 有什么缺陷？（上节重点）</a>
+  <ul class="collapse">
+  <li><a href="#缺陷一幻觉编造事实与虚构引用" id="toc-缺陷一幻觉编造事实与虚构引用" class="nav-link" data-scroll-target="#缺陷一幻觉编造事实与虚构引用">缺陷一：幻觉——编造事实与虚构引用</a></li>
+  <li><a href="#缺陷二知识截止日期" id="toc-缺陷二知识截止日期" class="nav-link" data-scroll-target="#缺陷二知识截止日期">缺陷二：知识截止日期</a></li>
+  <li><a href="#缺陷三结果不可复现" id="toc-缺陷三结果不可复现" class="nav-link" data-scroll-target="#缺陷三结果不可复现">缺陷三：结果不可复现</a></li>
+  <li><a href="#缺陷四推理能力局限" id="toc-缺陷四推理能力局限" class="nav-link" data-scroll-target="#缺陷四推理能力局限">缺陷四：推理能力局限</a></li>
+  <li><a href="#缺陷五无法真正执行操作" id="toc-缺陷五无法真正执行操作" class="nav-link" data-scroll-target="#缺陷五无法真正执行操作">缺陷五：无法真正执行操作</a></li>
+  <li><a href="#缺陷六经济学专业能力的结构性缺失" id="toc-缺陷六经济学专业能力的结构性缺失" class="nav-link" data-scroll-target="#缺陷六经济学专业能力的结构性缺失">缺陷六：经济学专业能力的结构性缺失</a></li>
+  <li><a href="#llm-擅长与不擅长能力矩阵" id="toc-llm-擅长与不擅长能力矩阵" class="nav-link" data-scroll-target="#llm-擅长与不擅长能力矩阵">LLM 擅长与不擅长：能力矩阵</a></li>
+  <li><a href="#常见误区澄清" id="toc-常见误区澄清" class="nav-link" data-scroll-target="#常见误区澄清">常见误区澄清</a></li>
+  <li><a href="#底线" id="toc-底线" class="nav-link" data-scroll-target="#底线">底线</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#下节从-llm-到-agent工具选择与学习路径" id="toc-下节从-llm-到-agent工具选择与学习路径" class="nav-link" data-scroll-target="#下节从-llm-到-agent工具选择与学习路径">下节：从 LLM 到 Agent——工具选择与学习路径</a>
+  <ul class="collapse">
+  <li><a href="#为什么需要-agent" id="toc-为什么需要-agent" class="nav-link" data-scroll-target="#为什么需要-agent">2.1 为什么需要 Agent？</a>
+  <ul class="collapse">
+  <li><a href="#从一段日常困境说起" id="toc-从一段日常困境说起" class="nav-link" data-scroll-target="#从一段日常困境说起">从一段日常困境说起</a></li>
+  <li><a href="#agent-的本质区别" id="toc-agent-的本质区别" class="nav-link" data-scroll-target="#agent-的本质区别">Agent 的本质区别</a></li>
+  <li><a href="#agent-自动干活的能力" id="toc-agent-自动干活的能力" class="nav-link" data-scroll-target="#agent-自动干活的能力">Agent = 「自动干活」的能力</a></li>
+  </ul></li>
+  <li><a href="#agent-的核心概念" id="toc-agent-的核心概念" class="nav-link" data-scroll-target="#agent-的核心概念">2.2 Agent 的核心概念</a>
+  <ul class="collapse">
+  <li><a href="#核心公式" id="toc-核心公式" class="nav-link" data-scroll-target="#核心公式">核心公式</a></li>
+  <li><a href="#四组件详解" id="toc-四组件详解" class="nav-link" data-scroll-target="#四组件详解">四组件详解</a></li>
+  <li><a href="#一个直观类比" id="toc-一个直观类比" class="nav-link" data-scroll-target="#一个直观类比">一个直观类比</a></li>
+  </ul></li>
+  <li><a href="#主流-agent-工具概览" id="toc-主流-agent-工具概览" class="nav-link" data-scroll-target="#主流-agent-工具概览">2.3 主流 Agent 工具概览</a>
+  <ul class="collapse">
+  <li><a href="#六款工具速览" id="toc-六款工具速览" class="nav-link" data-scroll-target="#六款工具速览">六款工具速览</a></li>
+  <li><a href="#快速定位指南" id="toc-快速定位指南" class="nav-link" data-scroll-target="#快速定位指南">快速定位指南</a></li>
+  <li><a href="#九维度深度对比" id="toc-九维度深度对比" class="nav-link" data-scroll-target="#九维度深度对比">九维度深度对比</a></li>
+  <li><a href="#一个具体的-agent-工作流示例" id="toc-一个具体的-agent-工作流示例" class="nav-link" data-scroll-target="#一个具体的-agent-工作流示例">一个具体的 Agent 工作流示例</a></li>
+  <li><a href="#课程选型理由为什么是-claude-code-opencode" id="toc-课程选型理由为什么是-claude-code-opencode" class="nav-link" data-scroll-target="#课程选型理由为什么是-claude-code-opencode">课程选型理由：为什么是 Claude Code + OpenCode？</a></li>
+  </ul></li>
+  <li><a href="#主流聊天-对话工具一览" id="toc-主流聊天-对话工具一览" class="nav-link" data-scroll-target="#主流聊天-对话工具一览">2.4 主流聊天 / 对话工具一览</a>
+  <ul class="collapse">
+  <li><a href="#国际主流" id="toc-国际主流" class="nav-link" data-scroll-target="#国际主流">国际主流</a></li>
+  <li><a href="#国产主流" id="toc-国产主流" class="nav-link" data-scroll-target="#国产主流">国产主流</a></li>
+  <li><a href="#按任务选工具速查表" id="toc-按任务选工具速查表" class="nav-link" data-scroll-target="#按任务选工具速查表">按任务选工具速查表</a></li>
+  <li><a href="#混合策略推荐" id="toc-混合策略推荐" class="nav-link" data-scroll-target="#混合策略推荐">混合策略（推荐）</a></li>
+  </ul></li>
+  <li><a href="#经管研究生推荐学习路径" id="toc-经管研究生推荐学习路径" class="nav-link" data-scroll-target="#经管研究生推荐学习路径">2.5 经管研究生推荐学习路径</a>
+  <ul class="collapse">
+  <li><a href="#三阶段规划" id="toc-三阶段规划" class="nav-link" data-scroll-target="#三阶段规划">三阶段规划</a></li>
+  <li><a href="#阶段一入门会用-ai-提效" id="toc-阶段一入门会用-ai-提效" class="nav-link" data-scroll-target="#阶段一入门会用-ai-提效">阶段一：入门（会用 AI 提效）</a></li>
+  <li><a href="#阶段二进阶搭建个人工作流" id="toc-阶段二进阶搭建个人工作流" class="nav-link" data-scroll-target="#阶段二进阶搭建个人工作流">阶段二：进阶（搭建个人工作流）</a></li>
+  <li><a href="#阶段三精通构建自动化系统" id="toc-阶段三精通构建自动化系统" class="nav-link" data-scroll-target="#阶段三精通构建自动化系统">阶段三：精通（构建自动化系统）</a></li>
+  <li><a href="#零预算方案全年-0-元" id="toc-零预算方案全年-0-元" class="nav-link" data-scroll-target="#零预算方案全年-0-元">零预算方案（全年 0 元）</a></li>
+  </ul></li>
+  <li><a href="#本课程四讲结构" id="toc-本课程四讲结构" class="nav-link" data-scroll-target="#本课程四讲结构">2.6 本课程四讲结构</a></li>
+  <li><a href="#课堂讨论" id="toc-课堂讨论" class="nav-link" data-scroll-target="#课堂讨论">课堂讨论</a></li>
+  <li><a href="#本次课课后任务" id="toc-本次课课后任务" class="nav-link" data-scroll-target="#本次课课后任务">本次课课后任务</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">第一讲：AI 认知与工具概览</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+<p class="subtitle lead">课程讲义 · 网页教材</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>张晨 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">发布于</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-09-29</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>授课人：</strong> 张晨（西北农林科技大学经济管理学院）</p>
+<p><strong>第 1 次课</strong> | 2 课时（90 分钟） | 2026 年夏季学期</p>
+<hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pref-pref-mindmap-new.png" class="img-fluid figure-img"></p>
+<figcaption>课程思维导图</figcaption>
+</figure>
+</div>
+<section id="本次教学目标" class="level2">
+<h2 class="anchored" data-anchor-id="本次教学目标">本次教学目标</h2>
+<p>完成本次课后，你应该能够：</p>
+<ol type="1">
+<li>用通俗语言解释什么是生成式大语言模型（LLM），并举出至少三个它在经管研究中的典型应用场景</li>
+<li>逐一说出 LLM 的六个核心缺陷，理解为什么「AI 生成的引用必须逐条核实」</li>
+<li>说清 Agent 和 Chatbot 的本质区别，用自己的话解释 Agent 的四组件公式</li>
+<li>根据任务类型选择合适的 AI 工具（聊天工具 / Agent 工具），并能解释选择理由</li>
+<li>了解从「入门→进阶→精通」三阶段学习路径，明确自己当前阶段的学习目标</li>
+</ol>
+<hr>
+</section>
+<section id="课前说明" class="level2">
+<h2 class="anchored" data-anchor-id="课前说明">课前说明</h2>
+<p>本课程是「人工智能在经济管理研究中的应用」的第一讲，属于「认知奠基」阶段。今天不装任何软件。</p>
+<p>在动手操作之前，你需要先搞清楚三个问题：</p>
+<ol type="1">
+<li>AI 到底是什么？它的底层机制决定了它的能力上限</li>
+<li>它能做什么、不能做什么？知道边界比知道能力更重要</li>
+<li>为什么需要 Agent？ChatGPT 不够用吗？</li>
+</ol>
+<p>这四个课时的教学逻辑是：<strong>先理解本质，再动手搭建。</strong> 好比做实证研究——先搞清楚识别假设能不能满足，再跑回归。你肯定不希望装了一堆软件之后才发现：这些东西根本解决不了你的问题。</p>
+<hr>
+</section>
+<section id="上节认识-llm从原理到能力边界" class="level1">
+<h1>上节：认识 LLM——从原理到能力边界</h1>
+<blockquote class="blockquote">
+<p>上节时长建议：45 分钟。重点放在 1.3 节「六缺陷」——这是后续所有操作课的理论基础。</p>
+</blockquote>
+<hr>
+<section id="什么是生成式大语言模型llm" class="level2">
+<h2 class="anchored" data-anchor-id="什么是生成式大语言模型llm">1.1 什么是生成式大语言模型（LLM）？</h2>
+<section id="技术定义" class="level3">
+<h3 class="anchored" data-anchor-id="技术定义">技术定义</h3>
+<p>生成式大语言模型（Large Language Model, LLM）是一种基于 Transformer 架构、通过海量文本数据训练得到的深度学习模型。其核心工作机制极其简单：<strong>给定上文，预测下一个最可能出现的词元（token），逐词生成完整文本。</strong></p>
+<p>这里有三个关键词需要拆解：</p>
+<ul>
+<li><strong>生成式（Generative）</strong>：不是从数据库里检索已有答案，而是从头「生成」新的文本。这也是为什么同一个问题问两遍可能得到不同回答——它每次都在重新生成。</li>
+<li><strong>大（Large）</strong>：指数十亿至万亿级的参数量。参数越多，模型能捕捉的语言模式越复杂。2026 年的主流模型通常在 100B-2T 参数区间。</li>
+<li><strong>语言（Language）</strong>：训练数据是文本，不是数字、图像或代码。尽管它能写代码、能做数学推理，但本质仍是语言模型——它的「思考」是对语言模式的拟合，不是逻辑演绎。</li>
+</ul>
+</section>
+<section id="年主流模型概览" class="level3">
+<h3 class="anchored" data-anchor-id="年主流模型概览">2026 年主流模型概览</h3>
+<p>当前主流模型普遍采用混合专家架构（Mixture of Experts, MoE），上下文窗口已扩展至百万 token 级别。百万 token 是什么概念？大约 75 万个中文汉字——相当于把一整年的《经济研究》装进一个对话窗口。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>模型</th>
+<th>开发商</th>
+<th>架构特点</th>
+<th>上下文窗口</th>
+<th>突出优势</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GPT-5.5</td>
+<td>OpenAI</td>
+<td>MoE</td>
+<td>128K-1M</td>
+<td>综合能力最均衡</td>
+</tr>
+<tr class="even">
+<td>Claude Fable 5 / Opus 4.8</td>
+<td>Anthropic</td>
+<td>MoE</td>
+<td>1M</td>
+<td>编程 + 长文本解析最优</td>
+</tr>
+<tr class="odd">
+<td>DeepSeek V4 / R1</td>
+<td>DeepSeek</td>
+<td>MoE</td>
+<td>128K-1M+</td>
+<td>国产推理最强，完全免费</td>
+</tr>
+<tr class="even">
+<td>Kimi K2.6</td>
+<td>月之暗面</td>
+<td>MoE</td>
+<td>1M（200 万字）</td>
+<td>超长文本处理王者</td>
+</tr>
+<tr class="odd">
+<td>Gemini 3.1 Pro</td>
+<td>Google</td>
+<td>MoE</td>
+<td>1M</td>
+<td>多模态 + 科学推理强</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="一个帮助你建立直觉的类比" class="level3">
+<h3 class="anchored" data-anchor-id="一个帮助你建立直觉的类比">一个帮助你建立直觉的类比</h3>
+<p>把 LLM 理解为一个<strong>「读过几乎所有公开文字、但不会真正思考」的超级实习生</strong>：</p>
+<ul>
+<li><strong>博闻强记</strong>：它读过网上能找到的几乎所有公开论文、教材、代码、新闻报道。让它写一段 DID 的方法论介绍，它写得比教材还流畅；让它列出农业经济学常用的工具变量，它能给出一个不错的清单。</li>
+<li><strong>反应极快</strong>：几秒钟内能读完一篇 50 页的论文并给出总结。人类博士生可能需要一两个小时。</li>
+<li><strong>但不会真正思考</strong>：你让它判断你的工具变量是否满足排他性约束——它做不到。因为后者需要因果推断的专业判断、需要理解研究情境、需要权衡多种可能性的相对合理性，而不仅仅是「在训练数据中见过的语言模式」。</li>
+<li><strong>会信口开河</strong>：当它不知道某个具体事实时，它不会说「我不知道」，而是会根据语言概率拼凑一个「听起来很合理」的答案。这在学术界是致命的——虚构一条参考文献可能让你的论文在审稿环节被直接拒稿。</li>
+</ul>
+</section>
+<section id="一个简单的思维实验" class="level3">
+<h3 class="anchored" data-anchor-id="一个简单的思维实验">一个简单的思维实验</h3>
+<p>打开 ChatGPT 或 DeepSeek，输入：</p>
+<blockquote class="blockquote">
+<p>「请写一段 200 字的文字，介绍双重差分法（DID）在农业经济学中的应用。」</p>
+</blockquote>
+<p>你会发现它写得相当流畅——定义准确、文献提及合理、行文符合学术规范。</p>
+<p>再输入：</p>
+<blockquote class="blockquote">
+<p>「我正在用 CHFS 2015-2019 面板数据研究宽带接入对农户非农收入的影响。我计划用『村到最近电信基站的距离』作为宽带接入的工具变量。这个工具变量是否满足排他性约束？请给出具体分析。」</p>
+</blockquote>
+<p>你会发现它的回答要么是泛泛而谈的教科书式分析，要么就是一套「听上去处处合理、实则没有实质性判断」的车轱辘话。它不知道你的研究区域的地形特征、不了解电信基础设施的空间分布逻辑、不清楚基站的选址决策过程——而这些才是判断工具变量有效性的关键信息。</p>
+<p><strong>这就是 LLM 的能力边界：语言层面的流畅掩盖不了实质判断的缺失。</strong></p>
+<hr>
+</section>
+</section>
+<section id="llm-能做什么" class="level2">
+<h2 class="anchored" data-anchor-id="llm-能做什么">1.2 LLM 能做什么？</h2>
+<section id="核心通用能力" class="level3">
+<h3 class="anchored" data-anchor-id="核心通用能力">核心通用能力</h3>
+<p>理解 LLM 能做什么，不要想「它能替代人的哪些工作」，而要想「哪些工作只需要语言层面的能力就能完成」。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 20%">
+<col style="width: 48%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>能力</th>
+<th>底层机制</th>
+<th>在经管研究中的典型场景</th>
+<th style="text-align: center;">可靠性</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>文本生成与润色</td>
+<td>序列到序列的条件生成</td>
+<td>英文论文润色、中英互译、审稿意见回复草稿</td>
+<td style="text-align: center;">高</td>
+</tr>
+<tr class="even">
+<td>代码编写</td>
+<td>代码即文本，概率生成</td>
+<td>Stata / Python / R 清洗、回归命令、表格输出（esttab / outreg2）</td>
+<td style="text-align: center;">中高（需调试）</td>
+</tr>
+<tr class="odd">
+<td>信息提取</td>
+<td>模式匹配 + 语义理解</td>
+<td>从 PDF 论文提取结构化信息（样本量、方法、结论）</td>
+<td style="text-align: center;">中高</td>
+</tr>
+<tr class="even">
+<td>文本分类与编码</td>
+<td>多分类任务的概率建模</td>
+<td>对年报文本做情感分析、对政策文件做主题编码</td>
+<td style="text-align: center;">高</td>
+</tr>
+<tr class="odd">
+<td>头脑风暴</td>
+<td>生成式发散</td>
+<td>研究设计讨论、识别策略列举、稳健性检验建议</td>
+<td style="text-align: center;">中（需人工筛选）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="在研究各环节的具体应用" class="level3">
+<h3 class="anchored" data-anchor-id="在研究各环节的具体应用">在研究各环节的具体应用</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>研究环节</th>
+<th>LLM 的具体应用</th>
+<th>人工必须做的事</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>文献综述</td>
+<td>初筛归类、结构化信息提取、按主题分组的初稿生成</td>
+<td>判断文献质量、确定纳入排除标准、核实引用</td>
+</tr>
+<tr class="even">
+<td>研究设计</td>
+<td>列举可能的识别策略（DID、IV、RD）、推荐数据来源、建议稳健性检验方案</td>
+<td>选择适合研究情境的策略、判断识别假设是否满足</td>
+</tr>
+<tr class="odd">
+<td>代码编写</td>
+<td>生成 Stata / Python / R 代码模板，覆盖数据清洗→基准回归→稳健性检验全流程</td>
+<td>调试代码、验证结果、根据数据特征调整设定</td>
+</tr>
+<tr class="even">
+<td>文本润色</td>
+<td>语法纠错、表达优化、按期刊风格调整行文</td>
+<td>保留学术观点和论证逻辑的完整性</td>
+</tr>
+<tr class="odd">
+<td>文本分析</td>
+<td>对年报、新闻、政策文件做情感分析、主题建模、关键词提取</td>
+<td>定义编码框架、验证分类准确率、解释结果的经济含义</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="学界初步共识" class="level3">
+<h3 class="anchored" data-anchor-id="学界初步共识">学界初步共识</h3>
+<p><strong>机械性、重复性、格式化的工作交给 AI；创造性、判断性、把关性的工作留在自己手里。</strong></p>
+<p>这不是说 AI 不重要——恰恰相反。一个能处理 80% 机械性工作的工具，能让研究者把精力集中在 20% 真正需要专业判断的环节上。这带来的效率提升是数量级的。</p>
+<p>把 AI 定位为「超级研究助理」而非「合作者」：</p>
+<ul>
+<li>它能帮你跑 100 个回归——但你得设计回归方程</li>
+<li>它能帮你润色三段引言——但你得确定论证逻辑</li>
+<li>它能帮你提取 500 篇论文的结构化信息——但你得定义提取框架</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="llm-有什么缺陷上节重点" class="level2">
+<h2 class="anchored" data-anchor-id="llm-有什么缺陷上节重点">1.3 LLM 有什么缺陷？（上节重点）</h2>
+<p>这一节是今天最重要的内容。理解 LLM 的局限，比知道它的能力更重要。以下六个缺陷，每一个都可能让你的研究翻车。</p>
+<section id="缺陷一幻觉编造事实与虚构引用" class="level3">
+<h3 class="anchored" data-anchor-id="缺陷一幻觉编造事实与虚构引用">缺陷一：幻觉——编造事实与虚构引用</h3>
+<p>这是 LLM 最严重的缺陷，没有之一。模型不知道的事，它会用最自信的语气「编」一个听起来很合理的答案。</p>
+<p><strong>关键证据：</strong></p>
+<ul>
+<li>Linardon et al.（2025）系统评估 GPT-4o 生成的文献综述，发现 <strong>19.9% 的引用完全不存在</strong>，另有 45.4% 的引用存在期刊名、卷号、页码或作者名的错误。合计超过 65% 的引用有问题。</li>
+<li>NeurIPS 2025 被接收论文中，53 篇包含 <strong>100 个完全虚构的引用</strong>——这些论文都经过同行评审，意味着审稿人也没发现。</li>
+<li>Springer Nature 某已发表论文中 14 条参考文献有 12 条不存在，最终撤稿。</li>
+</ul>
+<p><strong>为什么 LLM 会产生幻觉？</strong></p>
+<p>本质原因是 LLM 的训练目标是「生成概率上最合理的文本序列」，而非「陈述事实」。模型没有「事实」的概念——它只有「在我读过的文本中，这些词以这种顺序出现的概率最高」的概念。</p>
+<p>当一个问题的答案不在训练数据中时，「我不知道」并不是概率最高的序列——编一个看起来像参考文献的字符串反而是。这是因为训练数据中通篇都是引用格式，模型学会了「在讨论某主题时，后面跟着一串（作者，年份）格式的文字看起来最合理」。</p>
+<p><strong>对经管研究的致命影响：</strong></p>
+<p>你让 LLM 帮你写文献综述。它流利地引用了 30 篇文献。你扫了一眼，觉得观点合理、行文流畅，直接贴进论文。投稿后，审稿人随手查了其中一篇——不存在。再查一篇——也不存在。审稿人得出结论：作者在伪造文献。拒稿，可能附带学术不端的指控。</p>
+<blockquote class="blockquote">
+<p><strong>底线：每一条 AI 生成的引用，都必须逐条人工核实。没有例外，没有捷径。</strong></p>
+</blockquote>
+</section>
+<section id="缺陷二知识截止日期" class="level3">
+<h3 class="anchored" data-anchor-id="缺陷二知识截止日期">缺陷二：知识截止日期</h3>
+<p>LLM 的知识冻结在训练数据截止日。主流模型的截止日期约在 2024 年中到 2025 年初。</p>
+<p><strong>这意味着什么：</strong></p>
+<ul>
+<li>2025 年中央一号文件的任何新提法，它不知道</li>
+<li>2025 年发表在 AER 上的最新论文，它没读过</li>
+<li>2025 年 CHFS 最新一轮调查的数据结构和变量名，它不清楚</li>
+<li>某个政策在 2024 年底发生了调整，它只能描述调整前的版本</li>
+</ul>
+<p><strong>怎么应对：</strong></p>
+<p>给它提供最新文件原文。LLM 处理输入文本的能力不受知识截止日限制——你给它一份 2025 年的政策文件，它马上就能分析其结构和要点。知识截止日限制的是它「脑子里自带的」知识，不影响它对「你提供的」文本的理解和加工。</p>
+</section>
+<section id="缺陷三结果不可复现" class="level3">
+<h3 class="anchored" data-anchor-id="缺陷三结果不可复现">缺陷三：结果不可复现</h3>
+<p>LLM 是概率系统。同一个 prompt，多次运行，输出可能不同。</p>
+<p><strong>关键证据：</strong></p>
+<p>同一 prompt 多次运行，47%-76% 的代码任务产生不同输出。这意味着你不能说「我的回归结果是 ChatGPT 跑出来的」。</p>
+<p><strong>对经管研究的意义：</strong></p>
+<p>学术研究的核心要求之一是可复现性。LLM 的输出本质上不可复现——因为温度参数（控制输出随机性的参数）使得每次生成的 token 序列可能不同。</p>
+<p>怎么办？<strong>AI 只负责生成代码模板和写作草稿。</strong> 实际的数据分析和定量结果，你必须自己运行、自己验证、自己留档。</p>
+</section>
+<section id="缺陷四推理能力局限" class="level3">
+<h3 class="anchored" data-anchor-id="缺陷四推理能力局限">缺陷四：推理能力局限</h3>
+<p>LLM 能流畅地解释计量方法，但不等于能正确地使用计量方法。这两个能力之间存在根本性的鸿沟。</p>
+<p><strong>陶哲轩的实测（2026）：</strong></p>
+<p>陶哲轩让 Claude Code 完成 Lean 形式化证明任务。Claude Code 运行了 45 分钟，产生了零可用代码。陶哲轩的评价是：「目前 AI 在形式化证明上的表现相当于一个刚学会语法但完全不懂数学的本科生。」</p>
+<p><strong>更严重的：LLM 不理解识别假设</strong></p>
+<p>这是对经管研究者来说最重要的一点。LLM 会忽视：</p>
+<ul>
+<li><strong>工具变量的排他性（exclusion restriction）</strong>：你告诉 LLM「我用降雨量作为农业收入的工具变量」，它可能说「听起来合理」——但它不会追问「降雨量是否通过影响农业生产以外的渠道影响被解释变量」。</li>
+<li><strong>DID 的平行趋势（parallel trends）</strong>：LLM 可以帮你画事件研究图，但它不会告诉你「处理前趋势已经明显发散，DID 估计可能有偏」。</li>
+<li><strong>RD 的连续性条件（continuity assumption）</strong>：LLM 不理解断点附近的样本是否可能存在自选择。</li>
+</ul>
+<p>识别假设是计量经济学的核心训练内容——它不是「下一个词预测」能处理的。这里的判断必须由研究者自己做。</p>
+</section>
+<section id="缺陷五无法真正执行操作" class="level3">
+<h3 class="anchored" data-anchor-id="缺陷五无法真正执行操作">缺陷五：无法真正执行操作</h3>
+<p>LLM 本身只是文本生成器。它不能：</p>
+<ul>
+<li>在你的电脑上读写文件</li>
+<li>在你的 Stata 里运行代码</li>
+<li>访问数据库下载数据</li>
+<li>打开浏览器搜索实时信息</li>
+<li>把你的 Markdown 文件转换成 Word 文档</li>
+</ul>
+<p>Agent 框架通过「工具调用」（Tool Use）赋予了 LLM 执行能力——它会调用文件系统 API、运行 Shell 命令、调用外部 MCP 服务。但这里有两个问题：</p>
+<ol type="1">
+<li><strong>能力有，但不可靠</strong>：Microsoft Research（2026）发现 Agent 在多步文档编辑任务中平均损坏 25% 的内容</li>
+<li><strong>需要额外配置</strong>：工具调用能力不是开箱即用的，需要安装、配置、调试</li>
+</ol>
+<p>这正是本课程后续三讲要解决的核心问题——让 AI 从「能说」变成「能干活」。</p>
+</section>
+<section id="缺陷六经济学专业能力的结构性缺失" class="level3">
+<h3 class="anchored" data-anchor-id="缺陷六经济学专业能力的结构性缺失">缺陷六：经济学专业能力的结构性缺失</h3>
+<p>Ben Golub（Northwestern, 2026）在论文中系统归纳了 LLM 在经济学研究中的四点结构性缺失：</p>
+<ol type="1">
+<li><strong>不理解学科发表规范</strong>
+<ul>
+<li>不知道《经济研究》和 AER 的行文风格差异</li>
+<li>不知道中文经济学论文和英文论文在引言结构上的不同传统</li>
+<li>不知道不同期刊对表格格式、参考文献格式的规定</li>
+</ul></li>
+<li><strong>只顾「编译通过」而非正确性</strong>
+<ul>
+<li>代码能运行 = 结果正确？在经济学里这远远不够</li>
+<li>看标准误聚类到哪个层面、看固定效应设定是否合理、看是否遗漏了关键的稳健性检验——这些 LLM 不会主动做</li>
+</ul></li>
+<li><strong>宁可胡猜不说「不确定」</strong>
+<ul>
+<li>经济学训练强调：「识别假设不满足，结论不可靠」</li>
+<li>LLM 被训练成在不确定时给出最可能的答案，而不是说出「在这个设定下，我无法给出可靠判断」</li>
+</ul></li>
+<li><strong>无法进行跨领域原创概念连接</strong>
+<ul>
+<li>能拼凑已有知识，不能产出新概念</li>
+<li>「数字普惠金融对农户非农就业的影响」这个选题来自研究者对两个领域交叉地带的洞见——LLM 可以帮你在已有框架内分析，但不能提出这个交叉视角</li>
+</ul></li>
+</ol>
+</section>
+<section id="llm-擅长与不擅长能力矩阵" class="level3">
+<h3 class="anchored" data-anchor-id="llm-擅长与不擅长能力矩阵">LLM 擅长与不擅长：能力矩阵</h3>
+<p>以下矩阵是经管研究场景下的综合评估，基于 2025-2026 年的最新测评：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 45%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>场景</th>
+<th style="text-align: center;">擅长程度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>文本情感 / 情绪分析</td>
+<td style="text-align: center;">★★★★★</td>
+<td>接近甚至超过人工编码一致性</td>
+</tr>
+<tr class="even">
+<td>文本分类与编码</td>
+<td style="text-align: center;">★★★★★</td>
+<td>对年报、政策文本的分类准确率超过 90%</td>
+</tr>
+<tr class="odd">
+<td>中英论文润色与翻译</td>
+<td style="text-align: center;">★★★★☆</td>
+<td>润色质量接近专业语言编辑</td>
+</tr>
+<tr class="even">
+<td>代码模板生成</td>
+<td style="text-align: center;">★★★★☆</td>
+<td>能生成语法正确的 Stata / Python / R 代码，但需调试</td>
+</tr>
+<tr class="odd">
+<td>文献初筛与信息提取</td>
+<td style="text-align: center;">★★★★☆</td>
+<td>适合初筛和结构化提取，但分类结果需人工验证</td>
+</tr>
+<tr class="even">
+<td>研究设计头脑风暴</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td>能提供思路拓展，但实质性判断需研究者把握</td>
+</tr>
+<tr class="odd">
+<td>经济学理论创新</td>
+<td style="text-align: center;">★☆☆☆☆</td>
+<td>不能产出新的理论概念或分析框架</td>
+</tr>
+<tr class="even">
+<td>因果推断（DID / IV / RD）</td>
+<td style="text-align: center;">★☆☆☆☆</td>
+<td>不能判断识别假设是否满足</td>
+</tr>
+<tr class="odd">
+<td>独立数据解释</td>
+<td style="text-align: center;">★☆☆☆☆</td>
+<td>能描述统计模式，不能判断因果关系</td>
+</tr>
+<tr class="even">
+<td>大型微观数据处理</td>
+<td style="text-align: center;">★☆☆☆☆</td>
+<td>能生成处理代码，但不能理解数据生成过程</td>
+</tr>
+<tr class="odd">
+<td>参考文献生成</td>
+<td style="text-align: center;">☆☆☆☆☆</td>
+<td>绝对不能依赖</td>
+</tr>
+<tr class="even">
+<td>可复现定量结果</td>
+<td style="text-align: center;">☆☆☆☆☆</td>
+<td>本质上不可复现</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="常见误区澄清" class="level3">
+<h3 class="anchored" data-anchor-id="常见误区澄清">常见误区澄清</h3>
+<p>在进入下一节之前，先澄清关于 LLM 的三个最常见误区：</p>
+<p><strong>误区一：「AI 会取代研究者。」</strong></p>
+<p>不会。AI 替代的是机械性、重复性的工作环节。研究问题的提出、识别策略的设计、结果的经济学解释——这些需要学科训练、专业判断和创造性思维的工作，AI 暂时做不了，而且在可预见的未来也难以做到。AI 取代的不是研究者，而是不用 AI 的同行。</p>
+<p><strong>误区二：「AI 给出的答案就是正确答案。」</strong></p>
+<p>LLM 的输出是概率最高序列，不是事实陈述。它可能输出语法完美但事实完全错误的答案——而且说得非常自信。对 AI 的输出保持不信任，是使用 AI 的第一素养。</p>
+<p><strong>误区三：「只要 prompt 写得足够好，AI 什么都能做。」</strong></p>
+<p>Prompt 工程能提升输出质量，但改变不了 LLM 的本质局限。再好的 prompt 也无法让 LLM 理解识别假设、判断工具变量的排他性、评估平行趋势的合理性。知道 prompt 的边界，和知道怎么写 prompt 同样重要。</p>
+</section>
+<section id="底线" class="level3">
+<h3 class="anchored" data-anchor-id="底线">底线</h3>
+<p><strong>LLM 是「超级但有限的助手」。</strong></p>
+<p>正如洪永淼和汪寿阳（2023）所指出：「基于大数据的人工智能因果推断本质上是一种统计关系推断，需要引入经济理论或实验方法帮助识别真正的因果关系。」</p>
+<p>这句话点出了核心矛盾：LLM 做的是统计模式匹配，经济学研究需要的是因果识别。两者之间有不可消除的张力。AI 可以帮你做得更快，但不能替代你判断做得对不对。</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="下节从-llm-到-agent工具选择与学习路径" class="level1">
+<h1>下节：从 LLM 到 Agent——工具选择与学习路径</h1>
+<blockquote class="blockquote">
+<p>下节时长建议：45 分钟。重点是 2.2 节「Agent 概念」和 2.5 节「学习路径」——前者是后续三讲的理论基础，后者是学生课后实践的路线图。</p>
+</blockquote>
+<hr>
+<section id="为什么需要-agent" class="level2">
+<h2 class="anchored" data-anchor-id="为什么需要-agent">2.1 为什么需要 Agent？</h2>
+<section id="从一段日常困境说起" class="level3">
+<h3 class="anchored" data-anchor-id="从一段日常困境说起">从一段日常困境说起</h3>
+<p>你要做一篇论文：从 CHFS 下载数据、清洗缺失值和异常值、生成描述性统计、跑五组基准回归、做两组稳健性检验、生成 LaTeX 格式的回归表格。</p>
+<p>用 ChatGPT 的做法：</p>
+<ol type="1">
+<li>在聊天框里输入：「请给我一段 Stata 代码，用 CHFS 2019 数据做描述性统计」</li>
+<li>把生成的代码复制到 Stata do-file 编辑器</li>
+<li>跑代码，报错了——变量名不对</li>
+<li>把报错信息贴回 ChatGPT：「变量名不对，CHFS 2019 的变量名是什么？」</li>
+<li>ChatGPT 说了一堆变量名——你逐个试，有的对有的错</li>
+<li>重复以上步骤五组回归 × 两次稳健性检验…</li>
+</ol>
+<p>每一步，你都是人肉 API——在 ChatGPT 和 Stata 之间搬运信息和结果。三步以上，上下文就丢了。ChatGPT 记不住你上一步做了什么、数据长什么样、报错原因是什么。</p>
+</section>
+<section id="agent-的本质区别" class="level3">
+<h3 class="anchored" data-anchor-id="agent-的本质区别">Agent 的本质区别</h3>
+<p>Chatbot 的工作流程是一条线段：<strong>用户输入 → 模型生成回答 → 结束。</strong></p>
+<p>Agent 的工作流程是一个循环：<strong>用户交代目标 → Agent 拆解为子任务 → 调用工具执行 → 观察执行结果 → 根据结果调整下一步 → 继续执行 → 直到目标完成。</strong></p>
+<p>用经济学的话说：Chatbot 是一次性博弈，Agent 是序贯决策。Agent 能「看到」自己上一步操作的结果，并根据反馈修正后续步骤。</p>
+<p>回到上面的例子。用 Agent 的做法：</p>
+<p><strong>你只需要说一句：</strong>「用 CHFS 2019 数据，做农户数字金融使用对收入影响的基准回归，包括描述性统计、基准 OLS、工具变量回归，输出 LaTeX 表格。」</p>
+<p>Agent 自己会：打开数据文件 → 查看变量名 → 选择合适变量 → 编写代码 → 运行代码 → 看到报错 → 查找原因 → 修正代码 → 重新运行 → 直到成功 → 生成表格。</p>
+<p>你在这个过程中的角色：给定目标、把关结果、解释经济含义。</p>
+</section>
+<section id="agent-自动干活的能力" class="level3">
+<h3 class="anchored" data-anchor-id="agent-自动干活的能力">Agent = 「自动干活」的能力</h3>
+<p>这正是 Agent 的价值所在：<strong>从「你说我做」进化到「你说目标，我自主完成」。</strong></p>
+<hr>
+</section>
+</section>
+<section id="agent-的核心概念" class="level2">
+<h2 class="anchored" data-anchor-id="agent-的核心概念">2.2 Agent 的核心概念</h2>
+<section id="核心公式" class="level3">
+<h3 class="anchored" data-anchor-id="核心公式">核心公式</h3>
+<p>OpenAI 安全系统负责人 Lilian Weng（2023）提出了被广泛引用的 Agent 核心公式：</p>
+<blockquote class="blockquote">
+<p><strong>Agent = LLM（大脑） + Planning（规划） + Memory（记忆） + Tool Use（工具调用）</strong></p>
+</blockquote>
+</section>
+<section id="四组件详解" class="level3">
+<h3 class="anchored" data-anchor-id="四组件详解">四组件详解</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 23%">
+<col style="width: 46%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>组件</th>
+<th>功能</th>
+<th>通俗理解</th>
+<th>在经管研究中的体现</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>LLM（大脑）</strong></td>
+<td>理解任务、推理分析、做出决策</td>
+<td>没有大脑就没有智能——这是基础</td>
+<td>理解「做 DID 分析」意味着什么</td>
+</tr>
+<tr class="even">
+<td><strong>Planning（规划）</strong></td>
+<td>将复杂目标拆解为可执行的子任务序列</td>
+<td>「我要从西安去北京」→ 先到高铁站、买票、上车、到站——Agent 对研究任务做同样的事</td>
+<td>「用 CHFS 研究数字金融对农户收入的因果效应」→ 自动拆解为数据加载→变量筛选→描述性统计→基准 OLS→内生性处理→IV 回归→稳健性检验→结果输出</td>
+</tr>
+<tr class="odd">
+<td><strong>Memory（记忆）</strong></td>
+<td>短期记忆（当前对话）、工作记忆（当前项目上下文）、长期记忆（跨项目的知识和偏好）</td>
+<td>不用每次都从零开始交代背景</td>
+<td>记住你的研究领域是农业经济学、常用数据集是 CHFS、偏好控制县级固定效应</td>
+</tr>
+<tr class="even">
+<td><strong>Tool Use（工具调用）</strong></td>
+<td>通过标准化接口调用外部工具：读写文件、执行 Shell 命令、搜索网页、操作数据库、调用 API</td>
+<td>MCP 协议——AI 世界的 USB-C，一个接口接所有外设</td>
+<td>读 .dta 文件、运行 Stata / Python、搜索 Semantic Scholar、读写 Zotero 文献库</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="一个直观类比" class="level3">
+<h3 class="anchored" data-anchor-id="一个直观类比">一个直观类比</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>角色</th>
+<th>能力</th>
+<th>类比</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LLM 本身</td>
+<td>读过很多书，能说会道</td>
+<td>刚入学的博士生——知道很多概念，但不知道怎么动手做研究</td>
+</tr>
+<tr class="even">
+<td>LLM + Tool Use</td>
+<td>能说，也能动手操作工具</td>
+<td>学会了用 Stata 的博士生——能跑回归，但需要别人一步步指导</td>
+</tr>
+<tr class="odd">
+<td>LLM + Tool Use + Memory</td>
+<td>能说、能动手、能记住上下文</td>
+<td>跟你合作了半年的 RA——知道你的研究偏好，不用每次从头交代</td>
+</tr>
+<tr class="even">
+<td><strong>Agent（四组件齐全）</strong></td>
+<td>能说、能动手、能记住、能自己规划</td>
+<td>独立做事的博士后——给定目标，自己规划步骤、操作工具、检查结果、修正错误</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="主流-agent-工具概览" class="level2">
+<h2 class="anchored" data-anchor-id="主流-agent-工具概览">2.3 主流 Agent 工具概览</h2>
+<p>2026 年的 Agent 生态百花齐放。以下是六款最受关注的主流工具。</p>
+<section id="六款工具速览" class="level3">
+<h3 class="anchored" data-anchor-id="六款工具速览">六款工具速览</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 21%">
+<col style="width: 15%">
+<col style="width: 26%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>工具</th>
+<th>开发者</th>
+<th style="text-align: center;">开源</th>
+<th>核心定位</th>
+<th>一句话</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Claude Code</strong></td>
+<td>Anthropic</td>
+<td style="text-align: center;">✗</td>
+<td>最强编程 Agent，本地执行</td>
+<td>SWE-bench Pro 69.2%，深度代码推理</td>
+</tr>
+<tr class="even">
+<td><strong>OpenAI Codex</strong></td>
+<td>OpenAI</td>
+<td style="text-align: center;">CLI 开源</td>
+<td>云端沙箱编程平台</td>
+<td>8 并行子代理，ChatGPT 生态无缝衔接</td>
+</tr>
+<tr class="odd">
+<td><strong>OpenCode</strong></td>
+<td>Anomaly 社区</td>
+<td style="text-align: center;">MIT</td>
+<td>模型无关的开放 Agent</td>
+<td>176k Stars，75+ 模型供应商，完全免费</td>
+</tr>
+<tr class="even">
+<td><strong>OpenClaw</strong></td>
+<td>P. Steinberger</td>
+<td style="text-align: center;">MIT</td>
+<td>多通道个人 AI 助手</td>
+<td>250k+ Stars，22+ 消息平台，手机操控</td>
+</tr>
+<tr class="odd">
+<td><strong>Hermes Agent</strong></td>
+<td>Nous Research</td>
+<td style="text-align: center;">MIT</td>
+<td>自进化 Agent</td>
+<td>自动创建技能，持久记忆，越用越聪明</td>
+</tr>
+<tr class="even">
+<td><strong>WorkBuddy</strong></td>
+<td>腾讯云</td>
+<td style="text-align: center;">✗</td>
+<td>中国企业 AI 办公平台</td>
+<td>微信 / 企微集成，月访问 8.85 亿</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="快速定位指南" class="level3">
+<h3 class="anchored" data-anchor-id="快速定位指南">快速定位指南</h3>
+<ul>
+<li><strong>Claude Code</strong> = 编程最强的终端助手——跑回归、调代码、写论文的首选，适合「把活干好」</li>
+<li><strong>OpenAI Codex</strong> = 云端版 Claude Code——代码在远程沙箱跑，不占本地资源，ChatGPT 用户零学习成本</li>
+<li><strong>OpenCode</strong> = 开源版 Claude Code——完全免费、不绑定任何模型供应商，但需要自己折腾初始配置</li>
+<li><strong>OpenClaw</strong> = 住在手机里的 AI 管家——通过微信 / WhatsApp / Telegram 随时发指令，7x24 在线执行</li>
+<li><strong>Hermes Agent</strong> = 会自我进化的 AI 学徒——用得越多，它越了解你的研究领域和工作习惯</li>
+<li><strong>WorkBuddy</strong> = 最懂中国企业办公的 AI 平台——你已经在用的微信 / 企微 + AI 能力叠加</li>
+</ul>
+</section>
+<section id="九维度深度对比" class="level3">
+<h3 class="anchored" data-anchor-id="九维度深度对比">九维度深度对比</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th style="text-align: center;">Claude Code</th>
+<th style="text-align: center;">Codex</th>
+<th style="text-align: center;">OpenCode</th>
+<th style="text-align: center;">OpenClaw</th>
+<th style="text-align: center;">Hermes</th>
+<th style="text-align: center;">WorkBuddy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>编程能力</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★☆</td>
+<td style="text-align: center;">★★★★☆</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+</tr>
+<tr class="even">
+<td>自主执行</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★☆</td>
+</tr>
+<tr class="odd">
+<td>模型灵活性</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★★★☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★☆☆</td>
+</tr>
+<tr class="even">
+<td>中文支持</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★★★</td>
+</tr>
+<tr class="odd">
+<td>消息平台集成</td>
+<td style="text-align: center;">☆☆☆☆☆</td>
+<td style="text-align: center;">☆☆☆☆☆</td>
+<td style="text-align: center;">☆☆☆☆☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★☆</td>
+</tr>
+<tr class="even">
+<td>开箱即用</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★☆</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★★★★</td>
+</tr>
+<tr class="odd">
+<td>隐私 / 本地执行</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★☆☆</td>
+</tr>
+<tr class="even">
+<td>自学习能力</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★★☆☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★☆☆☆</td>
+</tr>
+<tr class="odd">
+<td>价格友好度</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★☆☆☆</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★★★</td>
+<td style="text-align: center;">★★★☆☆</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="一个具体的-agent-工作流示例" class="level3">
+<h3 class="anchored" data-anchor-id="一个具体的-agent-工作流示例">一个具体的 Agent 工作流示例</h3>
+<p>以下是一个真实可运行的 Agent 任务——后续三讲安装配置完成后，你就能在你自己的电脑上复现：</p>
+<p><strong>你输入的命令：</strong></p>
+<pre><code>用 CHFS 2019 数据，研究数字金融使用对农户家庭人均收入的影响。
+请完成以下步骤：
+1. 数据清洗（处理缺失值、缩尾 1%）
+2. 描述性统计（含平衡性检验）
+3. 基准 OLS 回归（逐步加入控制变量和固定效应）
+4. 工具变量回归（IV = 同村其他家庭数字金融使用率的均值）
+5. 输出 LaTeX 格式的回归表格到 results/ 文件夹</code></pre>
+<p><strong>Agent 的实际执行过程：</strong></p>
+<ol type="1">
+<li>打开 <code>data/chfs2019.dta</code>，读取变量名和标签</li>
+<li>识别相关变量：收入变量、数字金融使用变量、人口学控制变量、村级标识变量</li>
+<li>编写 Python / Stata 代码：数据清洗 → 缺失值处理 → 1% 缩尾</li>
+<li>运行代码 → 查看输出 → 发现某变量缺失率 40% → 自动决定剔除该变量</li>
+<li>生成描述性统计表 → 确认样本量合理</li>
+<li>逐步回归：Model 1（无控制变量）→ Model 2（+ 人口学）→ Model 3（+ 村级 FE）</li>
+<li>发现 Model 3 中数字金融系数显著减小 → 自动在输出中标注「控制村级 FE 后系数衰减明显，提示村级层面遗漏变量」</li>
+<li>构造 IV = 同村其他家庭数字金融使用率均值 → 一阶段 F 值 23.7 → 生成弱 IV 检验</li>
+<li>汇总所有回归到一张 LaTeX 表格 → 保存到 <code>results/regression_table.tex</code></li>
+</ol>
+<p><strong>整个过程你做了什么？</strong> 只用一句话给出了研究目标和基本设定。Agent 完成了从数据到结果的全流程——包括发现数据质量问题时自动调整策略。</p>
+<p>这就是 Agent 和 Chatbot 的本质区别。</p>
+</section>
+<section id="课程选型理由为什么是-claude-code-opencode" class="level3">
+<h3 class="anchored" data-anchor-id="课程选型理由为什么是-claude-code-opencode">课程选型理由：为什么是 Claude Code + OpenCode？</h3>
+<ol type="1">
+<li><strong>Claude Code 编程能力断层领先</strong>：SWE-bench Pro 得分 69.2%，在代码生成、调试、重构上的表现远超同类。你的回归分析、论文复现、数据处理——这些全是代码任务。</li>
+<li><strong>OpenCode 降低入门门槛</strong>：自带免费模型（GLM-5 Free 等），对没有 API 预算的学生非常友好。课堂上可以用免费模型演示，课后学生可以零成本练习。</li>
+<li><strong>同一套 Skills 生态</strong>：两者共用 Skills 扩展包，装一次两个工具都能用，迁移成本几乎为零。</li>
+<li><strong>互为备份</strong>：一个出问题时另一个顶上。API 额度用完用免费模型，免费模型能力不够切付费 API——灵活切换。</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="主流聊天-对话工具一览" class="level2">
+<h2 class="anchored" data-anchor-id="主流聊天-对话工具一览">2.4 主流聊天 / 对话工具一览</h2>
+<p>Agent 是「动手干活的」，但日常研究中很多时候你只需要「快速问一个问题、查一个概念、润色一段话」。以下是你的日常对话工具箱。</p>
+<section id="国际主流" class="level3">
+<h3 class="anchored" data-anchor-id="国际主流">国际主流</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>工具</th>
+<th>免费策略</th>
+<th>上下文</th>
+<th style="text-align: center;">中文质量</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ChatGPT（GPT-5.5）</strong></td>
+<td>免费版含 GPT-5 基础能力</td>
+<td>128K-1M</td>
+<td style="text-align: center;">B</td>
+<td>全能均衡，什么都能做，没有明显短板</td>
+</tr>
+<tr class="even">
+<td><strong>Claude（Fable 5 / Opus 4.8）</strong></td>
+<td>Sonnet 4.6 免费（额度有限）</td>
+<td>1M</td>
+<td style="text-align: center;">B</td>
+<td>编程 + 长文本解析双料冠军</td>
+</tr>
+<tr class="odd">
+<td><strong>Gemini 3.1 Pro</strong></td>
+<td>免费版含 1M 上下文</td>
+<td>1M</td>
+<td style="text-align: center;">C</td>
+<td>科学推理性价比之王，多模态能力强</td>
+</tr>
+<tr class="even">
+<td><strong>Grok 4</strong></td>
+<td>X 平台内免费</td>
+<td>2M</td>
+<td style="text-align: center;">C</td>
+<td>实时数据接入，输出快，幻觉率低</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="国产主流" class="level3">
+<h3 class="anchored" data-anchor-id="国产主流">国产主流</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 25%">
+<col style="width: 20%">
+<col style="width: 25%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>工具</th>
+<th>免费策略</th>
+<th>上下文</th>
+<th style="text-align: center;">中文质量</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>DeepSeek（V4 / R1）</strong></td>
+<td><strong>网页端完全免费</strong></td>
+<td>128K-1M+</td>
+<td style="text-align: center;">A</td>
+<td>编程推理王者，零成本科研利器</td>
+</tr>
+<tr class="even">
+<td><strong>Kimi（K2.6）</strong></td>
+<td>免费版日限约 30 次</td>
+<td><strong>1M（200 万字）</strong></td>
+<td style="text-align: center;">A</td>
+<td>超长文本处理绝对王者</td>
+</tr>
+<tr class="odd">
+<td><strong>通义千问（Qwen3.7）</strong></td>
+<td>免费额度充足</td>
+<td>128K-256K</td>
+<td style="text-align: center;">S</td>
+<td>公文 / 报告 / 学术写作最规范</td>
+</tr>
+<tr class="even">
+<td><strong>豆包</strong></td>
+<td>基础免费</td>
+<td>128K</td>
+<td style="text-align: center;">S</td>
+<td>全民 AI，多模态最强</td>
+</tr>
+<tr class="odd">
+<td><strong>文心一言（ERNIE 5.0）</strong></td>
+<td>免费额度</td>
+<td>128K</td>
+<td style="text-align: center;">S</td>
+<td>政务 / 政策文本解读首选</td>
+</tr>
+<tr class="even">
+<td><strong>智谱清言（GLM-5.1）</strong></td>
+<td>免费额度</td>
+<td>128K</td>
+<td style="text-align: center;">S</td>
+<td>复杂多步推理能力突出</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="按任务选工具速查表" class="level3">
+<h3 class="anchored" data-anchor-id="按任务选工具速查表">按任务选工具速查表</h3>
+<p>核心原则只有八个字：<strong>先问任务，再选工具。</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>任务</th>
+<th>首选</th>
+<th>备选</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>中文学术写作</td>
+<td>DeepSeek + 秘塔</td>
+<td>通义千问、Kimi</td>
+<td>DeepSeek 风格最接近学术写作；秘塔引用可追溯</td>
+</tr>
+<tr class="even">
+<td>英文学术写作</td>
+<td>Claude Sonnet 4</td>
+<td>GPT-5、DeepSeek</td>
+<td>Claude 幻觉控制最优（85.24 分），学术术语精准</td>
+</tr>
+<tr class="odd">
+<td>文献检索</td>
+<td>秘塔 AI + Semantic Scholar</td>
+<td>Consensus</td>
+<td>中文库最全 + 英文覆盖面最广</td>
+</tr>
+<tr class="even">
+<td>论文精读</td>
+<td>NotebookLM</td>
+<td>SciSummary</td>
+<td>逐句溯源问答，完全免费，绝不虚构</td>
+</tr>
+<tr class="odd">
+<td>代码开发</td>
+<td>Cursor / Claude Code</td>
+<td>GitHub Copilot</td>
+<td>Claude Code 编程断层第一；Cursor 学生免费</td>
+</tr>
+<tr class="even">
+<td>数据分析（有编程经验）</td>
+<td>Claude Code + Colab</td>
+<td>DeepSeek + Jupyter</td>
+<td>Colab 免费 GPU；Claude Code 写代码最优</td>
+</tr>
+<tr class="odd">
+<td>数据分析（无编程经验）</td>
+<td>Kimi K2</td>
+<td>智谱清言</td>
+<td>直接上传 13 万行 Excel / CSV 做分析</td>
+</tr>
+<tr class="even">
+<td>PPT 制作</td>
+<td>Gamma + Kimi</td>
+<td>WPS AI</td>
+<td>Kimi 提炼内容 → Gamma 自动排版</td>
+</tr>
+<tr class="odd">
+<td>学术翻译</td>
+<td>DeepL</td>
+<td>Claude / GPT 精校</td>
+<td>DeepL 学术翻译质量最高，AI 精校补漏</td>
+</tr>
+<tr class="even">
+<td>头脑风暴</td>
+<td>GPT / Claude + Xmind</td>
+<td>Whimsical</td>
+<td>AI 发散大纲 → Xmind 可视化</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="混合策略推荐" class="level3">
+<h3 class="anchored" data-anchor-id="混合策略推荐">混合策略（推荐）</h3>
+<p><strong>国内工具做主体 + 国际工具做质量把关。</strong> 中文内容用国产工具（DeepSeek / 通义千问 / Kimi），英文和代码用国际工具（Claude / GPT），性价比最优。</p>
+<hr>
+</section>
+</section>
+<section id="经管研究生推荐学习路径" class="level2">
+<h2 class="anchored" data-anchor-id="经管研究生推荐学习路径">2.5 经管研究生推荐学习路径</h2>
+<section id="三阶段规划" class="level3">
+<h3 class="anchored" data-anchor-id="三阶段规划">三阶段规划</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 32%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>阶段</th>
+<th>时间</th>
+<th>定位</th>
+<th>推荐工具组合</th>
+<th>验证标准</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>入门</strong></td>
+<td>第 1-2 周</td>
+<td>会用 AI 提效</td>
+<td>DeepSeek + 秘塔 + NotebookLM + Kimi + 通义千问</td>
+<td>用 AI 辅助完成一篇 2000 字的文献综述草稿</td>
+</tr>
+<tr class="even">
+<td><strong>进阶</strong></td>
+<td>第 3-4 周</td>
+<td>搭建个人工作流</td>
+<td>入门工具 + Claude Code + Cursor / VS Code + Zotero + Obsidian</td>
+<td>建成可复用的个人研究 Agent 系统</td>
+</tr>
+<tr class="odd">
+<td><strong>精通</strong></td>
+<td>第 2 个月起</td>
+<td>构建自动化系统</td>
+<td>进阶工具 + 自定义 Agent + MCP Server</td>
+<td>完成一个 AI 驱动的完整科研项目（从数据到论文）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="阶段一入门会用-ai-提效" class="level3">
+<h3 class="anchored" data-anchor-id="阶段一入门会用-ai-提效">阶段一：入门（会用 AI 提效）</h3>
+<p><strong>目标</strong>：不再把 AI 当「高级搜索框」，而是当「研究辅助工具」。</p>
+<p><strong>具体做法：</strong></p>
+<ul>
+<li>用 DeepSeek 润色你的论文段落，观察它改了什么：是换了词？调了语序？还是改变了论证逻辑？</li>
+<li>用秘塔 AI 做一次完整的文献检索，对比 CNKI 的结果：多出了哪些文献？为什么？</li>
+<li>用 NotebookLM 上传一篇 30 页的英文论文，让它生成 FAQ：看它是否能提炼出论文的核心贡献和研究设计</li>
+<li>用 Kimi 上传一份 5 万行的 Excel 数据，让它做描述性统计：看它对变量类型的判断是否准确</li>
+</ul>
+<p><strong>检查点</strong>：完成一篇研究方向上 2000 字左右的文献综述初稿，AI 辅助完成信息提取和初稿生成，人工完成逻辑串联和文献评价。</p>
+</section>
+<section id="阶段二进阶搭建个人工作流" class="level3">
+<h3 class="anchored" data-anchor-id="阶段二进阶搭建个人工作流">阶段二：进阶（搭建个人工作流）</h3>
+<p><strong>目标</strong>：AI 不再是分散的工具，而是一个集成的工作系统。</p>
+<p><strong>具体做法：</strong></p>
+<ul>
+<li>在 VS Code + Claude Code 中建立你的第一个研究项目文件夹</li>
+<li>配置 Claude Code 连接 DeepSeek API（费用极低，约 1 元 / 百万 token）</li>
+<li>安装 Skills 扩展包（PDF 阅读、Word 转换、Excel 处理、文献搜索）</li>
+<li>在 Zotero 中管理文献，用 AI 提取结构化信息存入 Obsidian</li>
+</ul>
+<p><strong>检查点</strong>：能在 VS Code 中完成「打开 PDF → 提取结构化信息 → 存储到 Obsidian → 用 Claude Code 分析 → 生成 Word 报告」的完整流程。</p>
+</section>
+<section id="阶段三精通构建自动化系统" class="level3">
+<h3 class="anchored" data-anchor-id="阶段三精通构建自动化系统">阶段三：精通（构建自动化系统）</h3>
+<p><strong>目标</strong>：AI 不再需要你一步步指挥，而是按预设流程自主完成复杂任务。</p>
+<p><strong>具体做法：</strong></p>
+<ul>
+<li>创建 2-3 个自定义 Agent（文献综述 Agent、实证分析 Agent、论文润色 Agent）</li>
+<li>配置 MCP Server（连接 Zotero、Semantic Scholar、文件系统）</li>
+<li>用子代理（Sub-agent）进行并行任务——同时做文献搜索、数据处理、论文润色</li>
+</ul>
+<p><strong>检查点</strong>：能用一句话启动一个完整的研究任务——「分析 CHFS 2019 中数字金融对农户收入的影响，输出基准回归表到 Word」——Agent 自主完成从数据到结果的完整流程。</p>
+</section>
+<section id="零预算方案全年-0-元" class="level3">
+<h3 class="anchored" data-anchor-id="零预算方案全年-0-元">零预算方案（全年 0 元）</h3>
+<p>对于预算有限的研究生，以下方案可以覆盖 80% 以上的 AI 辅助需求：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 42%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>环节</th>
+<th>免费工具</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>通用对话 / 写作</td>
+<td>DeepSeek + 通义千问 + Kimi</td>
+<td>三者互补，覆盖中英文写作和长文本</td>
+</tr>
+<tr class="even">
+<td>文献检索</td>
+<td>秘塔 AI + Semantic Scholar</td>
+<td>中英文文献全覆盖</td>
+</tr>
+<tr class="odd">
+<td>论文精读</td>
+<td>NotebookLM + Zotero</td>
+<td>精读 + 文献管理</td>
+</tr>
+<tr class="even">
+<td>代码 / 数据分析</td>
+<td>VS Code 免费版 + GitHub Copilot 学生版 + Google Colab</td>
+<td>学生认证后 Copilot 免费；Colab 提供免费 GPU</td>
+</tr>
+<tr class="odd">
+<td>翻译</td>
+<td>DeepL 免费版</td>
+<td>月限额足够日常使用</td>
+</tr>
+<tr class="even">
+<td>知识管理</td>
+<td>Obsidian</td>
+<td>完全免费，本地存储</td>
+</tr>
+</tbody>
+</table>
+<p>如需付费 API（约 10-50 元 / 月即够日常使用），推荐优先开 DeepSeek API——性价比最高，中文效果最好。</p>
+<hr>
+</section>
+</section>
+<section id="本课程四讲结构" class="level2">
+<h2 class="anchored" data-anchor-id="本课程四讲结构">2.6 本课程四讲结构</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>讲次</th>
+<th>主题</th>
+<th>类型</th>
+<th>核心问题</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>第一讲</td>
+<td>认识 AI 工具：从 LLM 到 Agent</td>
+<td>理论</td>
+<td>AI 能做什么？有什么缺陷？为什么需要 Agent？怎么选工具？</td>
+</tr>
+<tr class="even">
+<td>第二讲</td>
+<td>环境安装：让 AI 进入你的电脑</td>
+<td>实操</td>
+<td>电脑上要装什么？安装顺序是什么？</td>
+</tr>
+<tr class="odd">
+<td>第三讲</td>
+<td>AI 引擎配置：OpenCode 与 Claude Code</td>
+<td>实操</td>
+<td>怎么让 AI 跑起来？API 怎么配？</td>
+</tr>
+<tr class="even">
+<td>第四讲</td>
+<td>Skills 与 Agent：让 AI 专业地干活</td>
+<td>实操</td>
+<td>Skills 怎么装？Agent 怎么创建？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>四讲逻辑链：</strong> 理解本质（第 1 讲）→ 安装基础（第 2 讲）→ 配置引擎（第 3 讲）→ 安装专业工具（第 4 讲）。每一步都建立在前面步骤的基础上。</p>
+<hr>
+</section>
+<section id="课堂讨论" class="level2">
+<h2 class="anchored" data-anchor-id="课堂讨论">课堂讨论</h2>
+<p>在本讲的最后 10 分钟，请思考以下问题并参与课堂讨论：</p>
+<ol type="1">
+<li>回到 LLM 的六缺陷表。你认为在你自己（或你导师）的研究中，哪一个缺陷的影响最大？为什么？
+<ul>
+<li>提示：考虑你的研究通常涉及什么类型的任务——是文本分析类的（缺陷一影响大），还是因果推断类的（缺陷四影响大）？</li>
+</ul></li>
+<li>Agent 的「推理→执行→观察→调整」循环和你自己做实证研究的工作流程有什么相似之处？有什么本质区别？</li>
+<li>有同学说：「既然 Claude Code 编程最强，那我只用它就好，不用学 OpenCode。」你怎么评价这个选择？</li>
+</ol>
+</section>
+<section id="本次课课后任务" class="level2">
+<h2 class="anchored" data-anchor-id="本次课课后任务">本次课课后任务</h2>
+<ol type="1">
+<li><p>注册 DeepSeek 网页版（chat.deepseek.com），用以下 prompt 测试一次： &gt; 「我研究的是[你的方向]。请帮我写一段 300 字的研究背景介绍，包含该领域当前需要解决的一个具体问题。」 观察输出质量，记下你觉得好的地方和明显有问题的地方。</p></li>
+<li><p>注册秘塔 AI（metaso.cn），用你论文的 2-3 个关键词分别做文献搜索，对比：</p>
+<ul>
+<li>秘塔给出的文献列表 vs 你在 CNKI 搜到的文献列表</li>
+<li>差异在哪里？秘塔多出了什么？遗漏了什么？</li>
+</ul></li>
+<li><p>重读本节「LLM 六缺陷」表，对照你平时使用 AI 工具的经验（如果有），回忆或猜想：你是否遇到过类似情况？在哪个场景下最可能遇到？</p></li>
+<li><p>下节课前准备好你的电脑（Windows 或 Mac），充满电。下节课将进行全流程的环境安装。</p></li>
+</ol>
+<hr>
+</section>
+<section id="参考文献" class="level2">
+<h2 class="anchored" data-anchor-id="参考文献">参考文献</h2>
+<ul>
+<li>洪永淼、汪寿阳（2023），“大数据革命和经济学研究范式”，<em>中国科学院院刊</em></li>
+<li>Ludwig, J., Mullainathan, S. &amp; Rambachan, A.（2025）, “Large Language Models: An Applied Econometric Framework”, Stanford University</li>
+<li>Weng, L.（2023）, “LLM Powered Autonomous Agents”, OpenAI Blog</li>
+<li>Golub, B.（2026）, “Large Language Models and Some Economics”, Northwestern University</li>
+<li>陶哲轩（2026）, “Lean 形式化证明中 LLM 辅助的实测与反思”</li>
+<li>胡诗云、易君健（2025），“大语言模型在社会科学研究中的应用”，北京大学国家发展研究院</li>
+<li>Linardon, J. et al.（2025）, “Citation Accuracy in LLM-Generated Literature Reviews: A Systematic Evaluation”</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- 登录门禁：登录框 + 校验逻辑 -->
+<div id="book-auth-gate" hidden="">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="auth-kicker">课程教材 · 需登录</span>
+      <h1>人工智能在经济管理研究中的应用</h1>
+      <p>请输入用户名和密码以继续阅读</p>
+    </div>
+    <form id="book-auth-form" autocomplete="off">
+      <div class="auth-field">
+        <label for="book-auth-user">用户名</label>
+        <input type="text" id="book-auth-user" name="username" placeholder="请输入用户名" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label for="book-auth-pass">密码</label>
+        <input type="password" id="book-auth-pass" name="password" placeholder="请输入密码" autocomplete="current-password">
+      </div>
+      <div class="auth-error" id="book-auth-error">用户名或密码错误，请重试。</div>
+      <button type="submit" class="auth-submit" id="book-auth-submit">登 录</button>
+      <div class="auth-hint">登录状态仅在本浏览器当前会话内有效</div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ---------- 纯 JS SHA-256（ASCII） ---------- */
+  function sha256(ascii) {
+    function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var result = '';
+    var words = [];
+    var asciiBitLength = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [];
+    var k = sha256.k = sha256.k || [];
+    var primeCounter = k.length;
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (var i = 0; i < 313; i += candidate) { isComposite[i] = candidate; }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (var i = 0; i < ascii.length; i++) {
+      var j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = ((asciiBitLength / maxWord) | 0);
+    words[words.length] = (asciiBitLength);
+    for (var j2 = 0; j2 < words.length;) {
+      var w = words.slice(j2, j2 += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (var i2 = 0; i2 < 64; i2++) {
+        var w15 = w[i2 - 15], w2 = w[i2 - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i2]
+          + (w[i2] = (i2 < 16) ? w[i2] : (
+              w[i2 - 16]
+              + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+              + w[i2 - 7]
+              + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+            ) | 0
+          );
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (var i3 = 0; i3 < 8; i3++) { hash[i3] = (hash[i3] + oldHash[i3]) | 0; }
+    }
+    for (var i4 = 0; i4 < 8; i4++) {
+      for (var j3 = 3; j3 + 1; j3--) {
+        var b = (hash[i4] >> (j3 * 8)) & 255;
+        result += ((b < 16) ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  /* 校验值：sha256("pisces_chen_30")（用户名与密码相同） */
+  var CRED_HASH = "98dcd99562737bd3e3240000ed05df35168050efb866fe569d4602f31b26643f";
+
+  var gate = document.getElementById("book-auth-gate");
+  var form = document.getElementById("book-auth-form");
+  var userInput = document.getElementById("book-auth-user");
+  var passInput = document.getElementById("book-auth-pass");
+  var errEl = document.getElementById("book-auth-error");
+
+  function isLocked() {
+    return document.documentElement.classList.contains("auth-locked");
+  }
+
+  function unlock() {
+    try { sessionStorage.setItem("BOOK_AUTH_OK", "1"); } catch (e) {}
+    document.documentElement.classList.remove("auth-locked");
+    if (gate) gate.hidden = true;
+  }
+
+  /* 初始化：已登录则直接隐藏登录框，未登录则显示 */
+  if (isLocked()) {
+    gate.hidden = false;
+  } else {
+    gate.hidden = true;
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var u = userInput.value || "";
+      var p = passInput.value || "";
+      if (sha256(u) === CRED_HASH && sha256(p) === CRED_HASH) {
+        errEl.style.display = "none";
+        unlock();
+      } else {
+        errEl.style.display = "block";
+        passInput.value = "";
+        passInput.focus();
+      }
+    });
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="课程简介">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">课程简介</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-environment-setup.html" class="pagination-link" aria-label="第二讲：环境安装与引擎配置">
+        <span class="nav-page-text">第二讲：环境安装与引擎配置</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "第一讲：AI 认知与工具概览"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>**授课人：** 张晨（西北农林科技大学经济管理学院）</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>**第 1 次课** | 2 课时（90 分钟） | 2026 年夏季学期</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="al">![课程思维导图](images/pref-pref-mindmap-new.png)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本次教学目标</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>完成本次课后，你应该能够：</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>用通俗语言解释什么是生成式大语言模型（LLM），并举出至少三个它在经管研究中的典型应用场景</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>逐一说出 LLM 的六个核心缺陷，理解为什么「AI 生成的引用必须逐条核实」</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>说清 Agent 和 Chatbot 的本质区别，用自己的话解释 Agent 的四组件公式</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>根据任务类型选择合适的 AI 工具（聊天工具 / Agent 工具），并能解释选择理由</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>了解从「入门→进阶→精通」三阶段学习路径，明确自己当前阶段的学习目标</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## 课前说明</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>本课程是「人工智能在经济管理研究中的应用」的第一讲，属于「认知奠基」阶段。今天不装任何软件。</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>在动手操作之前，你需要先搞清楚三个问题：</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>AI 到底是什么？它的底层机制决定了它的能力上限</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>它能做什么、不能做什么？知道边界比知道能力更重要</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>为什么需要 Agent？ChatGPT 不够用吗？</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>这四个课时的教学逻辑是：**先理解本质，再动手搭建。** 好比做实证研究——先搞清楚识别假设能不能满足，再跑回归。你肯定不希望装了一堆软件之后才发现：这些东西根本解决不了你的问题。</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu"># 上节：认识 LLM——从原理到能力边界</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 上节时长建议：45 分钟。重点放在 1.3 节「六缺陷」——这是后续所有操作课的理论基础。</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.1 什么是生成式大语言模型（LLM）？</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### 技术定义</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>生成式大语言模型（Large Language Model, LLM）是一种基于 Transformer 架构、通过海量文本数据训练得到的深度学习模型。其核心工作机制极其简单：**给定上文，预测下一个最可能出现的词元（token），逐词生成完整文本。**</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>这里有三个关键词需要拆解：</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**生成式（Generative）**：不是从数据库里检索已有答案，而是从头「生成」新的文本。这也是为什么同一个问题问两遍可能得到不同回答——它每次都在重新生成。</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**大（Large）**：指数十亿至万亿级的参数量。参数越多，模型能捕捉的语言模式越复杂。2026 年的主流模型通常在 100B-2T 参数区间。</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**语言（Language）**：训练数据是文本，不是数字、图像或代码。尽管它能写代码、能做数学推理，但本质仍是语言模型——它的「思考」是对语言模式的拟合，不是逻辑演绎。</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2026 年主流模型概览</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>当前主流模型普遍采用混合专家架构（Mixture of Experts, MoE），上下文窗口已扩展至百万 token 级别。百万 token 是什么概念？大约 75 万个中文汉字——相当于把一整年的《经济研究》装进一个对话窗口。</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 模型 <span class="pp">|</span> 开发商 <span class="pp">|</span> 架构特点 <span class="pp">|</span> 上下文窗口 <span class="pp">|</span> 突出优势 <span class="pp">|</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|--------|---------|-----------|---------|</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> GPT-5.5 <span class="pp">|</span> OpenAI <span class="pp">|</span> MoE <span class="pp">|</span> 128K-1M <span class="pp">|</span> 综合能力最均衡 <span class="pp">|</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Claude Fable 5 / Opus 4.8 <span class="pp">|</span> Anthropic <span class="pp">|</span> MoE <span class="pp">|</span> 1M <span class="pp">|</span> 编程 + 长文本解析最优 <span class="pp">|</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> DeepSeek V4 / R1 <span class="pp">|</span> DeepSeek <span class="pp">|</span> MoE <span class="pp">|</span> 128K-1M+ <span class="pp">|</span> 国产推理最强，完全免费 <span class="pp">|</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Kimi K2.6 <span class="pp">|</span> 月之暗面 <span class="pp">|</span> MoE <span class="pp">|</span> 1M（200 万字） <span class="pp">|</span> 超长文本处理王者 <span class="pp">|</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Gemini 3.1 Pro <span class="pp">|</span> Google <span class="pp">|</span> MoE <span class="pp">|</span> 1M <span class="pp">|</span> 多模态 + 科学推理强 <span class="pp">|</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### 一个帮助你建立直觉的类比</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>把 LLM 理解为一个**「读过几乎所有公开文字、但不会真正思考」的超级实习生**：</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**博闻强记**：它读过网上能找到的几乎所有公开论文、教材、代码、新闻报道。让它写一段 DID 的方法论介绍，它写得比教材还流畅；让它列出农业经济学常用的工具变量，它能给出一个不错的清单。</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**反应极快**：几秒钟内能读完一篇 50 页的论文并给出总结。人类博士生可能需要一两个小时。</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**但不会真正思考**：你让它判断你的工具变量是否满足排他性约束——它做不到。因为后者需要因果推断的专业判断、需要理解研究情境、需要权衡多种可能性的相对合理性，而不仅仅是「在训练数据中见过的语言模式」。</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**会信口开河**：当它不知道某个具体事实时，它不会说「我不知道」，而是会根据语言概率拼凑一个「听起来很合理」的答案。这在学术界是致命的——虚构一条参考文献可能让你的论文在审稿环节被直接拒稿。</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="fu">### 一个简单的思维实验</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>打开 ChatGPT 或 DeepSeek，输入：</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 「请写一段 200 字的文字，介绍双重差分法（DID）在农业经济学中的应用。」</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>你会发现它写得相当流畅——定义准确、文献提及合理、行文符合学术规范。</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>再输入：</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 「我正在用 CHFS 2015-2019 面板数据研究宽带接入对农户非农收入的影响。我计划用『村到最近电信基站的距离』作为宽带接入的工具变量。这个工具变量是否满足排他性约束？请给出具体分析。」</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>你会发现它的回答要么是泛泛而谈的教科书式分析，要么就是一套「听上去处处合理、实则没有实质性判断」的车轱辘话。它不知道你的研究区域的地形特征、不了解电信基础设施的空间分布逻辑、不清楚基站的选址决策过程——而这些才是判断工具变量有效性的关键信息。</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>**这就是 LLM 的能力边界：语言层面的流畅掩盖不了实质判断的缺失。**</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.2 LLM 能做什么？</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### 核心通用能力</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>理解 LLM 能做什么，不要想「它能替代人的哪些工作」，而要想「哪些工作只需要语言层面的能力就能完成」。</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 能力 <span class="pp">|</span> 底层机制 <span class="pp">|</span> 在经管研究中的典型场景 <span class="pp">|</span> 可靠性 <span class="pp">|</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|---------|----------------------|:------:|</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本生成与润色 <span class="pp">|</span> 序列到序列的条件生成 <span class="pp">|</span> 英文论文润色、中英互译、审稿意见回复草稿 <span class="pp">|</span> 高 <span class="pp">|</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码编写 <span class="pp">|</span> 代码即文本，概率生成 <span class="pp">|</span> Stata / Python / R 清洗、回归命令、表格输出（esttab / outreg2） <span class="pp">|</span> 中高（需调试） <span class="pp">|</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 信息提取 <span class="pp">|</span> 模式匹配 + 语义理解 <span class="pp">|</span> 从 PDF 论文提取结构化信息（样本量、方法、结论） <span class="pp">|</span> 中高 <span class="pp">|</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本分类与编码 <span class="pp">|</span> 多分类任务的概率建模 <span class="pp">|</span> 对年报文本做情感分析、对政策文件做主题编码 <span class="pp">|</span> 高 <span class="pp">|</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 头脑风暴 <span class="pp">|</span> 生成式发散 <span class="pp">|</span> 研究设计讨论、识别策略列举、稳健性检验建议 <span class="pp">|</span> 中（需人工筛选） <span class="pp">|</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### 在研究各环节的具体应用</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 研究环节 <span class="pp">|</span> LLM 的具体应用 <span class="pp">|</span> 人工必须做的事 <span class="pp">|</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|---------------|---------------|</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文献综述 <span class="pp">|</span> 初筛归类、结构化信息提取、按主题分组的初稿生成 <span class="pp">|</span> 判断文献质量、确定纳入排除标准、核实引用 <span class="pp">|</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 研究设计 <span class="pp">|</span> 列举可能的识别策略（DID、IV、RD）、推荐数据来源、建议稳健性检验方案 <span class="pp">|</span> 选择适合研究情境的策略、判断识别假设是否满足 <span class="pp">|</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码编写 <span class="pp">|</span> 生成 Stata / Python / R 代码模板，覆盖数据清洗→基准回归→稳健性检验全流程 <span class="pp">|</span> 调试代码、验证结果、根据数据特征调整设定 <span class="pp">|</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本润色 <span class="pp">|</span> 语法纠错、表达优化、按期刊风格调整行文 <span class="pp">|</span> 保留学术观点和论证逻辑的完整性 <span class="pp">|</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本分析 <span class="pp">|</span> 对年报、新闻、政策文件做情感分析、主题建模、关键词提取 <span class="pp">|</span> 定义编码框架、验证分类准确率、解释结果的经济含义 <span class="pp">|</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### 学界初步共识</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>**机械性、重复性、格式化的工作交给 AI；创造性、判断性、把关性的工作留在自己手里。**</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>这不是说 AI 不重要——恰恰相反。一个能处理 80% 机械性工作的工具，能让研究者把精力集中在 20% 真正需要专业判断的环节上。这带来的效率提升是数量级的。</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>把 AI 定位为「超级研究助理」而非「合作者」：</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>它能帮你跑 100 个回归——但你得设计回归方程</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>它能帮你润色三段引言——但你得确定论证逻辑</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>它能帮你提取 500 篇论文的结构化信息——但你得定义提取框架</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1.3 LLM 有什么缺陷？（上节重点）</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>这一节是今天最重要的内容。理解 LLM 的局限，比知道它的能力更重要。以下六个缺陷，每一个都可能让你的研究翻车。</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### 缺陷一：幻觉——编造事实与虚构引用</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>这是 LLM 最严重的缺陷，没有之一。模型不知道的事，它会用最自信的语气「编」一个听起来很合理的答案。</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>**关键证据：**</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Linardon et al.（2025）系统评估 GPT-4o 生成的文献综述，发现 **19.9% 的引用完全不存在**，另有 45.4% 的引用存在期刊名、卷号、页码或作者名的错误。合计超过 65% 的引用有问题。</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>NeurIPS 2025 被接收论文中，53 篇包含 **100 个完全虚构的引用**——这些论文都经过同行评审，意味着审稿人也没发现。</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Springer Nature 某已发表论文中 14 条参考文献有 12 条不存在，最终撤稿。</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>**为什么 LLM 会产生幻觉？**</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>本质原因是 LLM 的训练目标是「生成概率上最合理的文本序列」，而非「陈述事实」。模型没有「事实」的概念——它只有「在我读过的文本中，这些词以这种顺序出现的概率最高」的概念。</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>当一个问题的答案不在训练数据中时，「我不知道」并不是概率最高的序列——编一个看起来像参考文献的字符串反而是。这是因为训练数据中通篇都是引用格式，模型学会了「在讨论某主题时，后面跟着一串（作者，年份）格式的文字看起来最合理」。</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>**对经管研究的致命影响：**</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>你让 LLM 帮你写文献综述。它流利地引用了 30 篇文献。你扫了一眼，觉得观点合理、行文流畅，直接贴进论文。投稿后，审稿人随手查了其中一篇——不存在。再查一篇——也不存在。审稿人得出结论：作者在伪造文献。拒稿，可能附带学术不端的指控。</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **底线：每一条 AI 生成的引用，都必须逐条人工核实。没有例外，没有捷径。**</span></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### 缺陷二：知识截止日期</span></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>LLM 的知识冻结在训练数据截止日。主流模型的截止日期约在 2024 年中到 2025 年初。</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>**这意味着什么：**</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>2025 年中央一号文件的任何新提法，它不知道</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>2025 年发表在 AER 上的最新论文，它没读过</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>2025 年 CHFS 最新一轮调查的数据结构和变量名，它不清楚</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>某个政策在 2024 年底发生了调整，它只能描述调整前的版本</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>**怎么应对：**</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>给它提供最新文件原文。LLM 处理输入文本的能力不受知识截止日限制——你给它一份 2025 年的政策文件，它马上就能分析其结构和要点。知识截止日限制的是它「脑子里自带的」知识，不影响它对「你提供的」文本的理解和加工。</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### 缺陷三：结果不可复现</span></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>LLM 是概率系统。同一个 prompt，多次运行，输出可能不同。</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>**关键证据：**</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>同一 prompt 多次运行，47%-76% 的代码任务产生不同输出。这意味着你不能说「我的回归结果是 ChatGPT 跑出来的」。</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>**对经管研究的意义：**</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>学术研究的核心要求之一是可复现性。LLM 的输出本质上不可复现——因为温度参数（控制输出随机性的参数）使得每次生成的 token 序列可能不同。</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>怎么办？**AI 只负责生成代码模板和写作草稿。** 实际的数据分析和定量结果，你必须自己运行、自己验证、自己留档。</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="fu">### 缺陷四：推理能力局限</span></span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>LLM 能流畅地解释计量方法，但不等于能正确地使用计量方法。这两个能力之间存在根本性的鸿沟。</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>**陶哲轩的实测（2026）：**</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>陶哲轩让 Claude Code 完成 Lean 形式化证明任务。Claude Code 运行了 45 分钟，产生了零可用代码。陶哲轩的评价是：「目前 AI 在形式化证明上的表现相当于一个刚学会语法但完全不懂数学的本科生。」</span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>**更严重的：LLM 不理解识别假设**</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>这是对经管研究者来说最重要的一点。LLM 会忽视：</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**工具变量的排他性（exclusion restriction）**：你告诉 LLM「我用降雨量作为农业收入的工具变量」，它可能说「听起来合理」——但它不会追问「降雨量是否通过影响农业生产以外的渠道影响被解释变量」。</span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**DID 的平行趋势（parallel trends）**：LLM 可以帮你画事件研究图，但它不会告诉你「处理前趋势已经明显发散，DID 估计可能有偏」。</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**RD 的连续性条件（continuity assumption）**：LLM 不理解断点附近的样本是否可能存在自选择。</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>识别假设是计量经济学的核心训练内容——它不是「下一个词预测」能处理的。这里的判断必须由研究者自己做。</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### 缺陷五：无法真正执行操作</span></span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>LLM 本身只是文本生成器。它不能：</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在你的电脑上读写文件</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在你的 Stata 里运行代码</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>访问数据库下载数据</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>打开浏览器搜索实时信息</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>把你的 Markdown 文件转换成 Word 文档</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>Agent 框架通过「工具调用」（Tool Use）赋予了 LLM 执行能力——它会调用文件系统 API、运行 Shell 命令、调用外部 MCP 服务。但这里有两个问题：</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**能力有，但不可靠**：Microsoft Research（2026）发现 Agent 在多步文档编辑任务中平均损坏 25% 的内容</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**需要额外配置**：工具调用能力不是开箱即用的，需要安装、配置、调试</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>这正是本课程后续三讲要解决的核心问题——让 AI 从「能说」变成「能干活」。</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### 缺陷六：经济学专业能力的结构性缺失</span></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>Ben Golub（Northwestern, 2026）在论文中系统归纳了 LLM 在经济学研究中的四点结构性缺失：</span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**不理解学科发表规范**</span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>不知道《经济研究》和 AER 的行文风格差异</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>不知道中文经济学论文和英文论文在引言结构上的不同传统</span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>不知道不同期刊对表格格式、参考文献格式的规定</span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**只顾「编译通过」而非正确性**</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>代码能运行 = 结果正确？在经济学里这远远不够</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>看标准误聚类到哪个层面、看固定效应设定是否合理、看是否遗漏了关键的稳健性检验——这些 LLM 不会主动做</span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**宁可胡猜不说「不确定」**</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>经济学训练强调：「识别假设不满足，结论不可靠」</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>LLM 被训练成在不确定时给出最可能的答案，而不是说出「在这个设定下，我无法给出可靠判断」</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**无法进行跨领域原创概念连接**</span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>能拼凑已有知识，不能产出新概念</span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>「数字普惠金融对农户非农就业的影响」这个选题来自研究者对两个领域交叉地带的洞见——LLM 可以帮你在已有框架内分析，但不能提出这个交叉视角</span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a><span class="fu">### LLM 擅长与不擅长：能力矩阵</span></span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a>以下矩阵是经管研究场景下的综合评估，基于 2025-2026 年的最新测评：</span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 场景 <span class="pp">|</span> 擅长程度 <span class="pp">|</span> 说明 <span class="pp">|</span></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|:--------:|------|</span></span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本情感 / 情绪分析 <span class="pp">|</span> ★★★★★ <span class="pp">|</span> 接近甚至超过人工编码一致性 <span class="pp">|</span></span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文本分类与编码 <span class="pp">|</span> ★★★★★ <span class="pp">|</span> 对年报、政策文本的分类准确率超过 90% <span class="pp">|</span></span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 中英论文润色与翻译 <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> 润色质量接近专业语言编辑 <span class="pp">|</span></span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码模板生成 <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> 能生成语法正确的 Stata / Python / R 代码，但需调试 <span class="pp">|</span></span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文献初筛与信息提取 <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> 适合初筛和结构化提取，但分类结果需人工验证 <span class="pp">|</span></span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 研究设计头脑风暴 <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> 能提供思路拓展，但实质性判断需研究者把握 <span class="pp">|</span></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 经济学理论创新 <span class="pp">|</span> ★☆☆☆☆ <span class="pp">|</span> 不能产出新的理论概念或分析框架 <span class="pp">|</span></span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 因果推断（DID / IV / RD） <span class="pp">|</span> ★☆☆☆☆ <span class="pp">|</span> 不能判断识别假设是否满足 <span class="pp">|</span></span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 独立数据解释 <span class="pp">|</span> ★☆☆☆☆ <span class="pp">|</span> 能描述统计模式，不能判断因果关系 <span class="pp">|</span></span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 大型微观数据处理 <span class="pp">|</span> ★☆☆☆☆ <span class="pp">|</span> 能生成处理代码，但不能理解数据生成过程 <span class="pp">|</span></span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 参考文献生成 <span class="pp">|</span> ☆☆☆☆☆ <span class="pp">|</span> 绝对不能依赖 <span class="pp">|</span></span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 可复现定量结果 <span class="pp">|</span> ☆☆☆☆☆ <span class="pp">|</span> 本质上不可复现 <span class="pp">|</span></span>
+<span id="cb2-264"><a href="#cb2-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-265"><a href="#cb2-265" aria-hidden="true" tabindex="-1"></a><span class="fu">### 常见误区澄清</span></span>
+<span id="cb2-266"><a href="#cb2-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-267"><a href="#cb2-267" aria-hidden="true" tabindex="-1"></a>在进入下一节之前，先澄清关于 LLM 的三个最常见误区：</span>
+<span id="cb2-268"><a href="#cb2-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-269"><a href="#cb2-269" aria-hidden="true" tabindex="-1"></a>**误区一：「AI 会取代研究者。」**</span>
+<span id="cb2-270"><a href="#cb2-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-271"><a href="#cb2-271" aria-hidden="true" tabindex="-1"></a>不会。AI 替代的是机械性、重复性的工作环节。研究问题的提出、识别策略的设计、结果的经济学解释——这些需要学科训练、专业判断和创造性思维的工作，AI 暂时做不了，而且在可预见的未来也难以做到。AI 取代的不是研究者，而是不用 AI 的同行。</span>
+<span id="cb2-272"><a href="#cb2-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-273"><a href="#cb2-273" aria-hidden="true" tabindex="-1"></a>**误区二：「AI 给出的答案就是正确答案。」**</span>
+<span id="cb2-274"><a href="#cb2-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-275"><a href="#cb2-275" aria-hidden="true" tabindex="-1"></a>LLM 的输出是概率最高序列，不是事实陈述。它可能输出语法完美但事实完全错误的答案——而且说得非常自信。对 AI 的输出保持不信任，是使用 AI 的第一素养。</span>
+<span id="cb2-276"><a href="#cb2-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-277"><a href="#cb2-277" aria-hidden="true" tabindex="-1"></a>**误区三：「只要 prompt 写得足够好，AI 什么都能做。」**</span>
+<span id="cb2-278"><a href="#cb2-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-279"><a href="#cb2-279" aria-hidden="true" tabindex="-1"></a>Prompt 工程能提升输出质量，但改变不了 LLM 的本质局限。再好的 prompt 也无法让 LLM 理解识别假设、判断工具变量的排他性、评估平行趋势的合理性。知道 prompt 的边界，和知道怎么写 prompt 同样重要。</span>
+<span id="cb2-280"><a href="#cb2-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-281"><a href="#cb2-281" aria-hidden="true" tabindex="-1"></a><span class="fu">### 底线</span></span>
+<span id="cb2-282"><a href="#cb2-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-283"><a href="#cb2-283" aria-hidden="true" tabindex="-1"></a>**LLM 是「超级但有限的助手」。**</span>
+<span id="cb2-284"><a href="#cb2-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-285"><a href="#cb2-285" aria-hidden="true" tabindex="-1"></a>正如洪永淼和汪寿阳（2023）所指出：「基于大数据的人工智能因果推断本质上是一种统计关系推断，需要引入经济理论或实验方法帮助识别真正的因果关系。」</span>
+<span id="cb2-286"><a href="#cb2-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-287"><a href="#cb2-287" aria-hidden="true" tabindex="-1"></a>这句话点出了核心矛盾：LLM 做的是统计模式匹配，经济学研究需要的是因果识别。两者之间有不可消除的张力。AI 可以帮你做得更快，但不能替代你判断做得对不对。</span>
+<span id="cb2-288"><a href="#cb2-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-289"><a href="#cb2-289" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-290"><a href="#cb2-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-291"><a href="#cb2-291" aria-hidden="true" tabindex="-1"></a><span class="fu"># 下节：从 LLM 到 Agent——工具选择与学习路径</span></span>
+<span id="cb2-292"><a href="#cb2-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-293"><a href="#cb2-293" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 下节时长建议：45 分钟。重点是 2.2 节「Agent 概念」和 2.5 节「学习路径」——前者是后续三讲的理论基础，后者是学生课后实践的路线图。</span></span>
+<span id="cb2-294"><a href="#cb2-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-295"><a href="#cb2-295" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-296"><a href="#cb2-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-297"><a href="#cb2-297" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.1 为什么需要 Agent？</span></span>
+<span id="cb2-298"><a href="#cb2-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-299"><a href="#cb2-299" aria-hidden="true" tabindex="-1"></a><span class="fu">### 从一段日常困境说起</span></span>
+<span id="cb2-300"><a href="#cb2-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-301"><a href="#cb2-301" aria-hidden="true" tabindex="-1"></a>你要做一篇论文：从 CHFS 下载数据、清洗缺失值和异常值、生成描述性统计、跑五组基准回归、做两组稳健性检验、生成 LaTeX 格式的回归表格。</span>
+<span id="cb2-302"><a href="#cb2-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-303"><a href="#cb2-303" aria-hidden="true" tabindex="-1"></a>用 ChatGPT 的做法：</span>
+<span id="cb2-304"><a href="#cb2-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-305"><a href="#cb2-305" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>在聊天框里输入：「请给我一段 Stata 代码，用 CHFS 2019 数据做描述性统计」</span>
+<span id="cb2-306"><a href="#cb2-306" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>把生成的代码复制到 Stata do-file 编辑器</span>
+<span id="cb2-307"><a href="#cb2-307" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>跑代码，报错了——变量名不对</span>
+<span id="cb2-308"><a href="#cb2-308" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>把报错信息贴回 ChatGPT：「变量名不对，CHFS 2019 的变量名是什么？」</span>
+<span id="cb2-309"><a href="#cb2-309" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>ChatGPT 说了一堆变量名——你逐个试，有的对有的错</span>
+<span id="cb2-310"><a href="#cb2-310" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>重复以上步骤五组回归 × 两次稳健性检验...</span>
+<span id="cb2-311"><a href="#cb2-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-312"><a href="#cb2-312" aria-hidden="true" tabindex="-1"></a>每一步，你都是人肉 API——在 ChatGPT 和 Stata 之间搬运信息和结果。三步以上，上下文就丢了。ChatGPT 记不住你上一步做了什么、数据长什么样、报错原因是什么。</span>
+<span id="cb2-313"><a href="#cb2-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-314"><a href="#cb2-314" aria-hidden="true" tabindex="-1"></a><span class="fu">### Agent 的本质区别</span></span>
+<span id="cb2-315"><a href="#cb2-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-316"><a href="#cb2-316" aria-hidden="true" tabindex="-1"></a>Chatbot 的工作流程是一条线段：**用户输入 → 模型生成回答 → 结束。**</span>
+<span id="cb2-317"><a href="#cb2-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-318"><a href="#cb2-318" aria-hidden="true" tabindex="-1"></a>Agent 的工作流程是一个循环：**用户交代目标 → Agent 拆解为子任务 → 调用工具执行 → 观察执行结果 → 根据结果调整下一步 → 继续执行 → 直到目标完成。**</span>
+<span id="cb2-319"><a href="#cb2-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-320"><a href="#cb2-320" aria-hidden="true" tabindex="-1"></a>用经济学的话说：Chatbot 是一次性博弈，Agent 是序贯决策。Agent 能「看到」自己上一步操作的结果，并根据反馈修正后续步骤。</span>
+<span id="cb2-321"><a href="#cb2-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-322"><a href="#cb2-322" aria-hidden="true" tabindex="-1"></a>回到上面的例子。用 Agent 的做法：</span>
+<span id="cb2-323"><a href="#cb2-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-324"><a href="#cb2-324" aria-hidden="true" tabindex="-1"></a>**你只需要说一句：**「用 CHFS 2019 数据，做农户数字金融使用对收入影响的基准回归，包括描述性统计、基准 OLS、工具变量回归，输出 LaTeX 表格。」</span>
+<span id="cb2-325"><a href="#cb2-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-326"><a href="#cb2-326" aria-hidden="true" tabindex="-1"></a>Agent 自己会：打开数据文件 → 查看变量名 → 选择合适变量 → 编写代码 → 运行代码 → 看到报错 → 查找原因 → 修正代码 → 重新运行 → 直到成功 → 生成表格。</span>
+<span id="cb2-327"><a href="#cb2-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-328"><a href="#cb2-328" aria-hidden="true" tabindex="-1"></a>你在这个过程中的角色：给定目标、把关结果、解释经济含义。</span>
+<span id="cb2-329"><a href="#cb2-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-330"><a href="#cb2-330" aria-hidden="true" tabindex="-1"></a><span class="fu">### Agent = 「自动干活」的能力</span></span>
+<span id="cb2-331"><a href="#cb2-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-332"><a href="#cb2-332" aria-hidden="true" tabindex="-1"></a>这正是 Agent 的价值所在：**从「你说我做」进化到「你说目标，我自主完成」。**</span>
+<span id="cb2-333"><a href="#cb2-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-334"><a href="#cb2-334" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-335"><a href="#cb2-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-336"><a href="#cb2-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.2 Agent 的核心概念</span></span>
+<span id="cb2-337"><a href="#cb2-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-338"><a href="#cb2-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### 核心公式</span></span>
+<span id="cb2-339"><a href="#cb2-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-340"><a href="#cb2-340" aria-hidden="true" tabindex="-1"></a>OpenAI 安全系统负责人 Lilian Weng（2023）提出了被广泛引用的 Agent 核心公式：</span>
+<span id="cb2-341"><a href="#cb2-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-342"><a href="#cb2-342" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Agent = LLM（大脑） + Planning（规划） + Memory（记忆） + Tool Use（工具调用）**</span></span>
+<span id="cb2-343"><a href="#cb2-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-344"><a href="#cb2-344" aria-hidden="true" tabindex="-1"></a><span class="fu">### 四组件详解</span></span>
+<span id="cb2-345"><a href="#cb2-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-346"><a href="#cb2-346" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 组件 <span class="pp">|</span> 功能 <span class="pp">|</span> 通俗理解 <span class="pp">|</span> 在经管研究中的体现 <span class="pp">|</span></span>
+<span id="cb2-347"><a href="#cb2-347" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|---------|------------------|</span></span>
+<span id="cb2-348"><a href="#cb2-348" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **LLM（大脑）** <span class="pp">|</span> 理解任务、推理分析、做出决策 <span class="pp">|</span> 没有大脑就没有智能——这是基础 <span class="pp">|</span> 理解「做 DID 分析」意味着什么 <span class="pp">|</span></span>
+<span id="cb2-349"><a href="#cb2-349" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Planning（规划）** <span class="pp">|</span> 将复杂目标拆解为可执行的子任务序列 <span class="pp">|</span> 「我要从西安去北京」→ 先到高铁站、买票、上车、到站——Agent 对研究任务做同样的事 <span class="pp">|</span> 「用 CHFS 研究数字金融对农户收入的因果效应」→ 自动拆解为数据加载→变量筛选→描述性统计→基准 OLS→内生性处理→IV 回归→稳健性检验→结果输出 <span class="pp">|</span></span>
+<span id="cb2-350"><a href="#cb2-350" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Memory（记忆）** <span class="pp">|</span> 短期记忆（当前对话）、工作记忆（当前项目上下文）、长期记忆（跨项目的知识和偏好） <span class="pp">|</span> 不用每次都从零开始交代背景 <span class="pp">|</span> 记住你的研究领域是农业经济学、常用数据集是 CHFS、偏好控制县级固定效应 <span class="pp">|</span></span>
+<span id="cb2-351"><a href="#cb2-351" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Tool Use（工具调用）** <span class="pp">|</span> 通过标准化接口调用外部工具：读写文件、执行 Shell 命令、搜索网页、操作数据库、调用 API <span class="pp">|</span> MCP 协议——AI 世界的 USB-C，一个接口接所有外设 <span class="pp">|</span> 读 .dta 文件、运行 Stata / Python、搜索 Semantic Scholar、读写 Zotero 文献库 <span class="pp">|</span></span>
+<span id="cb2-352"><a href="#cb2-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-353"><a href="#cb2-353" aria-hidden="true" tabindex="-1"></a><span class="fu">### 一个直观类比</span></span>
+<span id="cb2-354"><a href="#cb2-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-355"><a href="#cb2-355" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 角色 <span class="pp">|</span> 能力 <span class="pp">|</span> 类比 <span class="pp">|</span></span>
+<span id="cb2-356"><a href="#cb2-356" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|------|</span></span>
+<span id="cb2-357"><a href="#cb2-357" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LLM 本身 <span class="pp">|</span> 读过很多书，能说会道 <span class="pp">|</span> 刚入学的博士生——知道很多概念，但不知道怎么动手做研究 <span class="pp">|</span></span>
+<span id="cb2-358"><a href="#cb2-358" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LLM + Tool Use <span class="pp">|</span> 能说，也能动手操作工具 <span class="pp">|</span> 学会了用 Stata 的博士生——能跑回归，但需要别人一步步指导 <span class="pp">|</span></span>
+<span id="cb2-359"><a href="#cb2-359" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> LLM + Tool Use + Memory <span class="pp">|</span> 能说、能动手、能记住上下文 <span class="pp">|</span> 跟你合作了半年的 RA——知道你的研究偏好，不用每次从头交代 <span class="pp">|</span></span>
+<span id="cb2-360"><a href="#cb2-360" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Agent（四组件齐全）** <span class="pp">|</span> 能说、能动手、能记住、能自己规划 <span class="pp">|</span> 独立做事的博士后——给定目标，自己规划步骤、操作工具、检查结果、修正错误 <span class="pp">|</span></span>
+<span id="cb2-361"><a href="#cb2-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-362"><a href="#cb2-362" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-363"><a href="#cb2-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-364"><a href="#cb2-364" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.3 主流 Agent 工具概览</span></span>
+<span id="cb2-365"><a href="#cb2-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-366"><a href="#cb2-366" aria-hidden="true" tabindex="-1"></a>2026 年的 Agent 生态百花齐放。以下是六款最受关注的主流工具。</span>
+<span id="cb2-367"><a href="#cb2-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-368"><a href="#cb2-368" aria-hidden="true" tabindex="-1"></a><span class="fu">### 六款工具速览</span></span>
+<span id="cb2-369"><a href="#cb2-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-370"><a href="#cb2-370" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 工具 <span class="pp">|</span> 开发者 <span class="pp">|</span> 开源 <span class="pp">|</span> 核心定位 <span class="pp">|</span> 一句话 <span class="pp">|</span></span>
+<span id="cb2-371"><a href="#cb2-371" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|--------|:----:|----------|--------|</span></span>
+<span id="cb2-372"><a href="#cb2-372" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Claude Code** <span class="pp">|</span> Anthropic <span class="pp">|</span> ✗ <span class="pp">|</span> 最强编程 Agent，本地执行 <span class="pp">|</span> SWE-bench Pro 69.2%，深度代码推理 <span class="pp">|</span></span>
+<span id="cb2-373"><a href="#cb2-373" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **OpenAI Codex** <span class="pp">|</span> OpenAI <span class="pp">|</span> CLI 开源 <span class="pp">|</span> 云端沙箱编程平台 <span class="pp">|</span> 8 并行子代理，ChatGPT 生态无缝衔接 <span class="pp">|</span></span>
+<span id="cb2-374"><a href="#cb2-374" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **OpenCode** <span class="pp">|</span> Anomaly 社区 <span class="pp">|</span> MIT <span class="pp">|</span> 模型无关的开放 Agent <span class="pp">|</span> 176k Stars，75+ 模型供应商，完全免费 <span class="pp">|</span></span>
+<span id="cb2-375"><a href="#cb2-375" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **OpenClaw** <span class="pp">|</span> P. Steinberger <span class="pp">|</span> MIT <span class="pp">|</span> 多通道个人 AI 助手 <span class="pp">|</span> 250k+ Stars，22+ 消息平台，手机操控 <span class="pp">|</span></span>
+<span id="cb2-376"><a href="#cb2-376" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Hermes Agent** <span class="pp">|</span> Nous Research <span class="pp">|</span> MIT <span class="pp">|</span> 自进化 Agent <span class="pp">|</span> 自动创建技能，持久记忆，越用越聪明 <span class="pp">|</span></span>
+<span id="cb2-377"><a href="#cb2-377" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **WorkBuddy** <span class="pp">|</span> 腾讯云 <span class="pp">|</span> ✗ <span class="pp">|</span> 中国企业 AI 办公平台 <span class="pp">|</span> 微信 / 企微集成，月访问 8.85 亿 <span class="pp">|</span></span>
+<span id="cb2-378"><a href="#cb2-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-379"><a href="#cb2-379" aria-hidden="true" tabindex="-1"></a><span class="fu">### 快速定位指南</span></span>
+<span id="cb2-380"><a href="#cb2-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-381"><a href="#cb2-381" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Claude Code** = 编程最强的终端助手——跑回归、调代码、写论文的首选，适合「把活干好」</span>
+<span id="cb2-382"><a href="#cb2-382" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OpenAI Codex** = 云端版 Claude Code——代码在远程沙箱跑，不占本地资源，ChatGPT 用户零学习成本</span>
+<span id="cb2-383"><a href="#cb2-383" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OpenCode** = 开源版 Claude Code——完全免费、不绑定任何模型供应商，但需要自己折腾初始配置</span>
+<span id="cb2-384"><a href="#cb2-384" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**OpenClaw** = 住在手机里的 AI 管家——通过微信 / WhatsApp / Telegram 随时发指令，7x24 在线执行</span>
+<span id="cb2-385"><a href="#cb2-385" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Hermes Agent** = 会自我进化的 AI 学徒——用得越多，它越了解你的研究领域和工作习惯</span>
+<span id="cb2-386"><a href="#cb2-386" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**WorkBuddy** = 最懂中国企业办公的 AI 平台——你已经在用的微信 / 企微 + AI 能力叠加</span>
+<span id="cb2-387"><a href="#cb2-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-388"><a href="#cb2-388" aria-hidden="true" tabindex="-1"></a><span class="fu">### 九维度深度对比</span></span>
+<span id="cb2-389"><a href="#cb2-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-390"><a href="#cb2-390" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 维度 <span class="pp">|</span> Claude Code <span class="pp">|</span> Codex <span class="pp">|</span> OpenCode <span class="pp">|</span> OpenClaw <span class="pp">|</span> Hermes <span class="pp">|</span> WorkBuddy <span class="pp">|</span></span>
+<span id="cb2-391"><a href="#cb2-391" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|:-----------:|:-----:|:--------:|:--------:|:------:|:---------:|</span></span>
+<span id="cb2-392"><a href="#cb2-392" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 编程能力 <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span></span>
+<span id="cb2-393"><a href="#cb2-393" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 自主执行 <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span></span>
+<span id="cb2-394"><a href="#cb2-394" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 模型灵活性 <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span></span>
+<span id="cb2-395"><a href="#cb2-395" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 中文支持 <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span></span>
+<span id="cb2-396"><a href="#cb2-396" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 消息平台集成 <span class="pp">|</span> ☆☆☆☆☆ <span class="pp">|</span> ☆☆☆☆☆ <span class="pp">|</span> ☆☆☆☆☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span></span>
+<span id="cb2-397"><a href="#cb2-397" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 开箱即用 <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★☆ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span></span>
+<span id="cb2-398"><a href="#cb2-398" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 隐私 / 本地执行 <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span></span>
+<span id="cb2-399"><a href="#cb2-399" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 自学习能力 <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span></span>
+<span id="cb2-400"><a href="#cb2-400" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 价格友好度 <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★☆☆☆ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★★★ <span class="pp">|</span> ★★★☆☆ <span class="pp">|</span></span>
+<span id="cb2-401"><a href="#cb2-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-402"><a href="#cb2-402" aria-hidden="true" tabindex="-1"></a><span class="fu">### 一个具体的 Agent 工作流示例</span></span>
+<span id="cb2-403"><a href="#cb2-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-404"><a href="#cb2-404" aria-hidden="true" tabindex="-1"></a>以下是一个真实可运行的 Agent 任务——后续三讲安装配置完成后，你就能在你自己的电脑上复现：</span>
+<span id="cb2-405"><a href="#cb2-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-406"><a href="#cb2-406" aria-hidden="true" tabindex="-1"></a>**你输入的命令：**</span>
+<span id="cb2-407"><a href="#cb2-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-408"><a href="#cb2-408" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-409"><a href="#cb2-409" aria-hidden="true" tabindex="-1"></a><span class="in">用 CHFS 2019 数据，研究数字金融使用对农户家庭人均收入的影响。</span></span>
+<span id="cb2-410"><a href="#cb2-410" aria-hidden="true" tabindex="-1"></a><span class="in">请完成以下步骤：</span></span>
+<span id="cb2-411"><a href="#cb2-411" aria-hidden="true" tabindex="-1"></a><span class="in">1. 数据清洗（处理缺失值、缩尾 1%）</span></span>
+<span id="cb2-412"><a href="#cb2-412" aria-hidden="true" tabindex="-1"></a><span class="in">2. 描述性统计（含平衡性检验）</span></span>
+<span id="cb2-413"><a href="#cb2-413" aria-hidden="true" tabindex="-1"></a><span class="in">3. 基准 OLS 回归（逐步加入控制变量和固定效应）</span></span>
+<span id="cb2-414"><a href="#cb2-414" aria-hidden="true" tabindex="-1"></a><span class="in">4. 工具变量回归（IV = 同村其他家庭数字金融使用率的均值）</span></span>
+<span id="cb2-415"><a href="#cb2-415" aria-hidden="true" tabindex="-1"></a><span class="in">5. 输出 LaTeX 格式的回归表格到 results/ 文件夹</span></span>
+<span id="cb2-416"><a href="#cb2-416" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-417"><a href="#cb2-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-418"><a href="#cb2-418" aria-hidden="true" tabindex="-1"></a>**Agent 的实际执行过程：**</span>
+<span id="cb2-419"><a href="#cb2-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-420"><a href="#cb2-420" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>打开 <span class="in">`data/chfs2019.dta`</span>，读取变量名和标签</span>
+<span id="cb2-421"><a href="#cb2-421" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>识别相关变量：收入变量、数字金融使用变量、人口学控制变量、村级标识变量</span>
+<span id="cb2-422"><a href="#cb2-422" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>编写 Python / Stata 代码：数据清洗 → 缺失值处理 → 1% 缩尾</span>
+<span id="cb2-423"><a href="#cb2-423" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>运行代码 → 查看输出 → 发现某变量缺失率 40% → 自动决定剔除该变量</span>
+<span id="cb2-424"><a href="#cb2-424" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>生成描述性统计表 → 确认样本量合理</span>
+<span id="cb2-425"><a href="#cb2-425" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>逐步回归：Model 1（无控制变量）→ Model 2（+ 人口学）→ Model 3（+ 村级 FE）</span>
+<span id="cb2-426"><a href="#cb2-426" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>发现 Model 3 中数字金融系数显著减小 → 自动在输出中标注「控制村级 FE 后系数衰减明显，提示村级层面遗漏变量」</span>
+<span id="cb2-427"><a href="#cb2-427" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>构造 IV = 同村其他家庭数字金融使用率均值 → 一阶段 F 值 23.7 → 生成弱 IV 检验</span>
+<span id="cb2-428"><a href="#cb2-428" aria-hidden="true" tabindex="-1"></a><span class="ss">9. </span>汇总所有回归到一张 LaTeX 表格 → 保存到 <span class="in">`results/regression_table.tex`</span></span>
+<span id="cb2-429"><a href="#cb2-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-430"><a href="#cb2-430" aria-hidden="true" tabindex="-1"></a>**整个过程你做了什么？** 只用一句话给出了研究目标和基本设定。Agent 完成了从数据到结果的全流程——包括发现数据质量问题时自动调整策略。</span>
+<span id="cb2-431"><a href="#cb2-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-432"><a href="#cb2-432" aria-hidden="true" tabindex="-1"></a>这就是 Agent 和 Chatbot 的本质区别。</span>
+<span id="cb2-433"><a href="#cb2-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-434"><a href="#cb2-434" aria-hidden="true" tabindex="-1"></a><span class="fu">### 课程选型理由：为什么是 Claude Code + OpenCode？</span></span>
+<span id="cb2-435"><a href="#cb2-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-436"><a href="#cb2-436" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Claude Code 编程能力断层领先**：SWE-bench Pro 得分 69.2%，在代码生成、调试、重构上的表现远超同类。你的回归分析、论文复现、数据处理——这些全是代码任务。</span>
+<span id="cb2-437"><a href="#cb2-437" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**OpenCode 降低入门门槛**：自带免费模型（GLM-5 Free 等），对没有 API 预算的学生非常友好。课堂上可以用免费模型演示，课后学生可以零成本练习。</span>
+<span id="cb2-438"><a href="#cb2-438" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**同一套 Skills 生态**：两者共用 Skills 扩展包，装一次两个工具都能用，迁移成本几乎为零。</span>
+<span id="cb2-439"><a href="#cb2-439" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**互为备份**：一个出问题时另一个顶上。API 额度用完用免费模型，免费模型能力不够切付费 API——灵活切换。</span>
+<span id="cb2-440"><a href="#cb2-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-441"><a href="#cb2-441" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-442"><a href="#cb2-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-443"><a href="#cb2-443" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.4 主流聊天 / 对话工具一览</span></span>
+<span id="cb2-444"><a href="#cb2-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-445"><a href="#cb2-445" aria-hidden="true" tabindex="-1"></a>Agent 是「动手干活的」，但日常研究中很多时候你只需要「快速问一个问题、查一个概念、润色一段话」。以下是你的日常对话工具箱。</span>
+<span id="cb2-446"><a href="#cb2-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-447"><a href="#cb2-447" aria-hidden="true" tabindex="-1"></a><span class="fu">### 国际主流</span></span>
+<span id="cb2-448"><a href="#cb2-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-449"><a href="#cb2-449" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 工具 <span class="pp">|</span> 免费策略 <span class="pp">|</span> 上下文 <span class="pp">|</span> 中文质量 <span class="pp">|</span> 定位 <span class="pp">|</span></span>
+<span id="cb2-450"><a href="#cb2-450" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|----------|--------|:--------:|------|</span></span>
+<span id="cb2-451"><a href="#cb2-451" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **ChatGPT（GPT-5.5）** <span class="pp">|</span> 免费版含 GPT-5 基础能力 <span class="pp">|</span> 128K-1M <span class="pp">|</span> B <span class="pp">|</span> 全能均衡，什么都能做，没有明显短板 <span class="pp">|</span></span>
+<span id="cb2-452"><a href="#cb2-452" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Claude（Fable 5 / Opus 4.8）** <span class="pp">|</span> Sonnet 4.6 免费（额度有限） <span class="pp">|</span> 1M <span class="pp">|</span> B <span class="pp">|</span> 编程 + 长文本解析双料冠军 <span class="pp">|</span></span>
+<span id="cb2-453"><a href="#cb2-453" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Gemini 3.1 Pro** <span class="pp">|</span> 免费版含 1M 上下文 <span class="pp">|</span> 1M <span class="pp">|</span> C <span class="pp">|</span> 科学推理性价比之王，多模态能力强 <span class="pp">|</span></span>
+<span id="cb2-454"><a href="#cb2-454" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Grok 4** <span class="pp">|</span> X 平台内免费 <span class="pp">|</span> 2M <span class="pp">|</span> C <span class="pp">|</span> 实时数据接入，输出快，幻觉率低 <span class="pp">|</span></span>
+<span id="cb2-455"><a href="#cb2-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-456"><a href="#cb2-456" aria-hidden="true" tabindex="-1"></a><span class="fu">### 国产主流</span></span>
+<span id="cb2-457"><a href="#cb2-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-458"><a href="#cb2-458" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 工具 <span class="pp">|</span> 免费策略 <span class="pp">|</span> 上下文 <span class="pp">|</span> 中文质量 <span class="pp">|</span> 定位 <span class="pp">|</span></span>
+<span id="cb2-459"><a href="#cb2-459" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|----------|--------|:--------:|------|</span></span>
+<span id="cb2-460"><a href="#cb2-460" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **DeepSeek（V4 / R1）** | **网页端完全免费** <span class="pp">|</span> 128K-1M+ <span class="pp">|</span> A <span class="pp">|</span> 编程推理王者，零成本科研利器 <span class="pp">|</span></span>
+<span id="cb2-461"><a href="#cb2-461" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **Kimi（K2.6）** | 免费版日限约 30 次 | **1M（200 万字）** <span class="pp">|</span> A <span class="pp">|</span> 超长文本处理绝对王者 <span class="pp">|</span></span>
+<span id="cb2-462"><a href="#cb2-462" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **通义千问（Qwen3.7）** <span class="pp">|</span> 免费额度充足 <span class="pp">|</span> 128K-256K <span class="pp">|</span> S <span class="pp">|</span> 公文 / 报告 / 学术写作最规范 <span class="pp">|</span></span>
+<span id="cb2-463"><a href="#cb2-463" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **豆包** <span class="pp">|</span> 基础免费 <span class="pp">|</span> 128K <span class="pp">|</span> S <span class="pp">|</span> 全民 AI，多模态最强 <span class="pp">|</span></span>
+<span id="cb2-464"><a href="#cb2-464" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **文心一言（ERNIE 5.0）** <span class="pp">|</span> 免费额度 <span class="pp">|</span> 128K <span class="pp">|</span> S <span class="pp">|</span> 政务 / 政策文本解读首选 <span class="pp">|</span></span>
+<span id="cb2-465"><a href="#cb2-465" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **智谱清言（GLM-5.1）** <span class="pp">|</span> 免费额度 <span class="pp">|</span> 128K <span class="pp">|</span> S <span class="pp">|</span> 复杂多步推理能力突出 <span class="pp">|</span></span>
+<span id="cb2-466"><a href="#cb2-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-467"><a href="#cb2-467" aria-hidden="true" tabindex="-1"></a><span class="fu">### 按任务选工具速查表</span></span>
+<span id="cb2-468"><a href="#cb2-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-469"><a href="#cb2-469" aria-hidden="true" tabindex="-1"></a>核心原则只有八个字：**先问任务，再选工具。**</span>
+<span id="cb2-470"><a href="#cb2-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-471"><a href="#cb2-471" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 任务 <span class="pp">|</span> 首选 <span class="pp">|</span> 备选 <span class="pp">|</span> 理由 <span class="pp">|</span></span>
+<span id="cb2-472"><a href="#cb2-472" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|------|------|</span></span>
+<span id="cb2-473"><a href="#cb2-473" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 中文学术写作 <span class="pp">|</span> DeepSeek + 秘塔 <span class="pp">|</span> 通义千问、Kimi <span class="pp">|</span> DeepSeek 风格最接近学术写作；秘塔引用可追溯 <span class="pp">|</span></span>
+<span id="cb2-474"><a href="#cb2-474" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 英文学术写作 <span class="pp">|</span> Claude Sonnet 4 <span class="pp">|</span> GPT-5、DeepSeek <span class="pp">|</span> Claude 幻觉控制最优（85.24 分），学术术语精准 <span class="pp">|</span></span>
+<span id="cb2-475"><a href="#cb2-475" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文献检索 <span class="pp">|</span> 秘塔 AI + Semantic Scholar <span class="pp">|</span> Consensus <span class="pp">|</span> 中文库最全 + 英文覆盖面最广 <span class="pp">|</span></span>
+<span id="cb2-476"><a href="#cb2-476" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 论文精读 <span class="pp">|</span> NotebookLM <span class="pp">|</span> SciSummary <span class="pp">|</span> 逐句溯源问答，完全免费，绝不虚构 <span class="pp">|</span></span>
+<span id="cb2-477"><a href="#cb2-477" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码开发 <span class="pp">|</span> Cursor / Claude Code <span class="pp">|</span> GitHub Copilot <span class="pp">|</span> Claude Code 编程断层第一；Cursor 学生免费 <span class="pp">|</span></span>
+<span id="cb2-478"><a href="#cb2-478" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 数据分析（有编程经验） <span class="pp">|</span> Claude Code + Colab <span class="pp">|</span> DeepSeek + Jupyter <span class="pp">|</span> Colab 免费 GPU；Claude Code 写代码最优 <span class="pp">|</span></span>
+<span id="cb2-479"><a href="#cb2-479" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 数据分析（无编程经验） <span class="pp">|</span> Kimi K2 <span class="pp">|</span> 智谱清言 <span class="pp">|</span> 直接上传 13 万行 Excel / CSV 做分析 <span class="pp">|</span></span>
+<span id="cb2-480"><a href="#cb2-480" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PPT 制作 <span class="pp">|</span> Gamma + Kimi <span class="pp">|</span> WPS AI <span class="pp">|</span> Kimi 提炼内容 → Gamma 自动排版 <span class="pp">|</span></span>
+<span id="cb2-481"><a href="#cb2-481" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 学术翻译 <span class="pp">|</span> DeepL <span class="pp">|</span> Claude / GPT 精校 <span class="pp">|</span> DeepL 学术翻译质量最高，AI 精校补漏 <span class="pp">|</span></span>
+<span id="cb2-482"><a href="#cb2-482" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 头脑风暴 <span class="pp">|</span> GPT / Claude + Xmind <span class="pp">|</span> Whimsical <span class="pp">|</span> AI 发散大纲 → Xmind 可视化 <span class="pp">|</span></span>
+<span id="cb2-483"><a href="#cb2-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-484"><a href="#cb2-484" aria-hidden="true" tabindex="-1"></a><span class="fu">### 混合策略（推荐）</span></span>
+<span id="cb2-485"><a href="#cb2-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-486"><a href="#cb2-486" aria-hidden="true" tabindex="-1"></a>**国内工具做主体 + 国际工具做质量把关。** 中文内容用国产工具（DeepSeek / 通义千问 / Kimi），英文和代码用国际工具（Claude / GPT），性价比最优。</span>
+<span id="cb2-487"><a href="#cb2-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-488"><a href="#cb2-488" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-489"><a href="#cb2-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-490"><a href="#cb2-490" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.5 经管研究生推荐学习路径</span></span>
+<span id="cb2-491"><a href="#cb2-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-492"><a href="#cb2-492" aria-hidden="true" tabindex="-1"></a><span class="fu">### 三阶段规划</span></span>
+<span id="cb2-493"><a href="#cb2-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-494"><a href="#cb2-494" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 阶段 <span class="pp">|</span> 时间 <span class="pp">|</span> 定位 <span class="pp">|</span> 推荐工具组合 <span class="pp">|</span> 验证标准 <span class="pp">|</span></span>
+<span id="cb2-495"><a href="#cb2-495" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|------|-------------|---------|</span></span>
+<span id="cb2-496"><a href="#cb2-496" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **入门** <span class="pp">|</span> 第 1-2 周 <span class="pp">|</span> 会用 AI 提效 <span class="pp">|</span> DeepSeek + 秘塔 + NotebookLM + Kimi + 通义千问 <span class="pp">|</span> 用 AI 辅助完成一篇 2000 字的文献综述草稿 <span class="pp">|</span></span>
+<span id="cb2-497"><a href="#cb2-497" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **进阶** <span class="pp">|</span> 第 3-4 周 <span class="pp">|</span> 搭建个人工作流 <span class="pp">|</span> 入门工具 + Claude Code + Cursor / VS Code + Zotero + Obsidian <span class="pp">|</span> 建成可复用的个人研究 Agent 系统 <span class="pp">|</span></span>
+<span id="cb2-498"><a href="#cb2-498" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **精通** <span class="pp">|</span> 第 2 个月起 <span class="pp">|</span> 构建自动化系统 <span class="pp">|</span> 进阶工具 + 自定义 Agent + MCP Server <span class="pp">|</span> 完成一个 AI 驱动的完整科研项目（从数据到论文） <span class="pp">|</span></span>
+<span id="cb2-499"><a href="#cb2-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-500"><a href="#cb2-500" aria-hidden="true" tabindex="-1"></a><span class="fu">### 阶段一：入门（会用 AI 提效）</span></span>
+<span id="cb2-501"><a href="#cb2-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-502"><a href="#cb2-502" aria-hidden="true" tabindex="-1"></a>**目标**：不再把 AI 当「高级搜索框」，而是当「研究辅助工具」。</span>
+<span id="cb2-503"><a href="#cb2-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-504"><a href="#cb2-504" aria-hidden="true" tabindex="-1"></a>**具体做法：**</span>
+<span id="cb2-505"><a href="#cb2-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-506"><a href="#cb2-506" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用 DeepSeek 润色你的论文段落，观察它改了什么：是换了词？调了语序？还是改变了论证逻辑？</span>
+<span id="cb2-507"><a href="#cb2-507" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用秘塔 AI 做一次完整的文献检索，对比 CNKI 的结果：多出了哪些文献？为什么？</span>
+<span id="cb2-508"><a href="#cb2-508" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用 NotebookLM 上传一篇 30 页的英文论文，让它生成 FAQ：看它是否能提炼出论文的核心贡献和研究设计</span>
+<span id="cb2-509"><a href="#cb2-509" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用 Kimi 上传一份 5 万行的 Excel 数据，让它做描述性统计：看它对变量类型的判断是否准确</span>
+<span id="cb2-510"><a href="#cb2-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-511"><a href="#cb2-511" aria-hidden="true" tabindex="-1"></a>**检查点**：完成一篇研究方向上 2000 字左右的文献综述初稿，AI 辅助完成信息提取和初稿生成，人工完成逻辑串联和文献评价。</span>
+<span id="cb2-512"><a href="#cb2-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-513"><a href="#cb2-513" aria-hidden="true" tabindex="-1"></a><span class="fu">### 阶段二：进阶（搭建个人工作流）</span></span>
+<span id="cb2-514"><a href="#cb2-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-515"><a href="#cb2-515" aria-hidden="true" tabindex="-1"></a>**目标**：AI 不再是分散的工具，而是一个集成的工作系统。</span>
+<span id="cb2-516"><a href="#cb2-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-517"><a href="#cb2-517" aria-hidden="true" tabindex="-1"></a>**具体做法：**</span>
+<span id="cb2-518"><a href="#cb2-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-519"><a href="#cb2-519" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在 VS Code + Claude Code 中建立你的第一个研究项目文件夹</span>
+<span id="cb2-520"><a href="#cb2-520" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>配置 Claude Code 连接 DeepSeek API（费用极低，约 1 元 / 百万 token）</span>
+<span id="cb2-521"><a href="#cb2-521" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>安装 Skills 扩展包（PDF 阅读、Word 转换、Excel 处理、文献搜索）</span>
+<span id="cb2-522"><a href="#cb2-522" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在 Zotero 中管理文献，用 AI 提取结构化信息存入 Obsidian</span>
+<span id="cb2-523"><a href="#cb2-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-524"><a href="#cb2-524" aria-hidden="true" tabindex="-1"></a>**检查点**：能在 VS Code 中完成「打开 PDF → 提取结构化信息 → 存储到 Obsidian → 用 Claude Code 分析 → 生成 Word 报告」的完整流程。</span>
+<span id="cb2-525"><a href="#cb2-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-526"><a href="#cb2-526" aria-hidden="true" tabindex="-1"></a><span class="fu">### 阶段三：精通（构建自动化系统）</span></span>
+<span id="cb2-527"><a href="#cb2-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-528"><a href="#cb2-528" aria-hidden="true" tabindex="-1"></a>**目标**：AI 不再需要你一步步指挥，而是按预设流程自主完成复杂任务。</span>
+<span id="cb2-529"><a href="#cb2-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-530"><a href="#cb2-530" aria-hidden="true" tabindex="-1"></a>**具体做法：**</span>
+<span id="cb2-531"><a href="#cb2-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-532"><a href="#cb2-532" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>创建 2-3 个自定义 Agent（文献综述 Agent、实证分析 Agent、论文润色 Agent）</span>
+<span id="cb2-533"><a href="#cb2-533" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>配置 MCP Server（连接 Zotero、Semantic Scholar、文件系统）</span>
+<span id="cb2-534"><a href="#cb2-534" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用子代理（Sub-agent）进行并行任务——同时做文献搜索、数据处理、论文润色</span>
+<span id="cb2-535"><a href="#cb2-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-536"><a href="#cb2-536" aria-hidden="true" tabindex="-1"></a>**检查点**：能用一句话启动一个完整的研究任务——「分析 CHFS 2019 中数字金融对农户收入的影响，输出基准回归表到 Word」——Agent 自主完成从数据到结果的完整流程。</span>
+<span id="cb2-537"><a href="#cb2-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-538"><a href="#cb2-538" aria-hidden="true" tabindex="-1"></a><span class="fu">### 零预算方案（全年 0 元）</span></span>
+<span id="cb2-539"><a href="#cb2-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-540"><a href="#cb2-540" aria-hidden="true" tabindex="-1"></a>对于预算有限的研究生，以下方案可以覆盖 80% 以上的 AI 辅助需求：</span>
+<span id="cb2-541"><a href="#cb2-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-542"><a href="#cb2-542" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 环节 <span class="pp">|</span> 免费工具 <span class="pp">|</span> 说明 <span class="pp">|</span></span>
+<span id="cb2-543"><a href="#cb2-543" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|---------|------|</span></span>
+<span id="cb2-544"><a href="#cb2-544" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 通用对话 / 写作 <span class="pp">|</span> DeepSeek + 通义千问 + Kimi <span class="pp">|</span> 三者互补，覆盖中英文写作和长文本 <span class="pp">|</span></span>
+<span id="cb2-545"><a href="#cb2-545" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 文献检索 <span class="pp">|</span> 秘塔 AI + Semantic Scholar <span class="pp">|</span> 中英文文献全覆盖 <span class="pp">|</span></span>
+<span id="cb2-546"><a href="#cb2-546" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 论文精读 <span class="pp">|</span> NotebookLM + Zotero <span class="pp">|</span> 精读 + 文献管理 <span class="pp">|</span></span>
+<span id="cb2-547"><a href="#cb2-547" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代码 / 数据分析 <span class="pp">|</span> VS Code 免费版 + GitHub Copilot 学生版 + Google Colab <span class="pp">|</span> 学生认证后 Copilot 免费；Colab 提供免费 GPU <span class="pp">|</span></span>
+<span id="cb2-548"><a href="#cb2-548" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 翻译 <span class="pp">|</span> DeepL 免费版 <span class="pp">|</span> 月限额足够日常使用 <span class="pp">|</span></span>
+<span id="cb2-549"><a href="#cb2-549" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 知识管理 <span class="pp">|</span> Obsidian <span class="pp">|</span> 完全免费，本地存储 <span class="pp">|</span></span>
+<span id="cb2-550"><a href="#cb2-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-551"><a href="#cb2-551" aria-hidden="true" tabindex="-1"></a>如需付费 API（约 10-50 元 / 月即够日常使用），推荐优先开 DeepSeek API——性价比最高，中文效果最好。</span>
+<span id="cb2-552"><a href="#cb2-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-553"><a href="#cb2-553" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-554"><a href="#cb2-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-555"><a href="#cb2-555" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.6 本课程四讲结构</span></span>
+<span id="cb2-556"><a href="#cb2-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-557"><a href="#cb2-557" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 讲次 <span class="pp">|</span> 主题 <span class="pp">|</span> 类型 <span class="pp">|</span> 核心问题 <span class="pp">|</span></span>
+<span id="cb2-558"><a href="#cb2-558" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------|------|---------|</span></span>
+<span id="cb2-559"><a href="#cb2-559" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 第一讲 <span class="pp">|</span> 认识 AI 工具：从 LLM 到 Agent <span class="pp">|</span> 理论 <span class="pp">|</span> AI 能做什么？有什么缺陷？为什么需要 Agent？怎么选工具？ <span class="pp">|</span></span>
+<span id="cb2-560"><a href="#cb2-560" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 第二讲 <span class="pp">|</span> 环境安装：让 AI 进入你的电脑 <span class="pp">|</span> 实操 <span class="pp">|</span> 电脑上要装什么？安装顺序是什么？ <span class="pp">|</span></span>
+<span id="cb2-561"><a href="#cb2-561" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 第三讲 <span class="pp">|</span> AI 引擎配置：OpenCode 与 Claude Code <span class="pp">|</span> 实操 <span class="pp">|</span> 怎么让 AI 跑起来？API 怎么配？ <span class="pp">|</span></span>
+<span id="cb2-562"><a href="#cb2-562" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 第四讲 <span class="pp">|</span> Skills 与 Agent：让 AI 专业地干活 <span class="pp">|</span> 实操 <span class="pp">|</span> Skills 怎么装？Agent 怎么创建？ <span class="pp">|</span></span>
+<span id="cb2-563"><a href="#cb2-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-564"><a href="#cb2-564" aria-hidden="true" tabindex="-1"></a>**四讲逻辑链：** 理解本质（第 1 讲）→ 安装基础（第 2 讲）→ 配置引擎（第 3 讲）→ 安装专业工具（第 4 讲）。每一步都建立在前面步骤的基础上。</span>
+<span id="cb2-565"><a href="#cb2-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-566"><a href="#cb2-566" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-567"><a href="#cb2-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-568"><a href="#cb2-568" aria-hidden="true" tabindex="-1"></a><span class="fu">## 课堂讨论</span></span>
+<span id="cb2-569"><a href="#cb2-569" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-570"><a href="#cb2-570" aria-hidden="true" tabindex="-1"></a>在本讲的最后 10 分钟，请思考以下问题并参与课堂讨论：</span>
+<span id="cb2-571"><a href="#cb2-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-572"><a href="#cb2-572" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>回到 LLM 的六缺陷表。你认为在你自己（或你导师）的研究中，哪一个缺陷的影响最大？为什么？</span>
+<span id="cb2-573"><a href="#cb2-573" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>提示：考虑你的研究通常涉及什么类型的任务——是文本分析类的（缺陷一影响大），还是因果推断类的（缺陷四影响大）？</span>
+<span id="cb2-574"><a href="#cb2-574" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Agent 的「推理→执行→观察→调整」循环和你自己做实证研究的工作流程有什么相似之处？有什么本质区别？</span>
+<span id="cb2-575"><a href="#cb2-575" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>有同学说：「既然 Claude Code 编程最强，那我只用它就好，不用学 OpenCode。」你怎么评价这个选择？</span>
+<span id="cb2-576"><a href="#cb2-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-577"><a href="#cb2-577" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本次课课后任务</span></span>
+<span id="cb2-578"><a href="#cb2-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-579"><a href="#cb2-579" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>注册 DeepSeek 网页版（chat.deepseek.com），用以下 prompt 测试一次：</span>
+<span id="cb2-580"><a href="#cb2-580" aria-hidden="true" tabindex="-1"></a><span class="at">   &gt; 「我研究的是</span><span class="co">[</span><span class="ot">你的方向</span><span class="co">]</span><span class="at">。请帮我写一段 300 字的研究背景介绍，包含该领域当前需要解决的一个具体问题。」</span></span>
+<span id="cb2-581"><a href="#cb2-581" aria-hidden="true" tabindex="-1"></a><span class="at">   观察输出质量，记下你觉得好的地方和明显有问题的地方。</span></span>
+<span id="cb2-582"><a href="#cb2-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-583"><a href="#cb2-583" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>注册秘塔 AI（metaso.cn），用你论文的 2-3 个关键词分别做文献搜索，对比：</span>
+<span id="cb2-584"><a href="#cb2-584" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>秘塔给出的文献列表 vs 你在 CNKI 搜到的文献列表</span>
+<span id="cb2-585"><a href="#cb2-585" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>差异在哪里？秘塔多出了什么？遗漏了什么？</span>
+<span id="cb2-586"><a href="#cb2-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-587"><a href="#cb2-587" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>重读本节「LLM 六缺陷」表，对照你平时使用 AI 工具的经验（如果有），回忆或猜想：你是否遇到过类似情况？在哪个场景下最可能遇到？</span>
+<span id="cb2-588"><a href="#cb2-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-589"><a href="#cb2-589" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>下节课前准备好你的电脑（Windows 或 Mac），充满电。下节课将进行全流程的环境安装。</span>
+<span id="cb2-590"><a href="#cb2-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-591"><a href="#cb2-591" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb2-592"><a href="#cb2-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-593"><a href="#cb2-593" aria-hidden="true" tabindex="-1"></a><span class="fu">## 参考文献</span></span>
+<span id="cb2-594"><a href="#cb2-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-595"><a href="#cb2-595" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>洪永淼、汪寿阳（2023），"大数据革命和经济学研究范式"，*中国科学院院刊*</span>
+<span id="cb2-596"><a href="#cb2-596" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ludwig, J., Mullainathan, S. &amp; Rambachan, A.（2025）, "Large Language Models: An Applied Econometric Framework", Stanford University</span>
+<span id="cb2-597"><a href="#cb2-597" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Weng, L.（2023）, "LLM Powered Autonomous Agents", OpenAI Blog</span>
+<span id="cb2-598"><a href="#cb2-598" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Golub, B.（2026）, "Large Language Models and Some Economics", Northwestern University</span>
+<span id="cb2-599"><a href="#cb2-599" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>陶哲轩（2026）, "Lean 形式化证明中 LLM 辅助的实测与反思"</span>
+<span id="cb2-600"><a href="#cb2-600" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>胡诗云、易君健（2025），"大语言模型在社会科学研究中的应用"，北京大学国家发展研究院</span>
+<span id="cb2-601"><a href="#cb2-601" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Linardon, J. et al.（2025）, "Citation Accuracy in LLM-Generated Literature Reviews: A Systematic Evaluation"</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

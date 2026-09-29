@@ -1,0 +1,2626 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="张晨">
+<meta name="dcterms.date" content="2026-09-29">
+
+<title>第六讲：AI 辅助数据采集 – AI 在经济管理研究中的应用</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-text-analysis.html" rel="next">
+<link href="./05-knowledge-base.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-eec68b17241c1efd3eae2de50d816e3e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d5fb2bd185f07460e4408dd84795c9a0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>
+  /* ---------- 登录门禁：页面锁定与登录框样式 ---------- */
+  /* 未登录时隐藏正文（仅保留登录框） */
+  html.auth-locked body > *:not(#book-auth-gate) {
+    visibility: hidden !important;
+  }
+
+  #book-auth-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background: radial-gradient(1200px 700px at 20% 0%, #22303f 0%, #16202b 55%, #101820 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #1a1a1a;
+  }
+  #book-auth-gate[hidden] { display: none !important; }
+
+  .auth-card {
+    width: 100%;
+    max-width: 380px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    padding: 40px 36px 34px;
+    box-sizing: border-box;
+  }
+  .auth-brand {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .auth-brand .auth-kicker {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #0b7285;
+    background: rgba(11, 114, 133, 0.08);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .auth-brand h1 {
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: #1a2733;
+  }
+  .auth-brand p {
+    font-size: 13px;
+    color: #7a8794;
+    margin: 0;
+  }
+  .auth-field { margin-bottom: 16px; }
+  .auth-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #3c4854;
+    margin-bottom: 6px;
+  }
+  .auth-field input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    font-size: 15px;
+    color: #1a2733;
+    background: #f6f8fa;
+    border: 1px solid #d7dee5;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .auth-field input:focus {
+    border-color: #0b7285;
+    box-shadow: 0 0 0 3px rgba(11, 114, 133, 0.15);
+    background: #ffffff;
+  }
+  .auth-error {
+    display: none;
+    font-size: 13px;
+    color: #c0392b;
+    background: rgba(192, 57, 43, 0.08);
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin: -4px 0 14px;
+  }
+  .auth-submit {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #0b7285;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .auth-submit:hover { background: #095d6d; }
+  .auth-submit:active { background: #084c59; }
+  .auth-hint {
+    text-align: center;
+    font-size: 12px;
+    color: #a4afba;
+    margin-top: 18px;
+  }
+</style>
+
+<script>
+  /* 立即锁定：若尚未登录，则在正文渲染前隐藏页面内容 */
+  (function () {
+    var ok = false;
+    try {
+      ok = sessionStorage.getItem("BOOK_AUTH_OK") === "1";
+    } catch (e) {
+      ok = false;
+    }
+    if (!ok) {
+      document.documentElement.classList.add("auth-locked");
+    }
+  })();
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-data-collection.html">第六讲：AI 辅助数据采集</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">课程讲义</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="切换阅读器模式">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">课程简介</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-ai-cognition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第一讲：AI 认知与工具概览</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-environment-setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第二讲：环境安装与引擎配置</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-agent-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第三讲：Agent 基础操作</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-agent-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第四讲：Agent 进阶</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-knowledge-base.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第五讲：知识库构建与学术品味蒸馏</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-data-collection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第六讲：AI 辅助数据采集</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-text-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第七讲：AI 辅助文本分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-empirical-research.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第八讲：AI 辅助规范实证研究</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#本次教学目标" id="toc-本次教学目标" class="nav-link active" data-scroll-target="#本次教学目标">本次教学目标</a></li>
+  <li><a href="#上节爬虫原理与-api-发现" id="toc-上节爬虫原理与-api-发现" class="nav-link" data-scroll-target="#上节爬虫原理与-api-发现">上节：爬虫原理与 API 发现</a>
+  <ul class="collapse">
+  <li><a href="#什么是爬虫" id="toc-什么是爬虫" class="nav-link" data-scroll-target="#什么是爬虫">1. 什么是爬虫？</a></li>
+  <li><a href="#两种技术路线" id="toc-两种技术路线" class="nav-link" data-scroll-target="#两种技术路线">2. 两种技术路线</a></li>
+  <li><a href="#让-agent-发现隐藏-api" id="toc-让-agent-发现隐藏-api" class="nav-link" data-scroll-target="#让-agent-发现隐藏-api">3. 让 Agent 发现隐藏 API</a></li>
+  <li><a href="#反爬策略全景" id="toc-反爬策略全景" class="nav-link" data-scroll-target="#反爬策略全景">4. 反爬策略全景</a></li>
+  <li><a href="#案例海底光缆数据爬取" id="toc-案例海底光缆数据爬取" class="nav-link" data-scroll-target="#案例海底光缆数据爬取">5. 案例：海底光缆数据爬取</a></li>
+  </ul></li>
+  <li><a href="#下节生产级爬虫设计与实战" id="toc-下节生产级爬虫设计与实战" class="nav-link" data-scroll-target="#下节生产级爬虫设计与实战">下节：生产级爬虫设计与实战</a>
+  <ul class="collapse">
+  <li><a href="#案例巨潮网公告爬虫" id="toc-案例巨潮网公告爬虫" class="nav-link" data-scroll-target="#案例巨潮网公告爬虫">6. 案例：巨潮网公告爬虫</a></li>
+  <li><a href="#多线程调度架构" id="toc-多线程调度架构" class="nav-link" data-scroll-target="#多线程调度架构">7. 多线程调度架构</a></li>
+  <li><a href="#数据库设计" id="toc-数据库设计" class="nav-link" data-scroll-target="#数据库设计">8. 数据库设计</a></li>
+  <li><a href="#测试不只是跑通了就行" id="toc-测试不只是跑通了就行" class="nav-link" data-scroll-target="#测试不只是跑通了就行">9. 测试：不只是”跑通了就行”</a></li>
+  <li><a href="#从许愿式编程到-todo.md-驱动" id="toc-从许愿式编程到-todo.md-驱动" class="nav-link" data-scroll-target="#从许愿式编程到-todo.md-驱动">10. 从「许愿式编程」到 TODO.md 驱动</a></li>
+  <li><a href="#爬虫工程实践三原则" id="toc-爬虫工程实践三原则" class="nav-link" data-scroll-target="#爬虫工程实践三原则">11. 爬虫工程实践三原则</a></li>
+  <li><a href="#数据采集工具链全景" id="toc-数据采集工具链全景" class="nav-link" data-scroll-target="#数据采集工具链全景">12. 数据采集工具链全景</a></li>
+  <li><a href="#数据采集在实证研究中的位置" id="toc-数据采集在实证研究中的位置" class="nav-link" data-scroll-target="#数据采集在实证研究中的位置">13. 数据采集在实证研究中的位置</a></li>
+  </ul></li>
+  <li><a href="#实战任务" id="toc-实战任务" class="nav-link" data-scroll-target="#实战任务">实战任务</a></li>
+  <li><a href="#案例材料索引" id="toc-案例材料索引" class="nav-link" data-scroll-target="#案例材料索引">案例材料索引</a></li>
+  <li><a href="#本讲核心概念回顾" id="toc-本讲核心概念回顾" class="nav-link" data-scroll-target="#本讲核心概念回顾">本讲核心概念回顾</a></li>
+  <li><a href="#课后阅读与准备" id="toc-课后阅读与准备" class="nav-link" data-scroll-target="#课后阅读与准备">课后阅读与准备</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">第六讲：AI 辅助数据采集</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> 代码</button></div></div>
+<p class="subtitle lead">课程讲义 · 网页教材</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>张晨 </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">发布于</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2026-09-29</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong>课程：</strong> 人工智能在经济管理研究中的应用</p>
+<p><strong>授课人：</strong> 张晨（西北农林科技大学经济管理学院）</p>
+<p><strong>讲次：</strong> 第 6 次课（2 课时）</p>
+<p><strong>日期：</strong> 2026 年夏季学期</p>
+</blockquote>
+<hr>
+<section id="本次教学目标" class="level2">
+<h2 class="anchored" data-anchor-id="本次教学目标">本次教学目标</h2>
+<p>学完本次课后，你将能够：</p>
+<ul>
+<li>理解爬虫的基本原理和技术选型逻辑</li>
+<li>让 Agent 帮你发现网页背后的隐藏 API</li>
+<li>识别并应对常见的反爬策略</li>
+<li>设计生产级爬虫的多线程调度架构</li>
+<li>用 TODO.md 文件驱动 Agent 完成复杂爬虫开发</li>
+<li>掌握爬虫工程实践的基本原则</li>
+</ul>
+<hr>
+</section>
+<section id="上节爬虫原理与-api-发现" class="level2">
+<h2 class="anchored" data-anchor-id="上节爬虫原理与-api-发现">上节：爬虫原理与 API 发现</h2>
+<section id="什么是爬虫" class="level3">
+<h3 class="anchored" data-anchor-id="什么是爬虫">1. 什么是爬虫？</h3>
+<p>爬虫的本质是：<strong>模拟浏览器行为，向服务器发送请求，获取响应后解析出你需要的数据。</strong> 它用代码自动化了”打开网页 → 复制信息 → 关闭网页”这个你每天都在做的动作。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-01-new.png" class="img-fluid figure-img"></p>
+<figcaption>爬虫基本原理流程</figcaption>
+</figure>
+</div>
+<p>上图展示了爬虫的四个核心环节。让我们逐一展开。</p>
+<p><strong>第一步：发送请求。</strong> 你向目标 URL 发送一个 HTTP 请求。请求可以是 GET（“把这个页面给我”）或 POST（“用这些参数帮我查询”）。请求需要附带请求头（Headers）——告诉服务器你是谁、从哪来、要什么格式的数据。最关键的请求头是 User-Agent（标识浏览器类型）和 Cookie（维持登录状态）。</p>
+<pre><code>GET /api/v3/cable/2africa.json HTTP/1.1
+Host: www.submarinecablemap.com
+User-Agent: Mozilla/5.0 ...
+Accept: application/json</code></pre>
+<p><strong>第二步：获取响应。</strong> 服务器收到请求后返回数据。可能是一个 HTML 页面（你右键”查看网页源代码”看到的东西）、一个 JSON 字符串（API 的标准返回格式）、一个 XML 文档、或者一个二进制文件（PDF、图片、Excel）。</p>
+<p><strong>第三步：解析提取。</strong> 从返回的原始数据中定位并抽取你需要的信息。对于 HTML——用 CSS 选择器或 XPath 定位元素；对于 JSON——用 Python 的 <code>json</code> 库解析成字典后按 key 取值；对于 PDF——用 PyMuPDF 或 pdfplumber 提取文本。</p>
+<p><strong>第四步：存储使用。</strong> 将提取的数据写入文件（CSV、JSON、Excel）、数据库（SQLite、PostgreSQL）或数据框（pandas DataFrame），供后续分析使用。</p>
+<p>爬虫涉及的技术栈并不复杂，核心是五块知识：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 44%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">技术</th>
+<th style="text-align: left;">在爬虫中的作用</th>
+<th style="text-align: left;">你需要学到什么程度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>HTTP 协议</strong></td>
+<td style="text-align: left;">理解请求方法（GET/POST）、状态码（200/403/404）、Headers、Cookies</td>
+<td style="text-align: left;">能看懂浏览器 Network 标签页里的请求信息</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>HTML 语言</strong></td>
+<td style="text-align: left;">解析网页结构，定位目标元素</td>
+<td style="text-align: left;">会用 CSS 选择器和 XPath</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>JavaScript 基础</strong></td>
+<td style="text-align: left;">处理动态加载、加密参数、前端逻辑</td>
+<td style="text-align: left;">能大致看懂 Network 里的 JS 文件名，推断哪个可能是数据请求</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>正则表达式</strong></td>
+<td style="text-align: left;">从文本中快速抽取特定模式（日期、数字、URL）</td>
+<td style="text-align: left;">会写<code>\d+</code> 和 <code>[a-zA-Z]+</code> 级别的模式</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>数据库技术</strong></td>
+<td style="text-align: left;">持久化存储、去重、索引与查询</td>
+<td style="text-align: left;">会用 SQLite——建表、INSERT、SELECT</td>
+</tr>
+</tbody>
+</table>
+<p>好消息是：在 Agent 时代，你不需要精通每一样。Agent 知道怎么写 CSS 选择器、怎么构造请求头、怎么设计数据库表结构。你需要的是理解这些技术各自解决什么问题，然后用清晰的指令让 Agent 去执行。</p>
+</section>
+<section id="两种技术路线" class="level3">
+<h3 class="anchored" data-anchor-id="两种技术路线">2. 两种技术路线</h3>
+<p>爬虫开发面临的第一个关键决策：用直接 HTTP 请求还是模拟浏览器？</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-02-new.png" class="img-fluid figure-img"></p>
+<figcaption>两种技术路线对比</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 23%">
+<col style="width: 34%">
+<col style="width: 20%">
+<col style="width: 3%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">路线</th>
+<th style="text-align: left;">代表工具</th>
+<th style="text-align: left;">原理</th>
+<th style="text-align: left;">适用场景</th>
+<th style="text-align: center;">速度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>直接 HTTP 请求</strong></td>
+<td style="text-align: left;">Python<code>requests</code> / <code>httpx</code></td>
+<td style="text-align: left;">发送 HTTP 请求，直接获取服务器返回的原始数据</td>
+<td style="text-align: left;">数据在 HTML 或 JSON API 中</td>
+<td style="text-align: center;">快</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>浏览器模拟</strong></td>
+<td style="text-align: left;">Playwright / Selenium</td>
+<td style="text-align: left;">启动真实的 Chromium 浏览器，执行 JS，渲染页面</td>
+<td style="text-align: left;">数据由 JavaScript 动态生成</td>
+<td style="text-align: center;">慢</td>
+</tr>
+</tbody>
+</table>
+<p><strong>铁律：优先选直接请求。永远如此。</strong></p>
+<p>为什么？一个直接请求消耗的资源是：发送一个 TCP 包、接收一个 HTTP 响应、解析文本。一个 Playwright 请求消耗的资源是：启动 Chromium 进程（200MB+ 内存）、加载完整网页（包括所有图片、CSS、JS）、执行页面脚本、渲染 DOM 树、然后你从渲染结果中提取数据。两者的开销差距是几个数量级。</p>
+<p>更重要的是可靠性。requests 是纯 Python——没有外部依赖、没有进程管理、没有超时竞态。Playwright 依赖一个外部浏览器进程——浏览器可能崩溃、页面可能加载超时、JS 可能执行失败、选择器可能因为页面改版而失效。</p>
+<p><strong>那什么时候必须用浏览器模拟？</strong></p>
+<p>看一个简单的测试。用 <code>webfetch</code> 工具访问目标页面——如果返回的 HTML 里没有你期望的内容（比如一个空的 <code>&lt;div id="root"&gt;&lt;/div&gt;</code>），说明这个页面是 SPA（单页应用），数据由 JavaScript 动态注入。这时你有两个选择：</p>
+<ul>
+<li><strong>上策：</strong> 用浏览器开发者工具找到数据背后的 API（见下一节），然后用 requests 直接调用</li>
+<li><strong>下策：</strong> 用 Playwright 渲染页面，从渲染后的 DOM 中提取数据</li>
+</ul>
+<p>什么时候下策变成唯一选择？当 API 需要复杂的 JS 计算来生成请求参数时（如加密签名），或者 API 返回的是加密数据需要 JS 解密时。但在学术研究的数据采集中，这类情况相对少见——大多数公开数据源的 API 是设计给前端用的，参数是明文传递的。</p>
+</section>
+<section id="让-agent-发现隐藏-api" class="level3">
+<h3 class="anchored" data-anchor-id="让-agent-发现隐藏-api">3. 让 Agent 发现隐藏 API</h3>
+<p>现代网站大量使用 SPA（Single Page Application）架构——你看到的页面是 JavaScript 在浏览器里渲染的，查看网页源代码时什么都找不到。这时需要「API 发现」——找到页面背后的数据接口。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-03-new.png" class="img-fluid figure-img"></p>
+<figcaption>SPA页面API发现流程</figcaption>
+</figure>
+</div>
+<p>Agent 的 API 发现策略，本质上就是把你手动做的事自动化——用 Playwright 打开页面、监听网络请求、筛选出 XHR/Fetch 类型的请求、检查哪些返回了结构化数据。</p>
+<p>具体步骤如下：</p>
+<p><strong>第一步：快速诊断。</strong> 让 Agent 用 <code>webfetch</code> 访问目标页面。如果返回内容为空或只有 <code>&lt;div id="app"&gt;&lt;/div&gt;</code> 这样的加载骨架，说明页面是 SPA，数据通过 API 获取。</p>
+<p><strong>第二步：浏览器探测。</strong> 让 Agent 用 Playwright 打开目标页面，同时启用网络请求监听。Playwright 可以记录页面加载过程中发出的所有 HTTP 请求——包括 HTML 文档、CSS 样式、JS 脚本、图片和异步数据请求。</p>
+<p><strong>第三步：筛选 XHR / Fetch 请求。</strong> 在记录的几百个请求中，Agent 需要筛选出异步数据请求（XHR 或 Fetch 类型），逐个检查它们的响应内容。重点关注返回 JSON 格式数据的请求——这些就是 API。</p>
+<p><strong>第四步：逆向 API 参数。</strong> 找到 API 端点后，分析它的请求参数。分页参数（pageNum, pageSize）决定了你能拉多少条数据；查询参数（keyword, category, startDate, endDate）决定了你能筛选什么内容；鉴权参数（token, cookie）决定了你的请求能被接受多久。</p>
+<p><strong>第五步：用 requests 复现。</strong> 把 Playwright 中观察到的 API 请求（URL、方法、参数、请求头）用 requests 复制出来。如果能成功获取数据——恭喜，你找到了比模拟浏览器更优雅的方案。</p>
+<p>这个流程的核心思想是：<strong>不要和页面的 HTML 较劲——去找它背后的数据管道。</strong> 现代 Web 开发的基本模式是”前后端分离”：前端只负责渲染 UI 和交互，数据通过 API 从后端获取。如果你找到了这个 API，就等于跳过了前端的所有复杂性——CSS 布局、JS 渲染、DOM 操作——直接拿到了结构化的原始数据。</p>
+<p><strong>一个衡量标准：</strong> 如果你的爬虫代码里有超过 10 行 BeautifulSoup 解析逻辑，停下来想一想——是不是有一个 API 还没被发现？</p>
+</section>
+<section id="反爬策略全景" class="level3">
+<h3 class="anchored" data-anchor-id="反爬策略全景">4. 反爬策略全景</h3>
+<p>服务器不是为你准备的——它为主流浏览器的人类用户服务。当你用代码自动请求时，服务器会从多个维度察觉异常并阻止你。理解反爬策略是爬虫开发的基本功。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-04-new.png" class="img-fluid figure-img"></p>
+<figcaption>反爬策略全景</figcaption>
+</figure>
+</div>
+<p><strong>（1）IP 封禁 / 限速：</strong> 服务器统计每个 IP 的请求频率。同一 IP 在短时间内发起大量请求——请求间隔均匀（不像人类浏览有快有慢）、总请求量远超正常用户——触发封禁。应对方法分三层：第一层，随机化请求间隔（1-5 秒的均匀分布，而非固定 2 秒）；第二层，使用代理 IP 池轮换出口地址；第三层（学术场景通常不需要），使用住宅代理（ADSL 拨号）让每个请求看起来来自不同的普通家庭用户。</p>
+<p><strong>（2）验证码（CAPTCHA）：</strong> 服务器检测到可疑行为模式后，在响应中插入验证码挑战。传统的文本验证码可以用 OCR 识别，现代的 reCAPTCHA v3 在你无感知的情况下打分——分数太低则拒绝请求。应对的核心理念是「避免触发」而非「破解验证码」——降低请求频率、随机化行为模式、使用真实的浏览器指纹。如果已经触发了，多模态 AI（能看懂图片的 LLM）可以辅助识别，但这意味着你的请求策略需要调整。</p>
+<p><strong>（3）动态渲染：</strong> 数据不在服务器返回的 HTML 里，而是在浏览器执行 JavaScript 后才插入 DOM。这是最常见的 SPA 反爬——不是故意反爬，而是网站架构的副产品。应对方法已在上一节详述：找 API，而非渲染页面。</p>
+<p><strong>（4）请求头检查：</strong> 服务器检查你的请求头是否像一个真实浏览器。缺失的 User-Agent（“python-requests/2.31.0” 显然不是 Chrome）、缺少 Referer（正常浏览器访问时总会带上当前页面 URL）、缺少 Accept-Language 等标准头——这些都是自动化请求的特征。应对方法很简单：打开浏览器的开发者工具，复制一个真实请求的完整请求头，用在你的 requests 中。</p>
+<p><strong>（5）Cookie / Token 加密：</strong> 有些网站的 API 需要携带一个动态生成的 Token，这个 Token 是由客户端 JS 经过复杂计算生成的——可能是时间戳 + 随机数 + MD5，也可能是对请求参数的签名。单纯复制请求头不够，你需要理解 Token 的生成逻辑。应对策略：先用 Playwright 打开页面，获取浏览器自然生成的 Token 和 Cookie，然后将这些凭证传递给 requests 使用。Token 通常会在一段时间后过期，所以你需要定期刷新。</p>
+<p><strong>（6）字体混淆：</strong> 服务器返回的 HTML 中，关键数字（如价格、评分）使用的是自定义字体编码——你在 HTML 里看到的是类似 <code>&amp;#xea3f;</code> 的乱码，但在浏览器中呈现为正常数字。这是因为网页加载了一个自定义字体文件，将特定的 Unicode 码点映射到了数字字形。应对方法有两种：OCR 识别页面截图（慢但通用），或者下载字体文件逆向其映射表（快但需要针对每个网站定制）。</p>
+<p><strong>关键原则：反爬是一个博弈过程，不要试图一次解决所有问题。</strong> 先用最温和的策略——真实请求头 + 适当延时（2-5 秒）+ 合理的请求量（不要试图在 1 小时内爬完 10 年的数据）。跑通流程后再逐步优化。如果你一上来就全副武装（代理池 + 分布式 + 验证码破解），不仅工程复杂度指数级增长，而且可能违反了目标网站的服务条款。</p>
+<p><strong>关于学术伦理：</strong> 确认数据采集目的符合目标网站的服务条款。许多网站在 robots.txt 中声明了爬虫访问规则。作为学术研究者，合理控制请求频率、不做商业化用途、注明数据来源，是最起码的学术规范。</p>
+</section>
+<section id="案例海底光缆数据爬取" class="level3">
+<h3 class="anchored" data-anchor-id="案例海底光缆数据爬取">5. 案例：海底光缆数据爬取</h3>
+<p>理论讲完了。现在让我们通过一个完整的入门级案例，看 Agent 如何从零开始完成数据采集。</p>
+<p><strong>目标：</strong> <code>submarinecablemap.com</code>——一个展示全球海底光缆的交互式地图。页面是一个 SPA，光缆数据通过 JavaScript 动态渲染在地图上。</p>
+<p><strong>用户给 Agent 的原始提示词：</strong></p>
+<blockquote class="blockquote">
+<p>请写一个 Python 脚本爬取 submarinecablemap.com 的海底光缆数据。注意：</p>
+<ol type="1">
+<li>所有数据保存为 CSV 格式，附带变量说明</li>
+<li>使用代理 <code>192.168.5.9:7890</code></li>
+<li>每次获取一条光缆数据后，停十几秒再请求，防反爬</li>
+<li>必须包含开通时间、经过的国家和城市等信息</li>
+</ol>
+</blockquote>
+<p>注意这个提示词的品质——目标 URL、输出格式、代理配置、延迟要求、必含字段，五个要素齐全。这不是”许愿式”的需求，而是结构化的任务描述。</p>
+<p><strong>Agent 的探索过程：</strong></p>
+<ol type="1">
+<li>Agent 先用 <code>webfetch</code> 直接抓取页面 → 返回空白内容。确诊：SPA。</li>
+<li>Agent 改用 Playwright 打开页面，开启网络请求监听。</li>
+<li>在 Network 标签页的数百个请求中，Agent 筛选出了几个关键的 JSON 请求：
+<ul>
+<li><code>/api/v3/config.json</code>——网站配置</li>
+<li><code>/api/v3/search.json</code>——所有光缆和登陆点的索引列表</li>
+<li><code>/api/v3/cable/cable-geo.json</code>——光缆的地理坐标数据</li>
+<li><code>/api/v3/landing-point/landing-point-geo.json</code>——登陆点的地理坐标数据</li>
+</ul></li>
+<li>Agent 进一步尝试 <code>/api/v3/cable/{cable_id}.json</code>，发现这是单条光缆的详情接口。</li>
+<li>单条光缆返回的字段：<code>id</code>（唯一标识）、<code>name</code>（名称）、<code>length</code>（长度，如 “45,000 km”）、<code>landing_points</code>（登陆点数组，每个包含名称、国家、城市）、<code>owners</code>（所有者）、<code>suppliers</code>（供应商）、<code>rfs</code>（开通年份）、<code>is_planned</code>（是否在建）、<code>url</code>（官方网站）、<code>notes</code>（备注）。</li>
+</ol>
+<p>Agent 于是设计了两步策略：① 调用 <code>/api/v3/search.json</code> 获取所有光缆 ID 的列表；② 遍历每个 ID，调用 <code>/api/v3/cable/{id}.json</code> 获取详情。</p>
+<p><strong>反爬处理：</strong> 用户已指定了代理地址和 10-15 秒的随机延迟。Agent 在代码中实现了：</p>
+<ul>
+<li>全局代理配置（<code>proxies={"http": "...", "https": "..."}</code>）</li>
+<li><code>time.sleep(random.uniform(10, 15))</code> 的随机间隔</li>
+<li>30 秒请求超时（<code>timeout=30</code>）</li>
+<li>重试逻辑（连接失败不中断，记录失败 ID 继续）</li>
+</ul>
+<p><strong>最终成果：</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">指标</th>
+<th style="text-align: left;">数值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">目标光缆总数</td>
+<td style="text-align: left;">693 条</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">成功爬取</td>
+<td style="text-align: left;">692 条（1 条因网络中断失败）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CSV 总行数</td>
+<td style="text-align: left;">3150 行</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">涉及国家数</td>
+<td style="text-align: left;">186 个</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">有 RFS（开通时间）数据的行数</td>
+<td style="text-align: left;">3121 / 3150</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">运行时长</td>
+<td style="text-align: left;">约 2-3 小时</td>
+</tr>
+</tbody>
+</table>
+<p><strong>输出文件：</strong></p>
+<ul>
+<li><code>submarine_cables.csv</code>——展开后的表格数据，每行一个”光缆-登陆点”组合</li>
+<li><code>submarine_cables_raw.json</code>——每条光缆的完整原始 JSON 响应</li>
+<li><code>variables_description.txt</code>——字段说明文档</li>
+</ul>
+<p><strong>CSV 字段示例：</strong> <code>cable_id, cable_name, length_km, rfs, rfs_year, is_planned, owners, suppliers, landing_points_count, landing_point_id, city, country, is_tbd, url, notes</code></p>
+<p><strong>关键经验：</strong></p>
+<ul>
+<li><strong>明确任务描述能显著提升 Agent 生成的代码可用性。</strong> 用户列出了五个具体要求——目标 URL、输出格式、代理配置、延迟策略、必含字段。Agent 不需要猜测任何需求，直接设计实现方案。</li>
+<li><strong>让 Agent 先探索，再编码。</strong> Agent 不是上来就写循环——它先用 Playwright 探测网站结构，发现 API 端点，验证数据格式，然后才设计爬取策略。</li>
+<li><strong>原始数据永不删除。</strong> <code>submarine_cables_raw.json</code> 保存了每条光缆的完整原始响应。如果后续发现 CSV 展开逻辑有误（比如某个登陆点被跳过），可以从原始 JSON 重新生成，不需要重新爬取。</li>
+<li><strong>数据展开设计要考虑分析需求。</strong> CSV 采用的是”光缆-登陆点”展开——每条光缆如果有 10 个登陆点，就占 10 行。这样可以用 pandas 的 <code>groupby('country')</code> 直接统计每个国家的光缆数量。</li>
+</ul>
+<blockquote class="blockquote">
+<p>完整案例材料：<code>SubmarineCable/</code>——包含爬虫脚本 <code>scrape_submarine_cables.py</code>、原始数据 <code>submarine_cables_raw.json</code>、最终数据 <code>submarine_cables.csv</code>。</p>
+</blockquote>
+<hr>
+</section>
+</section>
+<section id="下节生产级爬虫设计与实战" class="level2">
+<h2 class="anchored" data-anchor-id="下节生产级爬虫设计与实战">下节：生产级爬虫设计与实战</h2>
+<section id="案例巨潮网公告爬虫" class="level3">
+<h3 class="anchored" data-anchor-id="案例巨潮网公告爬虫">6. 案例：巨潮网公告爬虫</h3>
+<p>海底光缆案例的复杂度属于”入门级”——API 是公开的 GET 请求，不需要处理分页翻页，不需要持久化状态管理，整个爬取过程是一次性的。现在我们来看一个真正”生产级”的爬虫设计：巨潮网上市公司公告实时爬虫。</p>
+<p><strong>为什么叫”生产级”？</strong> 因为它不是一次性的数据采集——它需要持续运行、增量更新、处理失败重试、追踪每条记录的状态。就像工厂的生产线一样，需要可靠地持续产出。</p>
+<p><strong>背景：</strong> 巨潮网（cninfo.com.cn）是中国上市公司公告的官方披露平台。每家公司每天可能发布多条公告——年报、季报、减持公告、重大资产重组、董事会决议、股东大会通知。对经管研究者来说，公告文本是重要的非结构化数据源——你可以从中提取减持事件、测量信息披露质量、分析管理层语调。</p>
+<p><strong>API 发现：</strong> Agent 的探索过程揭示了以下信息：</p>
+<ul>
+<li>列表页是 SPA，真实数据来自一个 POST API</li>
+<li>POST 请求发送到 <code>https://www.cninfo.com.cn/new/hisAnnouncement/query</code></li>
+<li>请求参数：<code>pageNum</code>（页码）、<code>pageSize</code>（每页条数）、<code>stock</code>（股票代码）、<code>searchkey</code>（关键词）、<code>category</code>（公告分类）、<code>seDate</code>（日期范围）</li>
+<li>请求头必须包含 <code>X-Requested-With: XMLHttpRequest</code> 和正确的 <code>Referer</code></li>
+<li>翻页通过递增 <code>pageNum</code> 实现，每页最多返回 30 条</li>
+</ul>
+<p><strong>最关键的发现：列表 API 的返回中直接包含了 PDF 下载链接（<code>adjunctUrl</code> 字段）。</strong> 这意味着你不需要：</p>
+<ul>
+<li>进入每条公告的详情页（省掉一层 HTTP 请求）</li>
+<li>在详情页中寻找 PDF 链接（省掉一层 HTML 解析）</li>
+<li>处理详情页可能的验证码或反爬</li>
+</ul>
+<p>PDF 完整 URL 的拼接规则：<code>https://static.cninfo.com.cn/{adjunctUrl}</code>。Agent 验证了这个规则对不同类型的公告都有效。</p>
+</section>
+<section id="多线程调度架构" class="level3">
+<h3 class="anchored" data-anchor-id="多线程调度架构">7. 多线程调度架构</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-07-new.png" class="img-fluid figure-img"></p>
+<figcaption>巨潮网爬虫架构</figcaption>
+</figure>
+</div>
+<p>这个爬虫的核心架构是一个双线程分离的调度系统，由 <code>JuchaoScheduler</code> 类统一协调。</p>
+<p>为什么需要双线程？因为列表拉取和 PDF 下载是两种完全不同的任务：</p>
+<ul>
+<li><strong>列表拉取：</strong> 快速（几 KB 的 JSON）、高频（有新公告就要发现）、无状态（每次拉取独立）</li>
+<li><strong>PDF 下载：</strong> 慢速（几 MB 的 PDF 文件 + 文本解析）、低频（只有新公告需要下载）、有状态（需要追踪下载和解析是否成功）</li>
+</ul>
+<p>如果放在同一个线程里，下载一个大 PDF 的时候列表就不能更新了——你会错过这期间发布的新公告。</p>
+<p><strong>线程一：列表更新线程（60 秒周期）</strong></p>
+<pre><code>while running:
+    1. 设置日期范围（初运行拉取过去 N 天，后续拉取过去 1 小时）
+    2. 逐页请求列表 API（pageNum 从 1 开始递增，直到返回空结果）
+    3. 对每条公告记录提取 announcement_id、stock_code、title、adjunct_url 等字段
+    4. INSERT OR IGNORE INTO announcements（announcement_id 去重）
+    5. sleep(60)</code></pre>
+<p><strong>线程二：PDF 下载线程池（30 秒周期，最多 3 个并发 worker）</strong></p>
+<pre><code>while running:
+    1. SELECT * FROM announcements WHERE status = 'pending' LIMIT 30
+    2. 将 30 条记录提交到 ThreadPoolExecutor(max_workers=3)
+    3. 每个 worker:
+        a. 状态更新为 'downloading'
+        b. 拼接 PDF 完整 URL
+        c. httpx 下载 PDF（带重试，最多 3 次，退避延时）
+        d. 保存 PDF 到 data/pdfs/{stock_code}_{announcement_id}_{title}.pdf
+        e. PyMuPDF 提取文本，保存为 data/txts/{...}.txt
+        f. 文本写入数据库 content 字段
+        g. 状态更新为 'completed'
+        h. 如果任何步骤失败：状态更新为 'failed'，记录错误信息
+    4. sleep(30)</code></pre>
+<p><strong>设计要点解析：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">设计决策</th>
+<th style="text-align: left;">理由</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SQLite 而非 CSV</td>
+<td style="text-align: left;">CSV 不支持并发写入、不支持增量更新、不支持状态追踪。SQLite 一行 SQL 解决去重和状态查询</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>announcement_id</code> 作唯一约束</td>
+<td style="text-align: left;"><code>INSERT OR IGNORE</code> 保证同一公告无论被列表线程拉取多少次，数据库中只有一条记录</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">限制 3 个并发 worker</td>
+<td style="text-align: left;">不是技术限制（Python 线程可以开到几十个），而是反爬考量——同时 3 个 PDF 下载请求 + 每个请求间隔随机延时，服务器不会觉得异常</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PyMuPDF 而非 marker</td>
+<td style="text-align: left;">marker 依赖 PyTorch（安装体积超 2GB），适合需要保留表格和公式结构的复杂 PDF；公告 PDF 以文本为主，PyMuPDF 的<code>fitz</code> 库（几十 MB）完全够用</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">随机延时 0.5-1.5 秒</td>
+<td style="text-align: left;">固定延时（如 1 秒）会形成规律性模式，反而容易被反爬系统识别。均匀分布的随机延时模拟了人类”点开一个 PDF，看一下，点开下一个”的不规律节奏</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">代理预留接口</td>
+<td style="text-align: left;"><code>config.HTTP_PROXY_URL</code> 一个变量控制全局代理开关。本地调试时设为空字符串直连，部署到服务器时填入代理地址</td>
+</tr>
+</tbody>
+</table>
+<p><strong>关于 PDF 解析工具的选择，值得多说两句：</strong> 用户原始需求指定了 <code>marker</code>（一个基于深度学习模型的高精度 PDF 到 Markdown 转换工具，能保留表格结构、公式和阅读顺序）。实际实现中 Agent 替换为 PyMuPDF。这不是 Agent “自作主张”——这是一个合理的工程权衡。对于巨潮网的公告类 PDF（以文字为主，偶尔有简单表格），PyMuPDF 的文本提取质量与 marker 差距很小（甚至对纯文本 PDF 完全一致），但安装成本从 2GB 降到 50MB。如果后续需要处理包含复杂表格的 PDF（如年报中的财务报表），可以再单独引入 marker 或 pdfplumber。</p>
+</section>
+<section id="数据库设计" class="level3">
+<h3 class="anchored" data-anchor-id="数据库设计">8. 数据库设计</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-08-new.png" class="img-fluid figure-img"></p>
+<figcaption>巨潮网数据库设计</figcaption>
+</figure>
+</div>
+<p>数据库设计决定了爬虫能做什么、不能做什么。这不是”先随便建个表后面再改”的事情——表结构的修改意味着数据迁移，而数据迁移是工程中的高事故率操作。</p>
+<p><code>announcements</code> 表的完整定义：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 6%">
+<col style="width: 24%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">类型</th>
+<th style="text-align: left;">约束</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>id</code></td>
+<td style="text-align: left;">INTEGER</td>
+<td style="text-align: left;">PRIMARY KEY AUTOINCREMENT</td>
+<td style="text-align: left;">自增主键（内部使用，不做业务逻辑）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>announcement_id</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;">UNIQUE NOT NULL</td>
+<td style="text-align: left;">公告唯一 ID（去重的核心依据）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>stock_code</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;">NOT NULL</td>
+<td style="text-align: left;">股票代码（如 “000597”）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>stock_name</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">公司简称（如 “东北制药”）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>org_id</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">机构 ID（巨潮网内部编码）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>title</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;">NOT NULL</td>
+<td style="text-align: left;">公告标题（如 “2025 年年度权益分派实施公告”）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>announcement_time</code></td>
+<td style="text-align: left;">INTEGER</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">公告时间戳（毫秒）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>announcement_time_str</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">格式化时间字符串（如 “2025-06-15”）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>adjunct_url</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">附件相对路径（从列表 API 返回中提取）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pdf_url</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">完整 PDF 下载链接（拼接后）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pdf_path</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">本地 PDF 文件保存路径</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>txt_path</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">本地 TXT 文件保存路径</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>content</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">PDF 解析后的正文全文</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;">TEXT</td>
+<td style="text-align: left;">DEFAULT ‘pending’</td>
+<td style="text-align: left;">pending / downloading / completed / failed</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>created_at</code></td>
+<td style="text-align: left;">INTEGER</td>
+<td style="text-align: left;">NOT NULL</td>
+<td style="text-align: left;">记录入库时间戳（毫秒）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>updated_at</code></td>
+<td style="text-align: left;">INTEGER</td>
+<td style="text-align: left;">NOT NULL</td>
+<td style="text-align: left;">记录最后更新时间戳（毫秒）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>几个值得深入理解的设计细节：</strong></p>
+<ul>
+<li><strong><code>announcement_id</code> 是去重的绝对核心。</strong> 列表更新线程每次拉取后，用 <code>INSERT OR IGNORE INTO announcements (...) VALUES (...)</code> 批量写入——已存在的 <code>announcement_id</code> 自动跳过，无需在应用层做 <code>IF NOT EXISTS</code> 判断。这是一个经典的”让数据库做它擅长的事”的案例。</li>
+<li><strong><code>status</code> 字段实现了一个简单但完整的状态机。</strong> 从 <code>pending</code>（新入库，待下载）到 <code>downloading</code>（下载中，防止被其他 worker 重复抓取）到 <code>completed</code>（下载+解析全部成功）或 <code>failed</code>（任一环节失败，记录错误原因）。状态机的价值在并发场景下尤其明显——多个 worker 同时对 <code>pending</code> 记录发起下载时，先更新为 <code>downloading</code> 的 worker 获得处理权（配合 <code>UPDATE ... WHERE status = 'pending'</code> 的条件更新）。</li>
+<li><strong>PDF 和 TXT 同时保存。</strong> PDF 文件保存在 <code>data/pdfs/</code>，解析后的文本写入数据库 <code>content</code> 字段（同时保存一份 TXT 文件在 <code>data/txts/</code>）。这种”双保险”设计意味着：即使数据库损坏或 <code>content</code> 字段解析出错，原始 PDF 和 TXT 文件仍在磁盘上。对于需要运行数天的长时间爬取任务，这种冗余是值得的。</li>
+<li><strong>双时间戳。</strong> <code>created_at</code> 记录公告是什么时候被爬虫发现的（反映数据的”发现时效”），<code>updated_at</code> 记录最后一次状态变更的时间（反映处理的”完成时效”）。两个时间的差值可以告诉你爬虫的吞吐延迟。</li>
+</ul>
+<blockquote class="blockquote">
+<p>完整案例材料：<code>B班-Agent课程/Juchao/</code>——包含完整爬虫项目（<code>juchao_crawler/</code>）、9 个集成测试（<code>tests/</code>）、使用文档（<code>README.md</code>）。</p>
+</blockquote>
+</section>
+<section id="测试不只是跑通了就行" class="level3">
+<h3 class="anchored" data-anchor-id="测试不只是跑通了就行">9. 测试：不只是”跑通了就行”</h3>
+<p>巨潮网爬虫包含了 9 个集成测试，全部通过只需要 1.35 秒。不要因为时间短就低估测试的价值——这 1.35 秒是三个月后你能安全修改代码的保证。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-09-new.png" class="img-fluid figure-img"></p>
+<figcaption>集成测试全景</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 33%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">测试函数</th>
+<th style="text-align: left;">测试内容</th>
+<th style="text-align: left;">保护什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>test_list_api_smoke</code></td>
+<td style="text-align: left;">列表 API 是否返回 200 且包含数据</td>
+<td style="text-align: left;">最基础的连通性——API 改版或挂了能第一时间知道</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>test_pagination</code></td>
+<td style="text-align: left;">翻页是否正常工作（page 1 和 page 2 数据不同）</td>
+<td style="text-align: left;">防止只爬了第一页的数据——这是新手最容易犯的 bug</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>test_normalize_announcement</code></td>
+<td style="text-align: left;">字段提取和标准化是否正确</td>
+<td style="text-align: left;">字段名变更、字段缺失——API 悄悄改返回结构时报警</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>test_build_pdf_url</code></td>
+<td style="text-align: left;">PDF URL 拼接是否正确</td>
+<td style="text-align: left;">静态域名或路径规则变更\</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>test_database_insert_and_query</code></td>
+<td style="text-align: left;">INSERT、去重、SELECT 是否正常</td>
+<td style="text-align: left;">数据库操作正确性</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>test_pdf_download_and_parse_smoke</code></td>
+<td style="text-align: left;">下载一份真实 PDF 并解析</td>
+<td style="text-align: left;">PDF 服务器是否在线、PDF 格式是否变化</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>test_list_updater</code></td>
+<td style="text-align: left;">列表更新线程的完整流程</td>
+<td style="text-align: left;">定时拉取逻辑</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>test_scheduler_run_once</code></td>
+<td style="text-align: left;">调度器单次运行</td>
+<td style="text-align: left;">双线程协调逻辑——列表更新和 PDF 下载是否各司其职</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>test_pdf_path_sanitization</code></td>
+<td style="text-align: left;">文件名非法字符清理</td>
+<td style="text-align: left;">防止公告标题中的<code>/</code>、<code>:</code> 等字符导致文件创建失败</td>
+</tr>
+</tbody>
+</table>
+<p><strong>至少要测试的三件事：</strong></p>
+<ol type="1">
+<li><strong>API 连通性</strong>——接口是否还能正常访问？返回码是 200 还是 403/500？返回的 JSON 结构是否变了？</li>
+<li><strong>字段完整性</strong>——关键字段（如 announcement_id、adjunct_url、title）是否还存在？是否新增了必填字段？缺少字段比报错更危险——它会静默地产生缺失值。</li>
+<li><strong>核心逻辑</strong>——去重是否生效（重复插入应被忽略）？状态是否正确更新（pending → downloading → completed）？</li>
+</ol>
+<p><strong>经验之谈：</strong> 最容易出问题的不是代码逻辑，而是上游变化。API 悄悄改了参数名（<code>pageNum</code> 变成了 <code>page</code>）、返回结构变了（<code>announcement_id</code> 从顶层移到了嵌套对象里）、PDF 服务器换了域名——这些事情在爬虫长期运行中一定会发生。测试就是你的地震预警系统。</p>
+</section>
+<section id="从许愿式编程到-todo.md-驱动" class="level3">
+<h3 class="anchored" data-anchor-id="从许愿式编程到-todo.md-驱动">10. 从「许愿式编程」到 TODO.md 驱动</h3>
+<p>这是本讲最重要的方法论。</p>
+<p><strong>许愿式编程</strong>是给 Agent 一个模糊的需求，然后期待它自动搞定一切。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-10-new.png" class="img-fluid figure-img"></p>
+<figcaption>许愿式编程vs结构化需求对比</figcaption>
+</figure>
+</div>
+<pre><code>❌ 许愿式：「帮我爬取巨潮网的所有公告」
+
+——Agent 会做什么？它会猜。
+——用什么技术？可能猜 requests，遇到 SPA 后报错再换 Playwright
+——数据存哪里？可能猜 CSV（后续发现需要增量更新时傻眼）
+——翻页怎么处理？可能猜 while True 无限循环（爬到天荒地老）
+——反爬怎么处理？可能猜什么也不做（爬到一半被封）
+——PDF 怎么处理？可能猜全部下载后用 marker 批量转换（磁盘爆满）</code></pre>
+<pre><code>✅ 结构化：「帮我分析巨潮网的公告列表 API，设计一个多线程爬虫，
+          分两个阶段：列表获取和 PDF 下载。具体要求见 TODO.md」
+
+——Agent 会做什么？它先读 TODO.md。
+——TODO.md 里写了：目标 URL、数据格式要求、存储方式（SQLite）、
+  多线程架构、反爬策略、测试要求。
+——Agent 不需要猜任何东西。它在明确的边界内发挥技术能力。</code></pre>
+<p>两者的区别是根本性的。许愿式需求把所有的架构决策压力都交给了 Agent——用什么技术路线、怎么处理翻页、数据存哪里、反爬怎么处理。Agent 会猜，但猜错的概率很高。你在 AI 面前是领域专家——你知道数据会被用来做什么研究、需要什么字段、能容忍多大的延迟。Agent 不知道这些。<strong>你有责任把你的领域知识翻译成 Agent 能理解的工程需求。</strong></p>
+<p>TODO.md 本质上是你和 Agent 之间的「需求协议」。你不需要会写代码——但你需要在动手之前想清楚三件事：</p>
+<ol type="1">
+<li><strong>数据从哪里来？</strong> URL 是什么？是列表页还是 API？需要翻页吗？需要登录吗？</li>
+<li><strong>数据长什么样？</strong> 返回格式是 JSON 还是 HTML？关键字段叫什么名字？</li>
+<li><strong>数据存到哪里去？</strong> 存成 CSV、JSON 还是数据库？需要去重吗？需要增量更新吗？</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-09-new2.png" class="img-fluid figure-img"></p>
+<figcaption>TODO.md驱动开发流程</figcaption>
+</figure>
+</div>
+<p><strong>TODO.md 驱动开发的六步流程：</strong></p>
+<p><strong>步骤 1：探索阶段。</strong> 你给出目标 URL，让 Agent 用 Playwright 探索网站结构。Agent 汇报发现了哪些 API、数据格式是什么、有没有反爬措施。这个阶段你不需要写任何需求——你是在收集信息。</p>
+<p><strong>步骤 2：需求编写。</strong> 基于 Agent 的探索报告，你编写 TODO.md。内容包括：目标 URL 和数据接口说明（Agent 已经发现的 API）、期望的输出字段列表（哪些字段是必须的、哪些是可选的）、输出格式和存储方式（CSV / JSON / SQLite）、反爬约束（请求间隔、代理配置）、测试要求（至少测试什么）。</p>
+<p><strong>步骤 3：架构设计。</strong> Agent 阅读 TODO.md，提出爬虫架构方案。是单线程还是多线程？要不要数据库？怎么去重？你审阅方案——如果有不同意见（比如你发现 API 有频率限制，不能用多线程），在 TODO.md 中补充。</p>
+<p><strong>步骤 4：增量实现。</strong> Agent 按 TODO.md 的顺序逐项实现，每完成一项就打勾 <code>[x]</code>。你可以在任何一项完成后检查 Agent 的工作——如果方向偏了，及时纠正，而不是等全部写完才发现。</p>
+<p><strong>步骤 5：测试验证。</strong> Agent 编写集成测试并运行。如果测试未通过，Agent 分析失败原因并修复。重复直到所有测试通过。</p>
+<p><strong>步骤 6：交付文档。</strong> Agent 生成 README.md，记录 API 发现过程、环境依赖、安装步骤、使用方式。这份文档是你三个月后回来复用的唯一凭据。</p>
+<p><strong>巨潮网案例的 TODO.md 示例（实际使用的需求）：</strong></p>
+<blockquote class="blockquote">
+<ol type="1">
+<li>探索网站的网络结构，处理翻页等细节</li>
+<li>探索每条公告详情页中提取 PDF 链接的方法</li>
+<li>定时更新列表页，检查新公告</li>
+<li>PDF 解析为 txt 文件</li>
+<li>设计 SQLite 数据库，包含上市公司代码、名称、公告标题、公告内容等</li>
+<li>将转换好的 PDF 信息写入数据库</li>
+<li>使用多线程：更新列表和获取 PDF 使用不同线程</li>
+<li>保留反爬代理接口</li>
+</ol>
+</blockquote>
+<p>8 条需求，每条都是具体的、可验证的。Agent 不需要猜——它知道要探索什么、要设计什么、要测试什么。结果：9 个集成测试一次性通过，端到端验证 30 条公告全部成功入库。</p>
+</section>
+<section id="爬虫工程实践三原则" class="level3">
+<h3 class="anchored" data-anchor-id="爬虫工程实践三原则">11. 爬虫工程实践三原则</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-11-new.png" class="img-fluid figure-img"></p>
+<figcaption>爬虫工程实践三原则</figcaption>
+</figure>
+</div>
+<p>这三个原则来自实际踩过的坑。</p>
+<p><strong>原则一：保留原始数据。</strong> 永远保存一份未经处理的原始响应——JSON 文件、PDF 原文、HTML 页面。爬虫代码可能写错，解析逻辑可能有 bug，字段映射可能遗漏，但原始数据不会变。有了它，你可以随时重新解析而不需要重新爬取——而重新爬取的成本可能很高（几小时到几天的时间成本，加上可能被目标网站封禁的风险）。</p>
+<p>具体做法：爬虫的输出目录结构应该是两层的——</p>
+<pre><code>project/
+├── raw_data/       ← 原始响应，只写入不修改
+│   ├── page_1.json
+│   ├── page_2.json
+│   └── pdfs/
+│       └── 000597_1225370066.pdf
+└── data/           ← 解析后的结构化数据
+    └── announcements.csv</code></pre>
+<p><strong>原则二：写测试。</strong> 测试不是为了”证明代码是对的”——没有人能证明代码是对的。测试是为了在三个关键时刻保护你：① 首次开发完成时——验证核心流程跑的通；② 修改代码后——确保修改没有破坏已有功能（回归测试）；③ 上游接口变更时——第一时间发现数据源的变化。</p>
+<p>至少测试三件事：API 连通性（<code>assert response.status_code == 200</code>）、字段完整性（<code>assert 'announcement_id' in data</code>）、去重逻辑（插入两条相同记录，数据库只有一条）。</p>
+<p><strong>原则三：文档化。</strong> 至少写一个 README.md。内容至少包含：</p>
+<ul>
+<li><strong>目标网站和发现过程：</strong> 你是怎么找到这个数据源的？用了什么 API？有什么反爬？</li>
+<li><strong>API 端点和参数说明：</strong> 请求方法、URL、参数列表、返回格式</li>
+<li><strong>环境依赖和安装步骤：</strong> <code>pip install -r requirements.txt</code> 或 conda 环境</li>
+<li><strong>使用方式：</strong> 如何启动？如何停止？如何更换目标股票代码？</li>
+<li><strong>已知问题：</strong> 哪些场景还没处理？哪些边界条件可能出问题？</li>
+</ul>
+<p>三个月后你回来复用时，会感谢现在花 15 分钟写的文档。更重要的是——如果这个爬虫需要交给师弟师妹维护，文档是唯一能让他们不来找你的东西。</p>
+</section>
+<section id="数据采集工具链全景" class="level3">
+<h3 class="anchored" data-anchor-id="数据采集工具链全景">12. 数据采集工具链全景</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-12-new.png" class="img-fluid figure-img"></p>
+<figcaption>数据采集工具链全景</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 40%">
+<col style="width: 29%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">环节</th>
+<th style="text-align: left;">工具</th>
+<th style="text-align: left;">典型用法</th>
+<th style="text-align: left;">选型要点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>请求发送</strong></td>
+<td style="text-align: left;"><code>requests</code>, <code>httpx</code></td>
+<td style="text-align: left;"><code>resp = requests.get(url, headers=h, proxies=p)</code></td>
+<td style="text-align: left;"><code>httpx</code> 支持异步和 HTTP/2，<code>requests</code> 更简单</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>浏览器模拟</strong></td>
+<td style="text-align: left;">Playwright, Selenium</td>
+<td style="text-align: left;"><code>page.goto(url); data = page.locator('.item').all_inner_texts()</code></td>
+<td style="text-align: left;">Playwright 更现代、更快；Selenium 生态更成熟</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>HTML 解析</strong></td>
+<td style="text-align: left;">BeautifulSoup, lxml</td>
+<td style="text-align: left;"><code>soup.select('div.announcement &gt; a')</code></td>
+<td style="text-align: left;">BeautifulSoup 容错性好；lxml 速度更快</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>正则抽取</strong></td>
+<td style="text-align: left;">Python<code>re</code></td>
+<td style="text-align: left;"><code>re.findall(r'\d{4}-\d{2}-\d{2}', text)</code></td>
+<td style="text-align: left;">用于简单的模式匹配——日期、数字、URL</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>JSON 处理</strong></td>
+<td style="text-align: left;">Python<code>json</code></td>
+<td style="text-align: left;"><code>data = response.json()</code></td>
+<td style="text-align: left;">几乎不需要第三方库</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>PDF 解析</strong></td>
+<td style="text-align: left;">PyMuPDF (<code>fitz</code>), pdfplumber</td>
+<td style="text-align: left;"><code>doc = fitz.open(path); text = doc[0].get_text()</code></td>
+<td style="text-align: left;">PyMuPDF 快且轻量；pdfplumber 表格提取更强</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>数据库</strong></td>
+<td style="text-align: left;">SQLite, PostgreSQL</td>
+<td style="text-align: left;"><code>cursor.execute('INSERT OR IGNORE INTO ...')</code></td>
+<td style="text-align: left;">SQLite 零配置、单文件；PostgreSQL 支持并发写入</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>代理管理</strong></td>
+<td style="text-align: left;"><code>httpx.Client(proxy=...)</code></td>
+<td style="text-align: left;"><code>client = httpx.Client(proxy='http://127.0.0.1:7890')</code></td>
+<td style="text-align: left;">大多数场景不需要代理池</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>任务调度</strong></td>
+<td style="text-align: left;"><code>threading</code>, <code>schedule</code></td>
+<td style="text-align: left;"><code>threading.Thread(target=update_list)</code></td>
+<td style="text-align: left;">线程用于并发；<code>schedule</code> 用于定时触发</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>数据框</strong></td>
+<td style="text-align: left;">pandas</td>
+<td style="text-align: left;"><code>df = pd.read_json(api_response)</code></td>
+<td style="text-align: left;">用于数据清洗和分析，不是存储</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>测试</strong></td>
+<td style="text-align: left;"><code>pytest</code></td>
+<td style="text-align: left;"><code>pytest tests/ -v</code></td>
+<td style="text-align: left;">简单的 assert 语句即可</td>
+</tr>
+</tbody>
+</table>
+<p><strong>工具选择的黄金法则：够用就好，不要过度工程化。</strong></p>
+<ul>
+<li>数据量不到百万行 → SQLite 就够了，不需要 MySQL / PostgreSQL</li>
+<li>不需要执行 JavaScript → requests 就够了，不需要 Playwright</li>
+<li>不需要分布式 → 单机多线程就够了，不需要 Scrapy / Celery</li>
+<li>PDF 主要是文本 → PyMuPDF 就够了，不需要 marker / MinerU</li>
+<li>不需要实时监控 → print 日志就够了，不需要 Prometheus + Grafana</li>
+</ul>
+</section>
+<section id="数据采集在实证研究中的位置" class="level3">
+<h3 class="anchored" data-anchor-id="数据采集在实证研究中的位置">13. 数据采集在实证研究中的位置</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/s06-image-13-new.png" class="img-fluid figure-img"></p>
+<figcaption>数据采集在实证研究中的位置</figcaption>
+</figure>
+</div>
+<p>让我们把数据采集放回实证研究的完整流程中来看：</p>
+<pre><code>研究问题 → 数据采集 ← 这一讲的内容
+    ↓
+数据清洗 → 描述统计 → 基准回归 → 稳健性检验 → 机制分析 → 写作</code></pre>
+<p>数据采集是实证研究的起点——它决定了你能问什么问题、能用什么识别策略、样本量有多大、结论的外推范围有多广。数据不是在你开始做研究的那一刻就整齐地放在硬盘里的——它是你需要自己去获取的原材料。研究问题和数据来源之间是一个双向互动的关系：你看到了什么数据，就会想到什么问题；你想到了什么问题，就会去找什么数据。因此，数据采集能力直接决定了你的研究边界有多宽。</p>
+<p>对于经管研究者来说，三类数据源尤其值得关注：</p>
+<p><strong>第一类：公开行政数据。</strong> 巨潮网公告、国家统计局数据、各地统计局年鉴、海关进出口数据、土地出让成交公告——这些是官方披露的结构化或半结构化数据，通常有相对稳定的网页结构或 API 接口。它们的优势是权威性和连续性（可以构建长时间面板），挑战是分散在不同的网站和格式中（PDF、Excel、HTML 表格）。</p>
+<p><strong>第二类：网页文本数据。</strong> 上市公司年报和管理层讨论（MD&amp;A）、政策文件和政府工作报告、新闻报道和社交媒体内容——这些是非结构化文本，数据量大，但信息密度高。需要爬取 + 解析两步走。文本数据在经管研究中的应用正在快速增长——从管理层语调分析到政策不确定性度量。</p>
+<p><strong>第三类：第三方平台 API。</strong> Google Trends（搜索热度）、百度指数（搜索趋势）、高德/百度地图 API（地理信息、POI 密度）、空气质量 API（每日 AQI）、夜间灯光数据——这些平台通常提供公开 API 或批量下载，但可能有调用频率限制或需要注册申请。它们是传统统计数据的补充——比如用夜间灯光亮度作为地区经济活动的代理变量，用 POI 密度度量商业活跃度。</p>
+<p><strong>一个忠告：</strong> 不要等到研究设计做完再去想数据从哪里来。数据和问题是一起演化的。你发现了一个数据源——它的粒度（企业级还是城市级）、频率（日度还是年度）、覆盖范围（全国还是局部）、时间跨度（3 年还是 30 年）——这些特征反过来会塑造你的研究问题。反过来说，如果你先有了一个具体的研究问题再去”找数据”，往往会发现要么数据不存在，要么粒度不够——这时候你只能降低研究问题的精度。</p>
+<hr>
+</section>
+</section>
+<section id="实战任务" class="level2">
+<h2 class="anchored" data-anchor-id="实战任务">实战任务</h2>
+<p><strong>任务：</strong> 选择一个可公开访问的数据源，让 Agent 帮你完成一次完整的数据采集流程。</p>
+<p><strong>三个递进难度：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 59%">
+<col style="width: 21%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">难度</th>
+<th style="text-align: left;">任务描述</th>
+<th style="text-align: left;">参考案例</th>
+<th style="text-align: center;">预计时间</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>入门</strong></td>
+<td style="text-align: left;">爬取<code>submarinecablemap.com</code> 的海底光缆数据</td>
+<td style="text-align: left;"><code>task8/SubmarineCable/</code></td>
+<td style="text-align: center;">30 分钟</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>进阶</strong></td>
+<td style="text-align: left;">爬取巨潮网某只股票过去一年的公告</td>
+<td style="text-align: left;"><code>task9/Juchao/</code></td>
+<td style="text-align: center;">1-2 小时</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>挑战</strong></td>
+<td style="text-align: left;">自行选择一个与你的研究方向相关的网站，完成探索 → 编码 → 存储全流程</td>
+<td style="text-align: left;">——</td>
+<td style="text-align: center;">2-4 小时</td>
+</tr>
+</tbody>
+</table>
+<p><strong>入门级（海底光缆）适合：</strong> 没有爬虫经验的初学者。API 是公开的 GET 请求，不需要处理分页、不需要处理反爬（除了简单延时）、不需要设计数据库。核心体验是”API 发现”——看 Agent 如何找到 SPA 背后的数据接口。</p>
+<p><strong>进阶级（巨潮网）适合：</strong> 有基础爬虫概念的同学。涉及 POST API、多线程架构、SQLite 持久化、PDF 下载和解析、反爬策略设计。核心体验是”生产级设计”——一个能持续运行、增量更新的爬虫长什么样。</p>
+<p><strong>挑战级（自行选择）适合：</strong> 希望把爬虫能力应用到自己的研究方向的同学。你需要自己完成探索 → 需求编写 → 架构设计 → 编码测试的完整闭环。Agent 会帮你但决策是你来做。</p>
+<p><strong>标准操作流程（8 步）：</strong></p>
+<ol type="1">
+<li>创建项目文件夹（如 <code>MyCrawler/</code>），初始化 git 仓库</li>
+<li>让 Agent 用 Playwright 探索目标网站，汇报发现的 API 和数据格式</li>
+<li>基于探索报告，编写 <code>TODO.md</code>（至少包含：目标 URL、期望字段、输出格式、存储方式、反爬约束）</li>
+<li>Agent 设计爬虫架构方案，你审阅并确认</li>
+<li>Agent 按 TODO.md 逐项实现爬虫代码</li>
+<li>运行爬虫，观察日志输出，发现问题，与 Agent 一起调试</li>
+<li>将原始数据保存到 <code>raw_data/</code>，解析后数据保存到 <code>data/</code></li>
+<li>Agent 编写集成测试并运行，写 <code>README.md</code></li>
+</ol>
+<p><strong>验收标准（你的爬虫应该满足）：</strong></p>
+<ul>
+<li>能成功获取至少 50 条以上的目标数据</li>
+<li>代码有基本的错误处理（网络超时重试、解析失败不中断）</li>
+<li>输出数据格式统一、字段完整</li>
+<li>有 README.md 记录发现过程和使用说明</li>
+<li>原始数据已保存（可随时重新解析）</li>
+</ul>
+<p><strong>注意事项：</strong></p>
+<ul>
+<li>确认目标网站的服务条款允许学术研究用途的数据采集</li>
+<li>遵守 <code>robots.txt</code> 中声明的爬虫规则</li>
+<li>合理控制请求频率——宁慢毋快</li>
+<li>如果爬虫需要长时间运行（超过 1 小时），考虑在服务器或云主机上运行，而非本地笔记本</li>
+</ul>
+<hr>
+</section>
+<section id="案例材料索引" class="level2">
+<h2 class="anchored" data-anchor-id="案例材料索引">案例材料索引</h2>
+<p>所有案例均提供完整的项目文件——包括爬虫代码、测试文件、使用文档和原始数据。建议在动手实战前先打开这些文件夹浏览一遍，理解一个完整爬虫项目的文件结构和代码组织方式。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 22%">
+<col style="width: 5%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">案例</th>
+<th style="text-align: left;">位置</th>
+<th style="text-align: center;">复杂度</th>
+<th style="text-align: left;">关键技能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">海底光缆爬虫</td>
+<td style="text-align: left;"><code>task8/SubmarineCable/</code></td>
+<td style="text-align: center;">入门</td>
+<td style="text-align: left;">API 发现、GET 请求、JSON 解析、CSV 数据展开</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">巨潮网公告爬虫</td>
+<td style="text-align: left;"><code>task9/Juchao/</code></td>
+<td style="text-align: center;">进阶</td>
+<td style="text-align: left;">POST API、多线程调度、SQLite 持久化、PDF 下载与文本解析、集成测试</td>
+</tr>
+</tbody>
+</table>
+<p><strong>每个案例文件夹包含：</strong></p>
+<ul>
+<li>爬虫主程序（<code>.py</code> 文件）</li>
+<li>测试文件（<code>tests/</code> 目录）</li>
+<li>使用文档（<code>README.md</code>）</li>
+<li>原始数据和解后数据（<code>raw_data/</code> 和 <code>data/</code>）</li>
+<li>需求描述（<code>TODO.md</code>，部分案例）</li>
+</ul>
+<hr>
+</section>
+<section id="本讲核心概念回顾" class="level2">
+<h2 class="anchored" data-anchor-id="本讲核心概念回顾">本讲核心概念回顾</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 78%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">概念</th>
+<th style="text-align: left;">一句话解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>爬虫</strong></td>
+<td style="text-align: left;">用代码自动化”访问网页 → 复制信息 → 保存数据”的过程</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>技术路线</strong></td>
+<td style="text-align: left;">直接 HTTP 请求（requests）优先于浏览器模拟（Playwright）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>SPA</strong></td>
+<td style="text-align: left;">单页应用——页面由 JavaScript 在浏览器中动态渲染，源代码里看不到数据</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>API 发现</strong></td>
+<td style="text-align: left;">用浏览器开发者工具的 Network 标签页找到 SPA 页面背后的数据接口</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>反爬策略</strong></td>
+<td style="text-align: left;">服务器从 IP 频率、请求头、JS 执行、验证码等维度识别并阻止爬虫</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>反爬博弈</strong></td>
+<td style="text-align: left;">先温和（正常延时 + 真实请求头）→ 遇到阻拦再加防御——不要一上来就全副武装</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>TODO.md 驱动</strong></td>
+<td style="text-align: left;">把需求写清楚再交给 Agent——你负责领域的架构决策，Agent 负责技术的编码执行</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>双线程架构</strong></td>
+<td style="text-align: left;">列表拉取（快）和文件下载（慢）分离到不同线程——各司其职，互不阻塞</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>状态机</strong></td>
+<td style="text-align: left;">用 pending → downloading → completed / failed 追踪每条记录的处理生命周期</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>去重机制</strong></td>
+<td style="text-align: left;">用唯一 ID（announcement_id 或 URL 哈希）的数据库唯一约束保证同一数据不会重复入库</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>保留原始数据</strong></td>
+<td style="text-align: left;">永远保存原始响应（JSON / PDF / HTML）——代码可能写错，原始数据不会</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>集成测试</strong></td>
+<td style="text-align: left;">验证 API 连通性、字段完整性、核心逻辑正确性——1.35 秒跑完，保护你三个月后的修改</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>轻量优先</strong></td>
+<td style="text-align: left;">工具选择够用就好——PyMuPDF 而非 marker、SQLite 而非 MySQL、线程而非分布式</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="课后阅读与准备" class="level2">
+<h2 class="anchored" data-anchor-id="课后阅读与准备">课后阅读与准备</h2>
+<p><strong>必读：</strong></p>
+<ul>
+<li>浏览 <code>task8/SubmarineCable/</code> 和 <code>task9/Juchao/</code> 两个完整案例的项目文件</li>
+<li>阅读 课程大纲的完整内容</li>
+</ul>
+<p><strong>准备（下次课前完成）：</strong></p>
+<ul>
+<li>确定你实战任务要爬取的数据源（入门级、进阶级或挑战级任选其一）</li>
+<li>在下次课前完成 TODO.md 的初稿（至少包含目标 URL 和期望字段列表）</li>
+<li>如果已经尝试了爬取，记录遇到的问题（错误信息、反爬拦截、数据格式意外等）——下次课讨论</li>
+</ul>
+<p><strong>思考题：</strong></p>
+<ul>
+<li>你研究领域中，有哪些可公开访问的数据源目前以”手工下载”的方式获取？其中哪些可能通过 API 发现简化数据采集？</li>
+<li>如果你的数据源是 PDF 格式（如年报、公告、政策文件），你会如何设计 PDF → 结构化数据的完整管线？从下载到解析到入库，每一步的”够用就好”标准是什么？</li>
+<li>爬虫和数据清洗的边界在哪里？哪些处理应该在爬虫阶段完成（如去重、格式标准化），哪些应该留到数据分析阶段？</li>
+</ul>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<!-- 登录门禁：登录框 + 校验逻辑 -->
+<div id="book-auth-gate" hidden="">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <span class="auth-kicker">课程教材 · 需登录</span>
+      <h1>人工智能在经济管理研究中的应用</h1>
+      <p>请输入用户名和密码以继续阅读</p>
+    </div>
+    <form id="book-auth-form" autocomplete="off">
+      <div class="auth-field">
+        <label for="book-auth-user">用户名</label>
+        <input type="text" id="book-auth-user" name="username" placeholder="请输入用户名" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label for="book-auth-pass">密码</label>
+        <input type="password" id="book-auth-pass" name="password" placeholder="请输入密码" autocomplete="current-password">
+      </div>
+      <div class="auth-error" id="book-auth-error">用户名或密码错误，请重试。</div>
+      <button type="submit" class="auth-submit" id="book-auth-submit">登 录</button>
+      <div class="auth-hint">登录状态仅在本浏览器当前会话内有效</div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ---------- 纯 JS SHA-256（ASCII） ---------- */
+  function sha256(ascii) {
+    function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+    var mathPow = Math.pow;
+    var maxWord = mathPow(2, 32);
+    var result = '';
+    var words = [];
+    var asciiBitLength = ascii.length * 8;
+    var hash = sha256.h = sha256.h || [];
+    var k = sha256.k = sha256.k || [];
+    var primeCounter = k.length;
+    var isComposite = {};
+    for (var candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (var i = 0; i < 313; i += candidate) { isComposite[i] = candidate; }
+        hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (var i = 0; i < ascii.length; i++) {
+      var j = ascii.charCodeAt(i);
+      if (j >> 8) return '';
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = ((asciiBitLength / maxWord) | 0);
+    words[words.length] = (asciiBitLength);
+    for (var j2 = 0; j2 < words.length;) {
+      var w = words.slice(j2, j2 += 16);
+      var oldHash = hash;
+      hash = hash.slice(0, 8);
+      for (var i2 = 0; i2 < 64; i2++) {
+        var w15 = w[i2 - 15], w2 = w[i2 - 2];
+        var a = hash[0], e = hash[4];
+        var temp1 = hash[7]
+          + (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25))
+          + ((e & hash[5]) ^ ((~e) & hash[6]))
+          + k[i2]
+          + (w[i2] = (i2 < 16) ? w[i2] : (
+              w[i2 - 16]
+              + (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3))
+              + w[i2 - 7]
+              + (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))
+            ) | 0
+          );
+        var temp2 = (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22))
+          + ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash = [(temp1 + temp2) | 0].concat(hash);
+        hash[4] = (hash[4] + temp1) | 0;
+      }
+      for (var i3 = 0; i3 < 8; i3++) { hash[i3] = (hash[i3] + oldHash[i3]) | 0; }
+    }
+    for (var i4 = 0; i4 < 8; i4++) {
+      for (var j3 = 3; j3 + 1; j3--) {
+        var b = (hash[i4] >> (j3 * 8)) & 255;
+        result += ((b < 16) ? 0 : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  /* 校验值：sha256("pisces_chen_30")（用户名与密码相同） */
+  var CRED_HASH = "98dcd99562737bd3e3240000ed05df35168050efb866fe569d4602f31b26643f";
+
+  var gate = document.getElementById("book-auth-gate");
+  var form = document.getElementById("book-auth-form");
+  var userInput = document.getElementById("book-auth-user");
+  var passInput = document.getElementById("book-auth-pass");
+  var errEl = document.getElementById("book-auth-error");
+
+  function isLocked() {
+    return document.documentElement.classList.contains("auth-locked");
+  }
+
+  function unlock() {
+    try { sessionStorage.setItem("BOOK_AUTH_OK", "1"); } catch (e) {}
+    document.documentElement.classList.remove("auth-locked");
+    if (gate) gate.hidden = true;
+  }
+
+  /* 初始化：已登录则直接隐藏登录框，未登录则显示 */
+  if (isLocked()) {
+    gate.hidden = false;
+  } else {
+    gate.hidden = true;
+  }
+
+  if (form) {
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var u = userInput.value || "";
+      var p = passInput.value || "";
+      if (sha256(u) === CRED_HASH && sha256(p) === CRED_HASH) {
+        errEl.style.display = "none";
+        unlock();
+      } else {
+        errEl.style.display = "block";
+        passInput.value = "";
+        passInput.focus();
+      }
+    });
+  }
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-knowledge-base.html" class="pagination-link" aria-label="第五讲：知识库构建与学术品味蒸馏">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第五讲：知识库构建与学术品味蒸馏</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-text-analysis.html" class="pagination-link" aria-label="第七讲：AI 辅助文本分析">
+        <span class="nav-page-text">第七讲：AI 辅助文本分析</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">源代码</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "第六讲：AI 辅助数据采集"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **课程：** 人工智能在经济管理研究中的应用</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **授课人：** 张晨（西北农林科技大学经济管理学院）</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **讲次：** 第 6 次课（2 课时）</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **日期：** 2026 年夏季学期</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本次教学目标</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>学完本次课后，你将能够：</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>理解爬虫的基本原理和技术选型逻辑</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>让 Agent 帮你发现网页背后的隐藏 API</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>识别并应对常见的反爬策略</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>设计生产级爬虫的多线程调度架构</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>用 TODO.md 文件驱动 Agent 完成复杂爬虫开发</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>掌握爬虫工程实践的基本原则</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## 上节：爬虫原理与 API 发现</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. 什么是爬虫？</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>爬虫的本质是：**模拟浏览器行为，向服务器发送请求，获取响应后解析出你需要的数据。** 它用代码自动化了"打开网页 → 复制信息 → 关闭网页"这个你每天都在做的动作。</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="al">![爬虫基本原理流程](images/s06-image-01-new.png)</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>上图展示了爬虫的四个核心环节。让我们逐一展开。</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>**第一步：发送请求。** 你向目标 URL 发送一个 HTTP 请求。请求可以是 GET（"把这个页面给我"）或 POST（"用这些参数帮我查询"）。请求需要附带请求头（Headers）——告诉服务器你是谁、从哪来、要什么格式的数据。最关键的请求头是 User-Agent（标识浏览器类型）和 Cookie（维持登录状态）。</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="in">GET /api/v3/cable/2africa.json HTTP/1.1</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="in">Host: www.submarinecablemap.com</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="in">User-Agent: Mozilla/5.0 ...</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="in">Accept: application/json</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>**第二步：获取响应。** 服务器收到请求后返回数据。可能是一个 HTML 页面（你右键"查看网页源代码"看到的东西）、一个 JSON 字符串（API 的标准返回格式）、一个 XML 文档、或者一个二进制文件（PDF、图片、Excel）。</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>**第三步：解析提取。** 从返回的原始数据中定位并抽取你需要的信息。对于 HTML——用 CSS 选择器或 XPath 定位元素；对于 JSON——用 Python 的 <span class="in">`json`</span> 库解析成字典后按 key 取值；对于 PDF——用 PyMuPDF 或 pdfplumber 提取文本。</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>**第四步：存储使用。** 将提取的数据写入文件（CSV、JSON、Excel）、数据库（SQLite、PostgreSQL）或数据框（pandas DataFrame），供后续分析使用。</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>爬虫涉及的技术栈并不复杂，核心是五块知识：</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 技术                      <span class="pp">|</span> 在爬虫中的作用                                                    <span class="pp">|</span> 你需要学到什么程度                                        <span class="pp">|</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="pp">| :------------------------</span> <span class="pp">| :----------------------------------------------------------------</span> <span class="pp">| :--------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **HTTP 协议**       <span class="pp">|</span> 理解请求方法（GET/POST）、状态码（200/403/404）、Headers、Cookies <span class="pp">|</span> 能看懂浏览器 Network 标签页里的请求信息                   <span class="pp">|</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **HTML 语言**       <span class="pp">|</span> 解析网页结构，定位目标元素                                        <span class="pp">|</span> 会用 CSS 选择器和 XPath                                   <span class="pp">|</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **JavaScript 基础** <span class="pp">|</span> 处理动态加载、加密参数、前端逻辑                                  <span class="pp">|</span> 能大致看懂 Network 里的 JS 文件名，推断哪个可能是数据请求 <span class="pp">|</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **正则表达式**      <span class="pp">|</span> 从文本中快速抽取特定模式（日期、数字、URL）                       <span class="pp">|</span> 会写<span class="in">`\d+`</span> 和 <span class="in">`[a-zA-Z]+`</span> 级别的模式                   <span class="pp">|</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **数据库技术**      <span class="pp">|</span> 持久化存储、去重、索引与查询                                      <span class="pp">|</span> 会用 SQLite——建表、INSERT、SELECT                       <span class="pp">|</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>好消息是：在 Agent 时代，你不需要精通每一样。Agent 知道怎么写 CSS 选择器、怎么构造请求头、怎么设计数据库表结构。你需要的是理解这些技术各自解决什么问题，然后用清晰的指令让 Agent 去执行。</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. 两种技术路线</span></span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>爬虫开发面临的第一个关键决策：用直接 HTTP 请求还是模拟浏览器？</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="al">![两种技术路线对比](images/s06-image-02-new.png)</span></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 路线                     <span class="pp">|</span> 代表工具                       <span class="pp">|</span> 原理                                          <span class="pp">|</span> 适用场景                   <span class="pp">|</span> 速度 <span class="pp">|</span></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="pp">| :-----------------------</span> <span class="pp">| :-----------------------------</span> <span class="pp">| :--------------------------------------------</span> <span class="pp">| :-------------------------</span> <span class="pp">|</span> :--: <span class="pp">|</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **直接 HTTP 请求** <span class="pp">|</span> Python<span class="in">`requests`</span> / <span class="in">`httpx`</span> <span class="pp">|</span> 发送 HTTP 请求，直接获取服务器返回的原始数据  <span class="pp">|</span> 数据在 HTML 或 JSON API 中 <span class="pp">|</span>  快  <span class="pp">|</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **浏览器模拟**     <span class="pp">|</span> Playwright / Selenium          <span class="pp">|</span> 启动真实的 Chromium 浏览器，执行 JS，渲染页面 <span class="pp">|</span> 数据由 JavaScript 动态生成 <span class="pp">|</span>  慢  <span class="pp">|</span></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>**铁律：优先选直接请求。永远如此。**</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>为什么？一个直接请求消耗的资源是：发送一个 TCP 包、接收一个 HTTP 响应、解析文本。一个 Playwright 请求消耗的资源是：启动 Chromium 进程（200MB+ 内存）、加载完整网页（包括所有图片、CSS、JS）、执行页面脚本、渲染 DOM 树、然后你从渲染结果中提取数据。两者的开销差距是几个数量级。</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>更重要的是可靠性。requests 是纯 Python——没有外部依赖、没有进程管理、没有超时竞态。Playwright 依赖一个外部浏览器进程——浏览器可能崩溃、页面可能加载超时、JS 可能执行失败、选择器可能因为页面改版而失效。</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>**那什么时候必须用浏览器模拟？**</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>看一个简单的测试。用 <span class="in">`webfetch`</span> 工具访问目标页面——如果返回的 HTML 里没有你期望的内容（比如一个空的 <span class="in">`&lt;div id="root"&gt;&lt;/div&gt;`</span>），说明这个页面是 SPA（单页应用），数据由 JavaScript 动态注入。这时你有两个选择：</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**上策：** 用浏览器开发者工具找到数据背后的 API（见下一节），然后用 requests 直接调用</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**下策：** 用 Playwright 渲染页面，从渲染后的 DOM 中提取数据</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>什么时候下策变成唯一选择？当 API 需要复杂的 JS 计算来生成请求参数时（如加密签名），或者 API 返回的是加密数据需要 JS 解密时。但在学术研究的数据采集中，这类情况相对少见——大多数公开数据源的 API 是设计给前端用的，参数是明文传递的。</span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. 让 Agent 发现隐藏 API</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>现代网站大量使用 SPA（Single Page Application）架构——你看到的页面是 JavaScript 在浏览器里渲染的，查看网页源代码时什么都找不到。这时需要「API 发现」——找到页面背后的数据接口。</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a><span class="al">![SPA页面API发现流程](images/s06-image-03-new.png)</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>Agent 的 API 发现策略，本质上就是把你手动做的事自动化——用 Playwright 打开页面、监听网络请求、筛选出 XHR/Fetch 类型的请求、检查哪些返回了结构化数据。</span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>具体步骤如下：</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>**第一步：快速诊断。** 让 Agent 用 <span class="in">`webfetch`</span> 访问目标页面。如果返回内容为空或只有 <span class="in">`&lt;div id="app"&gt;&lt;/div&gt;`</span> 这样的加载骨架，说明页面是 SPA，数据通过 API 获取。</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a>**第二步：浏览器探测。** 让 Agent 用 Playwright 打开目标页面，同时启用网络请求监听。Playwright 可以记录页面加载过程中发出的所有 HTTP 请求——包括 HTML 文档、CSS 样式、JS 脚本、图片和异步数据请求。</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>**第三步：筛选 XHR / Fetch 请求。** 在记录的几百个请求中，Agent 需要筛选出异步数据请求（XHR 或 Fetch 类型），逐个检查它们的响应内容。重点关注返回 JSON 格式数据的请求——这些就是 API。</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>**第四步：逆向 API 参数。** 找到 API 端点后，分析它的请求参数。分页参数（pageNum, pageSize）决定了你能拉多少条数据；查询参数（keyword, category, startDate, endDate）决定了你能筛选什么内容；鉴权参数（token, cookie）决定了你的请求能被接受多久。</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>**第五步：用 requests 复现。** 把 Playwright 中观察到的 API 请求（URL、方法、参数、请求头）用 requests 复制出来。如果能成功获取数据——恭喜，你找到了比模拟浏览器更优雅的方案。</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a>这个流程的核心思想是：**不要和页面的 HTML 较劲——去找它背后的数据管道。** 现代 Web 开发的基本模式是"前后端分离"：前端只负责渲染 UI 和交互，数据通过 API 从后端获取。如果你找到了这个 API，就等于跳过了前端的所有复杂性——CSS 布局、JS 渲染、DOM 操作——直接拿到了结构化的原始数据。</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>**一个衡量标准：** 如果你的爬虫代码里有超过 10 行 BeautifulSoup 解析逻辑，停下来想一想——是不是有一个 API 还没被发现？</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. 反爬策略全景</span></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>服务器不是为你准备的——它为主流浏览器的人类用户服务。当你用代码自动请求时，服务器会从多个维度察觉异常并阻止你。理解反爬策略是爬虫开发的基本功。</span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a><span class="al">![反爬策略全景](images/s06-image-04-new.png)</span></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>**（1）IP 封禁 / 限速：** 服务器统计每个 IP 的请求频率。同一 IP 在短时间内发起大量请求——请求间隔均匀（不像人类浏览有快有慢）、总请求量远超正常用户——触发封禁。应对方法分三层：第一层，随机化请求间隔（1-5 秒的均匀分布，而非固定 2 秒）；第二层，使用代理 IP 池轮换出口地址；第三层（学术场景通常不需要），使用住宅代理（ADSL 拨号）让每个请求看起来来自不同的普通家庭用户。</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>**（2）验证码（CAPTCHA）：** 服务器检测到可疑行为模式后，在响应中插入验证码挑战。传统的文本验证码可以用 OCR 识别，现代的 reCAPTCHA v3 在你无感知的情况下打分——分数太低则拒绝请求。应对的核心理念是「避免触发」而非「破解验证码」——降低请求频率、随机化行为模式、使用真实的浏览器指纹。如果已经触发了，多模态 AI（能看懂图片的 LLM）可以辅助识别，但这意味着你的请求策略需要调整。</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>**（3）动态渲染：** 数据不在服务器返回的 HTML 里，而是在浏览器执行 JavaScript 后才插入 DOM。这是最常见的 SPA 反爬——不是故意反爬，而是网站架构的副产品。应对方法已在上一节详述：找 API，而非渲染页面。</span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>**（4）请求头检查：** 服务器检查你的请求头是否像一个真实浏览器。缺失的 User-Agent（"python-requests/2.31.0" 显然不是 Chrome）、缺少 Referer（正常浏览器访问时总会带上当前页面 URL）、缺少 Accept-Language 等标准头——这些都是自动化请求的特征。应对方法很简单：打开浏览器的开发者工具，复制一个真实请求的完整请求头，用在你的 requests 中。</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>**（5）Cookie / Token 加密：** 有些网站的 API 需要携带一个动态生成的 Token，这个 Token 是由客户端 JS 经过复杂计算生成的——可能是时间戳 + 随机数 + MD5，也可能是对请求参数的签名。单纯复制请求头不够，你需要理解 Token 的生成逻辑。应对策略：先用 Playwright 打开页面，获取浏览器自然生成的 Token 和 Cookie，然后将这些凭证传递给 requests 使用。Token 通常会在一段时间后过期，所以你需要定期刷新。</span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>**（6）字体混淆：** 服务器返回的 HTML 中，关键数字（如价格、评分）使用的是自定义字体编码——你在 HTML 里看到的是类似 <span class="in">`&amp;#xea3f;`</span> 的乱码，但在浏览器中呈现为正常数字。这是因为网页加载了一个自定义字体文件，将特定的 Unicode 码点映射到了数字字形。应对方法有两种：OCR 识别页面截图（慢但通用），或者下载字体文件逆向其映射表（快但需要针对每个网站定制）。</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>**关键原则：反爬是一个博弈过程，不要试图一次解决所有问题。** 先用最温和的策略——真实请求头 + 适当延时（2-5 秒）+ 合理的请求量（不要试图在 1 小时内爬完 10 年的数据）。跑通流程后再逐步优化。如果你一上来就全副武装（代理池 + 分布式 + 验证码破解），不仅工程复杂度指数级增长，而且可能违反了目标网站的服务条款。</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a>**关于学术伦理：** 确认数据采集目的符合目标网站的服务条款。许多网站在 robots.txt 中声明了爬虫访问规则。作为学术研究者，合理控制请求频率、不做商业化用途、注明数据来源，是最起码的学术规范。</span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5. 案例：海底光缆数据爬取</span></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a>理论讲完了。现在让我们通过一个完整的入门级案例，看 Agent 如何从零开始完成数据采集。</span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a>**目标：** <span class="in">`submarinecablemap.com`</span>——一个展示全球海底光缆的交互式地图。页面是一个 SPA，光缆数据通过 JavaScript 动态渲染在地图上。</span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>**用户给 Agent 的原始提示词：**</span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 请写一个 Python 脚本爬取 submarinecablemap.com 的海底光缆数据。注意：</span></span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 1. 所有数据保存为 CSV 格式，附带变量说明</span></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 2. 使用代理 </span><span class="in">`192.168.5.9:7890`</span></span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 3. 每次获取一条光缆数据后，停十几秒再请求，防反爬</span></span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 4. 必须包含开通时间、经过的国家和城市等信息</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a>注意这个提示词的品质——目标 URL、输出格式、代理配置、延迟要求、必含字段，五个要素齐全。这不是"许愿式"的需求，而是结构化的任务描述。</span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a>**Agent 的探索过程：**</span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Agent 先用 <span class="in">`webfetch`</span> 直接抓取页面 → 返回空白内容。确诊：SPA。</span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Agent 改用 Playwright 打开页面，开启网络请求监听。</span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>在 Network 标签页的数百个请求中，Agent 筛选出了几个关键的 JSON 请求：</span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`/api/v3/config.json`</span>——网站配置</span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`/api/v3/search.json`</span>——所有光缆和登陆点的索引列表</span>
+<span id="cb8-162"><a href="#cb8-162" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`/api/v3/cable/cable-geo.json`</span>——光缆的地理坐标数据</span>
+<span id="cb8-163"><a href="#cb8-163" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span><span class="in">`/api/v3/landing-point/landing-point-geo.json`</span>——登陆点的地理坐标数据</span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Agent 进一步尝试 <span class="in">`/api/v3/cable/{cable_id}.json`</span>，发现这是单条光缆的详情接口。</span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>单条光缆返回的字段：<span class="in">`id`</span>（唯一标识）、<span class="in">`name`</span>（名称）、<span class="in">`length`</span>（长度，如 "45,000 km"）、<span class="in">`landing_points`</span>（登陆点数组，每个包含名称、国家、城市）、<span class="in">`owners`</span>（所有者）、<span class="in">`suppliers`</span>（供应商）、<span class="in">`rfs`</span>（开通年份）、<span class="in">`is_planned`</span>（是否在建）、<span class="in">`url`</span>（官方网站）、<span class="in">`notes`</span>（备注）。</span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a>Agent 于是设计了两步策略：① 调用 <span class="in">`/api/v3/search.json`</span> 获取所有光缆 ID 的列表；② 遍历每个 ID，调用 <span class="in">`/api/v3/cable/{id}.json`</span> 获取详情。</span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a>**反爬处理：** 用户已指定了代理地址和 10-15 秒的随机延迟。Agent 在代码中实现了：</span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>全局代理配置（<span class="in">`proxies={"http": "...", "https": "..."} `</span>）</span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`time.sleep(random.uniform(10, 15))`</span> 的随机间隔</span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>30 秒请求超时（<span class="in">`timeout=30`</span>）</span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>重试逻辑（连接失败不中断，记录失败 ID 继续）</span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a>**最终成果：**</span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 指标                         <span class="pp">|</span> 数值                         <span class="pp">|</span></span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a><span class="pp">| :---------------------------</span> <span class="pp">| :---------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 目标光缆总数                 <span class="pp">|</span> 693 条                       <span class="pp">|</span></span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 成功爬取                     <span class="pp">|</span> 692 条（1 条因网络中断失败） <span class="pp">|</span></span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> CSV 总行数                   <span class="pp">|</span> 3150 行                      <span class="pp">|</span></span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 涉及国家数                   <span class="pp">|</span> 186 个                       <span class="pp">|</span></span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 有 RFS（开通时间）数据的行数 <span class="pp">|</span> 3121 / 3150                  <span class="pp">|</span></span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 运行时长                     <span class="pp">|</span> 约 2-3 小时                  <span class="pp">|</span></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a>**输出文件：**</span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`submarine_cables.csv`</span>——展开后的表格数据，每行一个"光缆-登陆点"组合</span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`submarine_cables_raw.json`</span>——每条光缆的完整原始 JSON 响应</span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`variables_description.txt`</span>——字段说明文档</span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>**CSV 字段示例：** <span class="in">`cable_id, cable_name, length_km, rfs, rfs_year, is_planned, owners, suppliers, landing_points_count, landing_point_id, city, country, is_tbd, url, notes`</span></span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a>**关键经验：**</span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**明确任务描述能显著提升 Agent 生成的代码可用性。** 用户列出了五个具体要求——目标 URL、输出格式、代理配置、延迟策略、必含字段。Agent 不需要猜测任何需求，直接设计实现方案。</span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**让 Agent 先探索，再编码。** Agent 不是上来就写循环——它先用 Playwright 探测网站结构，发现 API 端点，验证数据格式，然后才设计爬取策略。</span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**原始数据永不删除。** <span class="in">`submarine_cables_raw.json`</span> 保存了每条光缆的完整原始响应。如果后续发现 CSV 展开逻辑有误（比如某个登陆点被跳过），可以从原始 JSON 重新生成，不需要重新爬取。</span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**数据展开设计要考虑分析需求。** CSV 采用的是"光缆-登陆点"展开——每条光缆如果有 10 个登陆点，就占 10 行。这样可以用 pandas 的 <span class="in">`groupby('country')`</span> 直接统计每个国家的光缆数量。</span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 完整案例材料：</span><span class="in">`SubmarineCable/`</span><span class="at">——包含爬虫脚本 </span><span class="in">`scrape_submarine_cables.py`</span><span class="at">、原始数据 </span><span class="in">`submarine_cables_raw.json`</span><span class="at">、最终数据 </span><span class="in">`submarine_cables.csv`</span><span class="at">。</span></span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## 下节：生产级爬虫设计与实战</span></span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### 6. 案例：巨潮网公告爬虫</span></span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a>海底光缆案例的复杂度属于"入门级"——API 是公开的 GET 请求，不需要处理分页翻页，不需要持久化状态管理，整个爬取过程是一次性的。现在我们来看一个真正"生产级"的爬虫设计：巨潮网上市公司公告实时爬虫。</span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a>**为什么叫"生产级"？** 因为它不是一次性的数据采集——它需要持续运行、增量更新、处理失败重试、追踪每条记录的状态。就像工厂的生产线一样，需要可靠地持续产出。</span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a>**背景：** 巨潮网（cninfo.com.cn）是中国上市公司公告的官方披露平台。每家公司每天可能发布多条公告——年报、季报、减持公告、重大资产重组、董事会决议、股东大会通知。对经管研究者来说，公告文本是重要的非结构化数据源——你可以从中提取减持事件、测量信息披露质量、分析管理层语调。</span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>**API 发现：** Agent 的探索过程揭示了以下信息：</span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>列表页是 SPA，真实数据来自一个 POST API</span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>POST 请求发送到 <span class="in">`https://www.cninfo.com.cn/new/hisAnnouncement/query`</span></span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>请求参数：<span class="in">`pageNum`</span>（页码）、<span class="in">`pageSize`</span>（每页条数）、<span class="in">`stock`</span>（股票代码）、<span class="in">`searchkey`</span>（关键词）、<span class="in">`category`</span>（公告分类）、<span class="in">`seDate`</span>（日期范围）</span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>请求头必须包含 <span class="in">`X-Requested-With: XMLHttpRequest`</span> 和正确的 <span class="in">`Referer`</span></span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>翻页通过递增 <span class="in">`pageNum`</span> 实现，每页最多返回 30 条</span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>**最关键的发现：列表 API 的返回中直接包含了 PDF 下载链接（`adjunctUrl` 字段）。** 这意味着你不需要：</span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>进入每条公告的详情页（省掉一层 HTTP 请求）</span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在详情页中寻找 PDF 链接（省掉一层 HTML 解析）</span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>处理详情页可能的验证码或反爬</span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a>PDF 完整 URL 的拼接规则：<span class="in">`https://static.cninfo.com.cn/{adjunctUrl}`</span>。Agent 验证了这个规则对不同类型的公告都有效。</span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a><span class="fu">### 7. 多线程调度架构</span></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a><span class="al">![巨潮网爬虫架构](images/s06-image-07-new.png)</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a>这个爬虫的核心架构是一个双线程分离的调度系统，由 <span class="in">`JuchaoScheduler`</span> 类统一协调。</span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a>为什么需要双线程？因为列表拉取和 PDF 下载是两种完全不同的任务：</span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**列表拉取：** 快速（几 KB 的 JSON）、高频（有新公告就要发现）、无状态（每次拉取独立）</span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PDF 下载：** 慢速（几 MB 的 PDF 文件 + 文本解析）、低频（只有新公告需要下载）、有状态（需要追踪下载和解析是否成功）</span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a>如果放在同一个线程里，下载一个大 PDF 的时候列表就不能更新了——你会错过这期间发布的新公告。</span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a>**线程一：列表更新线程（60 秒周期）**</span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a><span class="in">while running:</span></span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a><span class="in">    1. 设置日期范围（初运行拉取过去 N 天，后续拉取过去 1 小时）</span></span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a><span class="in">    2. 逐页请求列表 API（pageNum 从 1 开始递增，直到返回空结果）</span></span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a><span class="in">    3. 对每条公告记录提取 announcement_id、stock_code、title、adjunct_url 等字段</span></span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a><span class="in">    4. INSERT OR IGNORE INTO announcements（announcement_id 去重）</span></span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a><span class="in">    5. sleep(60)</span></span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-255"><a href="#cb8-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-256"><a href="#cb8-256" aria-hidden="true" tabindex="-1"></a>**线程二：PDF 下载线程池（30 秒周期，最多 3 个并发 worker）**</span>
+<span id="cb8-257"><a href="#cb8-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-258"><a href="#cb8-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-259"><a href="#cb8-259" aria-hidden="true" tabindex="-1"></a><span class="in">while running:</span></span>
+<span id="cb8-260"><a href="#cb8-260" aria-hidden="true" tabindex="-1"></a><span class="in">    1. SELECT * FROM announcements WHERE status = 'pending' LIMIT 30</span></span>
+<span id="cb8-261"><a href="#cb8-261" aria-hidden="true" tabindex="-1"></a><span class="in">    2. 将 30 条记录提交到 ThreadPoolExecutor(max_workers=3)</span></span>
+<span id="cb8-262"><a href="#cb8-262" aria-hidden="true" tabindex="-1"></a><span class="in">    3. 每个 worker:</span></span>
+<span id="cb8-263"><a href="#cb8-263" aria-hidden="true" tabindex="-1"></a><span class="in">        a. 状态更新为 'downloading'</span></span>
+<span id="cb8-264"><a href="#cb8-264" aria-hidden="true" tabindex="-1"></a><span class="in">        b. 拼接 PDF 完整 URL</span></span>
+<span id="cb8-265"><a href="#cb8-265" aria-hidden="true" tabindex="-1"></a><span class="in">        c. httpx 下载 PDF（带重试，最多 3 次，退避延时）</span></span>
+<span id="cb8-266"><a href="#cb8-266" aria-hidden="true" tabindex="-1"></a><span class="in">        d. 保存 PDF 到 data/pdfs/{stock_code}_{announcement_id}_{title}.pdf</span></span>
+<span id="cb8-267"><a href="#cb8-267" aria-hidden="true" tabindex="-1"></a><span class="in">        e. PyMuPDF 提取文本，保存为 data/txts/{...}.txt</span></span>
+<span id="cb8-268"><a href="#cb8-268" aria-hidden="true" tabindex="-1"></a><span class="in">        f. 文本写入数据库 content 字段</span></span>
+<span id="cb8-269"><a href="#cb8-269" aria-hidden="true" tabindex="-1"></a><span class="in">        g. 状态更新为 'completed'</span></span>
+<span id="cb8-270"><a href="#cb8-270" aria-hidden="true" tabindex="-1"></a><span class="in">        h. 如果任何步骤失败：状态更新为 'failed'，记录错误信息</span></span>
+<span id="cb8-271"><a href="#cb8-271" aria-hidden="true" tabindex="-1"></a><span class="in">    4. sleep(30)</span></span>
+<span id="cb8-272"><a href="#cb8-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-273"><a href="#cb8-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a>**设计要点解析：**</span>
+<span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 设计决策                       <span class="pp">|</span> 理由                                                                                                                                       <span class="pp">|</span></span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a><span class="pp">| :-----------------------------</span> <span class="pp">| :-----------------------------------------------------------------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> SQLite 而非 CSV                <span class="pp">|</span> CSV 不支持并发写入、不支持增量更新、不支持状态追踪。SQLite 一行 SQL 解决去重和状态查询                                                     <span class="pp">|</span></span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`announcement_id`</span> 作唯一约束 <span class="pp">|</span> <span class="in">`INSERT OR IGNORE`</span> 保证同一公告无论被列表线程拉取多少次，数据库中只有一条记录                                                            <span class="pp">|</span></span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 限制 3 个并发 worker           <span class="pp">|</span> 不是技术限制（Python 线程可以开到几十个），而是反爬考量——同时 3 个 PDF 下载请求 + 每个请求间隔随机延时，服务器不会觉得异常               <span class="pp">|</span></span>
+<span id="cb8-281"><a href="#cb8-281" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> PyMuPDF 而非 marker            <span class="pp">|</span> marker 依赖 PyTorch（安装体积超 2GB），适合需要保留表格和公式结构的复杂 PDF；公告 PDF 以文本为主，PyMuPDF 的<span class="in">`fitz`</span> 库（几十 MB）完全够用 <span class="pp">|</span></span>
+<span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 随机延时 0.5-1.5 秒            <span class="pp">|</span> 固定延时（如 1 秒）会形成规律性模式，反而容易被反爬系统识别。均匀分布的随机延时模拟了人类"点开一个 PDF，看一下，点开下一个"的不规律节奏    <span class="pp">|</span></span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 代理预留接口                   <span class="pp">|</span> <span class="in">`config.HTTP_PROXY_URL`</span> 一个变量控制全局代理开关。本地调试时设为空字符串直连，部署到服务器时填入代理地址                                 <span class="pp">|</span></span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a>**关于 PDF 解析工具的选择，值得多说两句：** 用户原始需求指定了 <span class="in">`marker`</span>（一个基于深度学习模型的高精度 PDF 到 Markdown 转换工具，能保留表格结构、公式和阅读顺序）。实际实现中 Agent 替换为 PyMuPDF。这不是 Agent "自作主张"——这是一个合理的工程权衡。对于巨潮网的公告类 PDF（以文字为主，偶尔有简单表格），PyMuPDF 的文本提取质量与 marker 差距很小（甚至对纯文本 PDF 完全一致），但安装成本从 2GB 降到 50MB。如果后续需要处理包含复杂表格的 PDF（如年报中的财务报表），可以再单独引入 marker 或 pdfplumber。</span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a><span class="fu">### 8. 数据库设计</span></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a><span class="al">![巨潮网数据库设计](images/s06-image-08-new.png)</span></span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a>数据库设计决定了爬虫能做什么、不能做什么。这不是"先随便建个表后面再改"的事情——表结构的修改意味着数据迁移，而数据迁移是工程中的高事故率操作。</span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a><span class="in">`announcements`</span> 表的完整定义：</span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 字段                      <span class="pp">|</span> 类型    <span class="pp">|</span> 约束                      <span class="pp">|</span> 说明                                         <span class="pp">|</span></span>
+<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a><span class="pp">| :------------------------</span> <span class="pp">| :------</span> <span class="pp">| :------------------------</span> <span class="pp">| :-------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`id`</span>                    <span class="pp">|</span> INTEGER <span class="pp">|</span> PRIMARY KEY AUTOINCREMENT <span class="pp">|</span> 自增主键（内部使用，不做业务逻辑）           <span class="pp">|</span></span>
+<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`announcement_id`</span>       <span class="pp">|</span> TEXT    <span class="pp">|</span> UNIQUE NOT NULL           <span class="pp">|</span> 公告唯一 ID（去重的核心依据）                <span class="pp">|</span></span>
+<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`stock_code`</span>            <span class="pp">|</span> TEXT    <span class="pp">|</span> NOT NULL                  <span class="pp">|</span> 股票代码（如 "000597"）                      <span class="pp">|</span></span>
+<span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`stock_name`</span>            <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 公司简称（如 "东北制药"）                    <span class="pp">|</span></span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`org_id`</span>                <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 机构 ID（巨潮网内部编码）                    <span class="pp">|</span></span>
+<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`title`</span>                 <span class="pp">|</span> TEXT    <span class="pp">|</span> NOT NULL                  <span class="pp">|</span> 公告标题（如 "2025 年年度权益分派实施公告"） <span class="pp">|</span></span>
+<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`announcement_time`</span>     <span class="pp">|</span> INTEGER <span class="pp">|</span>                           <span class="pp">|</span> 公告时间戳（毫秒）                           <span class="pp">|</span></span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`announcement_time_str`</span> <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 格式化时间字符串（如 "2025-06-15"）          <span class="pp">|</span></span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`adjunct_url`</span>           <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 附件相对路径（从列表 API 返回中提取）        <span class="pp">|</span></span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pdf_url`</span>               <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 完整 PDF 下载链接（拼接后）                  <span class="pp">|</span></span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`pdf_path`</span>              <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 本地 PDF 文件保存路径                        <span class="pp">|</span></span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`txt_path`</span>              <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> 本地 TXT 文件保存路径                        <span class="pp">|</span></span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`content`</span>               <span class="pp">|</span> TEXT    <span class="pp">|</span>                           <span class="pp">|</span> PDF 解析后的正文全文                         <span class="pp">|</span></span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`status`</span>                <span class="pp">|</span> TEXT    <span class="pp">|</span> DEFAULT 'pending'         <span class="pp">|</span> pending / downloading / completed / failed   <span class="pp">|</span></span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`created_at`</span>            <span class="pp">|</span> INTEGER <span class="pp">|</span> NOT NULL                  <span class="pp">|</span> 记录入库时间戳（毫秒）                       <span class="pp">|</span></span>
+<span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`updated_at`</span>            <span class="pp">|</span> INTEGER <span class="pp">|</span> NOT NULL                  <span class="pp">|</span> 记录最后更新时间戳（毫秒）                   <span class="pp">|</span></span>
+<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a>**几个值得深入理解的设计细节：**</span>
+<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`announcement_id` 是去重的绝对核心。** 列表更新线程每次拉取后，用 <span class="in">`INSERT OR IGNORE INTO announcements (...) VALUES (...)`</span> 批量写入——已存在的 <span class="in">`announcement_id`</span> 自动跳过，无需在应用层做 <span class="in">`IF NOT EXISTS`</span> 判断。这是一个经典的"让数据库做它擅长的事"的案例。</span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**`status` 字段实现了一个简单但完整的状态机。** 从 <span class="in">`pending`</span>（新入库，待下载）到 <span class="in">`downloading`</span>（下载中，防止被其他 worker 重复抓取）到 <span class="in">`completed`</span>（下载+解析全部成功）或 <span class="in">`failed`</span>（任一环节失败，记录错误原因）。状态机的价值在并发场景下尤其明显——多个 worker 同时对 <span class="in">`pending`</span> 记录发起下载时，先更新为 <span class="in">`downloading`</span> 的 worker 获得处理权（配合 <span class="in">`UPDATE ... WHERE status = 'pending'`</span> 的条件更新）。</span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**PDF 和 TXT 同时保存。** PDF 文件保存在 <span class="in">`data/pdfs/`</span>，解析后的文本写入数据库 <span class="in">`content`</span> 字段（同时保存一份 TXT 文件在 <span class="in">`data/txts/`</span>）。这种"双保险"设计意味着：即使数据库损坏或 <span class="in">`content`</span> 字段解析出错，原始 PDF 和 TXT 文件仍在磁盘上。对于需要运行数天的长时间爬取任务，这种冗余是值得的。</span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**双时间戳。** <span class="in">`created_at`</span> 记录公告是什么时候被爬虫发现的（反映数据的"发现时效"），<span class="in">`updated_at`</span> 记录最后一次状态变更的时间（反映处理的"完成时效"）。两个时间的差值可以告诉你爬虫的吞吐延迟。</span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 完整案例材料：</span><span class="in">`B班-Agent课程/Juchao/`</span><span class="at">——包含完整爬虫项目（</span><span class="in">`juchao_crawler/`</span><span class="at">）、9 个集成测试（</span><span class="in">`tests/`</span><span class="at">）、使用文档（</span><span class="in">`README.md`</span><span class="at">）。</span></span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a><span class="fu">### 9. 测试：不只是"跑通了就行"</span></span>
+<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a>巨潮网爬虫包含了 9 个集成测试，全部通过只需要 1.35 秒。不要因为时间短就低估测试的价值——这 1.35 秒是三个月后你能安全修改代码的保证。</span>
+<span id="cb8-326"><a href="#cb8-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-327"><a href="#cb8-327" aria-hidden="true" tabindex="-1"></a><span class="al">![集成测试全景](images/s06-image-09-new.png)</span></span>
+<span id="cb8-328"><a href="#cb8-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-329"><a href="#cb8-329" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 测试函数                              <span class="pp">|</span> 测试内容                                      <span class="pp">|</span> 保护什么                                            <span class="pp">|</span></span>
+<span id="cb8-330"><a href="#cb8-330" aria-hidden="true" tabindex="-1"></a><span class="pp">| :------------------------------------</span> <span class="pp">| :--------------------------------------------</span> <span class="pp">| :--------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-331"><a href="#cb8-331" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_list_api_smoke`</span>               <span class="pp">|</span> 列表 API 是否返回 200 且包含数据              <span class="pp">|</span> 最基础的连通性——API 改版或挂了能第一时间知道      <span class="pp">|</span></span>
+<span id="cb8-332"><a href="#cb8-332" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_pagination`</span>                   <span class="pp">|</span> 翻页是否正常工作（page 1 和 page 2 数据不同） <span class="pp">|</span> 防止只爬了第一页的数据——这是新手最容易犯的 bug    <span class="pp">|</span></span>
+<span id="cb8-333"><a href="#cb8-333" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_normalize_announcement`</span>       <span class="pp">|</span> 字段提取和标准化是否正确                      <span class="pp">|</span> 字段名变更、字段缺失——API 悄悄改返回结构时报警    <span class="pp">|</span></span>
+<span id="cb8-334"><a href="#cb8-334" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_build_pdf_url`</span>                <span class="pp">|</span> PDF URL 拼接是否正确                          <span class="pp">|</span> 静态域名或路径规则变更<span class="sc">\\</span>                            <span class="pp">|</span></span>
+<span id="cb8-335"><a href="#cb8-335" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_database_insert_and_query`</span>    <span class="pp">|</span> INSERT、去重、SELECT 是否正常                 <span class="pp">|</span> 数据库操作正确性                                    <span class="pp">|</span></span>
+<span id="cb8-336"><a href="#cb8-336" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_pdf_download_and_parse_smoke`</span> <span class="pp">|</span> 下载一份真实 PDF 并解析                       <span class="pp">|</span> PDF 服务器是否在线、PDF 格式是否变化                <span class="pp">|</span></span>
+<span id="cb8-337"><a href="#cb8-337" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_list_updater`</span>                 <span class="pp">|</span> 列表更新线程的完整流程                        <span class="pp">|</span> 定时拉取逻辑                                        <span class="pp">|</span></span>
+<span id="cb8-338"><a href="#cb8-338" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_scheduler_run_once`</span>           <span class="pp">|</span> 调度器单次运行                                <span class="pp">|</span> 双线程协调逻辑——列表更新和 PDF 下载是否各司其职   <span class="pp">|</span></span>
+<span id="cb8-339"><a href="#cb8-339" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> <span class="in">`test_pdf_path_sanitization`</span>        <span class="pp">|</span> 文件名非法字符清理                            <span class="pp">|</span> 防止公告标题中的<span class="in">`/`</span>、<span class="in">`:`</span> 等字符导致文件创建失败 <span class="pp">|</span></span>
+<span id="cb8-340"><a href="#cb8-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-341"><a href="#cb8-341" aria-hidden="true" tabindex="-1"></a>**至少要测试的三件事：**</span>
+<span id="cb8-342"><a href="#cb8-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-343"><a href="#cb8-343" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**API 连通性**——接口是否还能正常访问？返回码是 200 还是 403/500？返回的 JSON 结构是否变了？</span>
+<span id="cb8-344"><a href="#cb8-344" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**字段完整性**——关键字段（如 announcement_id、adjunct_url、title）是否还存在？是否新增了必填字段？缺少字段比报错更危险——它会静默地产生缺失值。</span>
+<span id="cb8-345"><a href="#cb8-345" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**核心逻辑**——去重是否生效（重复插入应被忽略）？状态是否正确更新（pending → downloading → completed）？</span>
+<span id="cb8-346"><a href="#cb8-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-347"><a href="#cb8-347" aria-hidden="true" tabindex="-1"></a>**经验之谈：** 最容易出问题的不是代码逻辑，而是上游变化。API 悄悄改了参数名（<span class="in">`pageNum`</span> 变成了 <span class="in">`page`</span>）、返回结构变了（<span class="in">`announcement_id`</span> 从顶层移到了嵌套对象里）、PDF 服务器换了域名——这些事情在爬虫长期运行中一定会发生。测试就是你的地震预警系统。</span>
+<span id="cb8-348"><a href="#cb8-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-349"><a href="#cb8-349" aria-hidden="true" tabindex="-1"></a><span class="fu">### 10. 从「许愿式编程」到 TODO.md 驱动</span></span>
+<span id="cb8-350"><a href="#cb8-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-351"><a href="#cb8-351" aria-hidden="true" tabindex="-1"></a>这是本讲最重要的方法论。</span>
+<span id="cb8-352"><a href="#cb8-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-353"><a href="#cb8-353" aria-hidden="true" tabindex="-1"></a>**许愿式编程**是给 Agent 一个模糊的需求，然后期待它自动搞定一切。</span>
+<span id="cb8-354"><a href="#cb8-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-355"><a href="#cb8-355" aria-hidden="true" tabindex="-1"></a><span class="al">![许愿式编程vs结构化需求对比](images/s06-image-10-new.png)</span></span>
+<span id="cb8-356"><a href="#cb8-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-357"><a href="#cb8-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-358"><a href="#cb8-358" aria-hidden="true" tabindex="-1"></a><span class="in">❌ 许愿式：「帮我爬取巨潮网的所有公告」</span></span>
+<span id="cb8-359"><a href="#cb8-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-360"><a href="#cb8-360" aria-hidden="true" tabindex="-1"></a><span class="in">——Agent 会做什么？它会猜。</span></span>
+<span id="cb8-361"><a href="#cb8-361" aria-hidden="true" tabindex="-1"></a><span class="in">——用什么技术？可能猜 requests，遇到 SPA 后报错再换 Playwright</span></span>
+<span id="cb8-362"><a href="#cb8-362" aria-hidden="true" tabindex="-1"></a><span class="in">——数据存哪里？可能猜 CSV（后续发现需要增量更新时傻眼）</span></span>
+<span id="cb8-363"><a href="#cb8-363" aria-hidden="true" tabindex="-1"></a><span class="in">——翻页怎么处理？可能猜 while True 无限循环（爬到天荒地老）</span></span>
+<span id="cb8-364"><a href="#cb8-364" aria-hidden="true" tabindex="-1"></a><span class="in">——反爬怎么处理？可能猜什么也不做（爬到一半被封）</span></span>
+<span id="cb8-365"><a href="#cb8-365" aria-hidden="true" tabindex="-1"></a><span class="in">——PDF 怎么处理？可能猜全部下载后用 marker 批量转换（磁盘爆满）</span></span>
+<span id="cb8-366"><a href="#cb8-366" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-367"><a href="#cb8-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-368"><a href="#cb8-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-369"><a href="#cb8-369" aria-hidden="true" tabindex="-1"></a><span class="in">✅ 结构化：「帮我分析巨潮网的公告列表 API，设计一个多线程爬虫，</span></span>
+<span id="cb8-370"><a href="#cb8-370" aria-hidden="true" tabindex="-1"></a><span class="in">          分两个阶段：列表获取和 PDF 下载。具体要求见 TODO.md」</span></span>
+<span id="cb8-371"><a href="#cb8-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-372"><a href="#cb8-372" aria-hidden="true" tabindex="-1"></a><span class="in">——Agent 会做什么？它先读 TODO.md。</span></span>
+<span id="cb8-373"><a href="#cb8-373" aria-hidden="true" tabindex="-1"></a><span class="in">——TODO.md 里写了：目标 URL、数据格式要求、存储方式（SQLite）、</span></span>
+<span id="cb8-374"><a href="#cb8-374" aria-hidden="true" tabindex="-1"></a><span class="in">  多线程架构、反爬策略、测试要求。</span></span>
+<span id="cb8-375"><a href="#cb8-375" aria-hidden="true" tabindex="-1"></a><span class="in">——Agent 不需要猜任何东西。它在明确的边界内发挥技术能力。</span></span>
+<span id="cb8-376"><a href="#cb8-376" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-377"><a href="#cb8-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-378"><a href="#cb8-378" aria-hidden="true" tabindex="-1"></a>两者的区别是根本性的。许愿式需求把所有的架构决策压力都交给了 Agent——用什么技术路线、怎么处理翻页、数据存哪里、反爬怎么处理。Agent 会猜，但猜错的概率很高。你在 AI 面前是领域专家——你知道数据会被用来做什么研究、需要什么字段、能容忍多大的延迟。Agent 不知道这些。**你有责任把你的领域知识翻译成 Agent 能理解的工程需求。**</span>
+<span id="cb8-379"><a href="#cb8-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-380"><a href="#cb8-380" aria-hidden="true" tabindex="-1"></a>TODO.md 本质上是你和 Agent 之间的「需求协议」。你不需要会写代码——但你需要在动手之前想清楚三件事：</span>
+<span id="cb8-381"><a href="#cb8-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-382"><a href="#cb8-382" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**数据从哪里来？** URL 是什么？是列表页还是 API？需要翻页吗？需要登录吗？</span>
+<span id="cb8-383"><a href="#cb8-383" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**数据长什么样？** 返回格式是 JSON 还是 HTML？关键字段叫什么名字？</span>
+<span id="cb8-384"><a href="#cb8-384" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**数据存到哪里去？** 存成 CSV、JSON 还是数据库？需要去重吗？需要增量更新吗？</span>
+<span id="cb8-385"><a href="#cb8-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-386"><a href="#cb8-386" aria-hidden="true" tabindex="-1"></a><span class="al">![TODO.md驱动开发流程](images/s06-image-09-new2.png)</span></span>
+<span id="cb8-387"><a href="#cb8-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-388"><a href="#cb8-388" aria-hidden="true" tabindex="-1"></a>**TODO.md 驱动开发的六步流程：**</span>
+<span id="cb8-389"><a href="#cb8-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-390"><a href="#cb8-390" aria-hidden="true" tabindex="-1"></a>**步骤 1：探索阶段。** 你给出目标 URL，让 Agent 用 Playwright 探索网站结构。Agent 汇报发现了哪些 API、数据格式是什么、有没有反爬措施。这个阶段你不需要写任何需求——你是在收集信息。</span>
+<span id="cb8-391"><a href="#cb8-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-392"><a href="#cb8-392" aria-hidden="true" tabindex="-1"></a>**步骤 2：需求编写。** 基于 Agent 的探索报告，你编写 TODO.md。内容包括：目标 URL 和数据接口说明（Agent 已经发现的 API）、期望的输出字段列表（哪些字段是必须的、哪些是可选的）、输出格式和存储方式（CSV / JSON / SQLite）、反爬约束（请求间隔、代理配置）、测试要求（至少测试什么）。</span>
+<span id="cb8-393"><a href="#cb8-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-394"><a href="#cb8-394" aria-hidden="true" tabindex="-1"></a>**步骤 3：架构设计。** Agent 阅读 TODO.md，提出爬虫架构方案。是单线程还是多线程？要不要数据库？怎么去重？你审阅方案——如果有不同意见（比如你发现 API 有频率限制，不能用多线程），在 TODO.md 中补充。</span>
+<span id="cb8-395"><a href="#cb8-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-396"><a href="#cb8-396" aria-hidden="true" tabindex="-1"></a>**步骤 4：增量实现。** Agent 按 TODO.md 的顺序逐项实现，每完成一项就打勾 <span class="in">`[x]`</span>。你可以在任何一项完成后检查 Agent 的工作——如果方向偏了，及时纠正，而不是等全部写完才发现。</span>
+<span id="cb8-397"><a href="#cb8-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-398"><a href="#cb8-398" aria-hidden="true" tabindex="-1"></a>**步骤 5：测试验证。** Agent 编写集成测试并运行。如果测试未通过，Agent 分析失败原因并修复。重复直到所有测试通过。</span>
+<span id="cb8-399"><a href="#cb8-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-400"><a href="#cb8-400" aria-hidden="true" tabindex="-1"></a>**步骤 6：交付文档。** Agent 生成 README.md，记录 API 发现过程、环境依赖、安装步骤、使用方式。这份文档是你三个月后回来复用的唯一凭据。</span>
+<span id="cb8-401"><a href="#cb8-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-402"><a href="#cb8-402" aria-hidden="true" tabindex="-1"></a>**巨潮网案例的 TODO.md 示例（实际使用的需求）：**</span>
+<span id="cb8-403"><a href="#cb8-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-404"><a href="#cb8-404" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 1. 探索网站的网络结构，处理翻页等细节</span></span>
+<span id="cb8-405"><a href="#cb8-405" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 2. 探索每条公告详情页中提取 PDF 链接的方法</span></span>
+<span id="cb8-406"><a href="#cb8-406" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 3. 定时更新列表页，检查新公告</span></span>
+<span id="cb8-407"><a href="#cb8-407" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 4. PDF 解析为 txt 文件</span></span>
+<span id="cb8-408"><a href="#cb8-408" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 5. 设计 SQLite 数据库，包含上市公司代码、名称、公告标题、公告内容等</span></span>
+<span id="cb8-409"><a href="#cb8-409" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 6. 将转换好的 PDF 信息写入数据库</span></span>
+<span id="cb8-410"><a href="#cb8-410" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 7. 使用多线程：更新列表和获取 PDF 使用不同线程</span></span>
+<span id="cb8-411"><a href="#cb8-411" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 8. 保留反爬代理接口</span></span>
+<span id="cb8-412"><a href="#cb8-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-413"><a href="#cb8-413" aria-hidden="true" tabindex="-1"></a>8 条需求，每条都是具体的、可验证的。Agent 不需要猜——它知道要探索什么、要设计什么、要测试什么。结果：9 个集成测试一次性通过，端到端验证 30 条公告全部成功入库。</span>
+<span id="cb8-414"><a href="#cb8-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-415"><a href="#cb8-415" aria-hidden="true" tabindex="-1"></a><span class="fu">### 11. 爬虫工程实践三原则</span></span>
+<span id="cb8-416"><a href="#cb8-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-417"><a href="#cb8-417" aria-hidden="true" tabindex="-1"></a><span class="al">![爬虫工程实践三原则](images/s06-image-11-new.png)</span></span>
+<span id="cb8-418"><a href="#cb8-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-419"><a href="#cb8-419" aria-hidden="true" tabindex="-1"></a>这三个原则来自实际踩过的坑。</span>
+<span id="cb8-420"><a href="#cb8-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-421"><a href="#cb8-421" aria-hidden="true" tabindex="-1"></a>**原则一：保留原始数据。** 永远保存一份未经处理的原始响应——JSON 文件、PDF 原文、HTML 页面。爬虫代码可能写错，解析逻辑可能有 bug，字段映射可能遗漏，但原始数据不会变。有了它，你可以随时重新解析而不需要重新爬取——而重新爬取的成本可能很高（几小时到几天的时间成本，加上可能被目标网站封禁的风险）。</span>
+<span id="cb8-422"><a href="#cb8-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-423"><a href="#cb8-423" aria-hidden="true" tabindex="-1"></a>具体做法：爬虫的输出目录结构应该是两层的——</span>
+<span id="cb8-424"><a href="#cb8-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-425"><a href="#cb8-425" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-426"><a href="#cb8-426" aria-hidden="true" tabindex="-1"></a><span class="in">project/</span></span>
+<span id="cb8-427"><a href="#cb8-427" aria-hidden="true" tabindex="-1"></a><span class="in">├── raw_data/       ← 原始响应，只写入不修改</span></span>
+<span id="cb8-428"><a href="#cb8-428" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── page_1.json</span></span>
+<span id="cb8-429"><a href="#cb8-429" aria-hidden="true" tabindex="-1"></a><span class="in">│   ├── page_2.json</span></span>
+<span id="cb8-430"><a href="#cb8-430" aria-hidden="true" tabindex="-1"></a><span class="in">│   └── pdfs/</span></span>
+<span id="cb8-431"><a href="#cb8-431" aria-hidden="true" tabindex="-1"></a><span class="in">│       └── 000597_1225370066.pdf</span></span>
+<span id="cb8-432"><a href="#cb8-432" aria-hidden="true" tabindex="-1"></a><span class="in">└── data/           ← 解析后的结构化数据</span></span>
+<span id="cb8-433"><a href="#cb8-433" aria-hidden="true" tabindex="-1"></a><span class="in">    └── announcements.csv</span></span>
+<span id="cb8-434"><a href="#cb8-434" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-435"><a href="#cb8-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-436"><a href="#cb8-436" aria-hidden="true" tabindex="-1"></a>**原则二：写测试。** 测试不是为了"证明代码是对的"——没有人能证明代码是对的。测试是为了在三个关键时刻保护你：① 首次开发完成时——验证核心流程跑的通；② 修改代码后——确保修改没有破坏已有功能（回归测试）；③ 上游接口变更时——第一时间发现数据源的变化。</span>
+<span id="cb8-437"><a href="#cb8-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-438"><a href="#cb8-438" aria-hidden="true" tabindex="-1"></a>至少测试三件事：API 连通性（<span class="in">`assert response.status_code == 200`</span>）、字段完整性（<span class="in">`assert 'announcement_id' in data`</span>）、去重逻辑（插入两条相同记录，数据库只有一条）。</span>
+<span id="cb8-439"><a href="#cb8-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-440"><a href="#cb8-440" aria-hidden="true" tabindex="-1"></a>**原则三：文档化。** 至少写一个 README.md。内容至少包含：</span>
+<span id="cb8-441"><a href="#cb8-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-442"><a href="#cb8-442" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**目标网站和发现过程：** 你是怎么找到这个数据源的？用了什么 API？有什么反爬？</span>
+<span id="cb8-443"><a href="#cb8-443" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**API 端点和参数说明：** 请求方法、URL、参数列表、返回格式</span>
+<span id="cb8-444"><a href="#cb8-444" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**环境依赖和安装步骤：** <span class="in">`pip install -r requirements.txt`</span> 或 conda 环境</span>
+<span id="cb8-445"><a href="#cb8-445" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**使用方式：** 如何启动？如何停止？如何更换目标股票代码？</span>
+<span id="cb8-446"><a href="#cb8-446" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**已知问题：** 哪些场景还没处理？哪些边界条件可能出问题？</span>
+<span id="cb8-447"><a href="#cb8-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-448"><a href="#cb8-448" aria-hidden="true" tabindex="-1"></a>三个月后你回来复用时，会感谢现在花 15 分钟写的文档。更重要的是——如果这个爬虫需要交给师弟师妹维护，文档是唯一能让他们不来找你的东西。</span>
+<span id="cb8-449"><a href="#cb8-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-450"><a href="#cb8-450" aria-hidden="true" tabindex="-1"></a><span class="fu">### 12. 数据采集工具链全景</span></span>
+<span id="cb8-451"><a href="#cb8-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-452"><a href="#cb8-452" aria-hidden="true" tabindex="-1"></a><span class="al">![数据采集工具链全景](images/s06-image-12-new.png)</span></span>
+<span id="cb8-453"><a href="#cb8-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-454"><a href="#cb8-454" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 环节                 <span class="pp">|</span> 工具                           <span class="pp">|</span> 典型用法                                                           <span class="pp">|</span> 选型要点                                         <span class="pp">|</span></span>
+<span id="cb8-455"><a href="#cb8-455" aria-hidden="true" tabindex="-1"></a><span class="pp">| :-------------------</span> <span class="pp">| :-----------------------------</span> <span class="pp">| :-----------------------------------------------------------------</span> <span class="pp">| :-----------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-456"><a href="#cb8-456" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **请求发送**   <span class="pp">|</span> <span class="in">`requests`</span>, <span class="in">`httpx`</span>        <span class="pp">|</span> <span class="in">`resp = requests.get(url, headers=h, proxies=p)`</span>                 <span class="pp">|</span> <span class="in">`httpx`</span> 支持异步和 HTTP/2，<span class="in">`requests`</span> 更简单 <span class="pp">|</span></span>
+<span id="cb8-457"><a href="#cb8-457" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **浏览器模拟** <span class="pp">|</span> Playwright, Selenium           <span class="pp">|</span> <span class="in">`page.goto(url); data = page.locator('.item').all_inner_texts()`</span> <span class="pp">|</span> Playwright 更现代、更快；Selenium 生态更成熟     <span class="pp">|</span></span>
+<span id="cb8-458"><a href="#cb8-458" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **HTML 解析**  <span class="pp">|</span> BeautifulSoup, lxml            <span class="pp">|</span> <span class="in">`soup.select('div.announcement &gt; a')`</span>                            <span class="pp">|</span> BeautifulSoup 容错性好；lxml 速度更快            <span class="pp">|</span></span>
+<span id="cb8-459"><a href="#cb8-459" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **正则抽取**   <span class="pp">|</span> Python<span class="in">`re`</span>                   <span class="pp">|</span> <span class="in">`re.findall(r'\d{4}-\d{2}-\d{2}', text)`</span>                         <span class="pp">|</span> 用于简单的模式匹配——日期、数字、URL            <span class="pp">|</span></span>
+<span id="cb8-460"><a href="#cb8-460" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **JSON 处理**  <span class="pp">|</span> Python<span class="in">`json`</span>                 <span class="pp">|</span> <span class="in">`data = response.json()`</span>                                         <span class="pp">|</span> 几乎不需要第三方库                               <span class="pp">|</span></span>
+<span id="cb8-461"><a href="#cb8-461" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **PDF 解析**   <span class="pp">|</span> PyMuPDF (<span class="in">`fitz`</span>), pdfplumber <span class="pp">|</span> <span class="in">`doc = fitz.open(path); text = doc[0].get_text()`</span>                <span class="pp">|</span> PyMuPDF 快且轻量；pdfplumber 表格提取更强        <span class="pp">|</span></span>
+<span id="cb8-462"><a href="#cb8-462" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **数据库**     <span class="pp">|</span> SQLite, PostgreSQL             <span class="pp">|</span> <span class="in">`cursor.execute('INSERT OR IGNORE INTO ...')`</span>                    <span class="pp">|</span> SQLite 零配置、单文件；PostgreSQL 支持并发写入   <span class="pp">|</span></span>
+<span id="cb8-463"><a href="#cb8-463" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **代理管理**   <span class="pp">|</span> <span class="in">`httpx.Client(proxy=...)`</span>    <span class="pp">|</span> <span class="in">`client = httpx.Client(proxy='http://127.0.0.1:7890')`</span>           <span class="pp">|</span> 大多数场景不需要代理池                           <span class="pp">|</span></span>
+<span id="cb8-464"><a href="#cb8-464" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **任务调度**   <span class="pp">|</span> <span class="in">`threading`</span>, <span class="in">`schedule`</span>    <span class="pp">|</span> <span class="in">`threading.Thread(target=update_list)`</span>                           <span class="pp">|</span> 线程用于并发；<span class="in">`schedule`</span> 用于定时触发          <span class="pp">|</span></span>
+<span id="cb8-465"><a href="#cb8-465" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **数据框**     <span class="pp">|</span> pandas                         <span class="pp">|</span> <span class="in">`df = pd.read_json(api_response)`</span>                                <span class="pp">|</span> 用于数据清洗和分析，不是存储                     <span class="pp">|</span></span>
+<span id="cb8-466"><a href="#cb8-466" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **测试**       <span class="pp">|</span> <span class="in">`pytest`</span>                     <span class="pp">|</span> <span class="in">`pytest tests/ -v`</span>                                               <span class="pp">|</span> 简单的 assert 语句即可                           <span class="pp">|</span></span>
+<span id="cb8-467"><a href="#cb8-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-468"><a href="#cb8-468" aria-hidden="true" tabindex="-1"></a>**工具选择的黄金法则：够用就好，不要过度工程化。**</span>
+<span id="cb8-469"><a href="#cb8-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-470"><a href="#cb8-470" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>数据量不到百万行 → SQLite 就够了，不需要 MySQL / PostgreSQL</span>
+<span id="cb8-471"><a href="#cb8-471" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>不需要执行 JavaScript → requests 就够了，不需要 Playwright</span>
+<span id="cb8-472"><a href="#cb8-472" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>不需要分布式 → 单机多线程就够了，不需要 Scrapy / Celery</span>
+<span id="cb8-473"><a href="#cb8-473" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>PDF 主要是文本 → PyMuPDF 就够了，不需要 marker / MinerU</span>
+<span id="cb8-474"><a href="#cb8-474" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>不需要实时监控 → print 日志就够了，不需要 Prometheus + Grafana</span>
+<span id="cb8-475"><a href="#cb8-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-476"><a href="#cb8-476" aria-hidden="true" tabindex="-1"></a><span class="fu">### 13. 数据采集在实证研究中的位置</span></span>
+<span id="cb8-477"><a href="#cb8-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-478"><a href="#cb8-478" aria-hidden="true" tabindex="-1"></a><span class="al">![数据采集在实证研究中的位置](images/s06-image-13-new.png)</span></span>
+<span id="cb8-479"><a href="#cb8-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-480"><a href="#cb8-480" aria-hidden="true" tabindex="-1"></a>让我们把数据采集放回实证研究的完整流程中来看：</span>
+<span id="cb8-481"><a href="#cb8-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-482"><a href="#cb8-482" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-483"><a href="#cb8-483" aria-hidden="true" tabindex="-1"></a><span class="in">研究问题 → 数据采集 ← 这一讲的内容</span></span>
+<span id="cb8-484"><a href="#cb8-484" aria-hidden="true" tabindex="-1"></a><span class="in">    ↓</span></span>
+<span id="cb8-485"><a href="#cb8-485" aria-hidden="true" tabindex="-1"></a><span class="in">数据清洗 → 描述统计 → 基准回归 → 稳健性检验 → 机制分析 → 写作</span></span>
+<span id="cb8-486"><a href="#cb8-486" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-487"><a href="#cb8-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-488"><a href="#cb8-488" aria-hidden="true" tabindex="-1"></a>数据采集是实证研究的起点——它决定了你能问什么问题、能用什么识别策略、样本量有多大、结论的外推范围有多广。数据不是在你开始做研究的那一刻就整齐地放在硬盘里的——它是你需要自己去获取的原材料。研究问题和数据来源之间是一个双向互动的关系：你看到了什么数据，就会想到什么问题；你想到了什么问题，就会去找什么数据。因此，数据采集能力直接决定了你的研究边界有多宽。</span>
+<span id="cb8-489"><a href="#cb8-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-490"><a href="#cb8-490" aria-hidden="true" tabindex="-1"></a>对于经管研究者来说，三类数据源尤其值得关注：</span>
+<span id="cb8-491"><a href="#cb8-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-492"><a href="#cb8-492" aria-hidden="true" tabindex="-1"></a>**第一类：公开行政数据。** 巨潮网公告、国家统计局数据、各地统计局年鉴、海关进出口数据、土地出让成交公告——这些是官方披露的结构化或半结构化数据，通常有相对稳定的网页结构或 API 接口。它们的优势是权威性和连续性（可以构建长时间面板），挑战是分散在不同的网站和格式中（PDF、Excel、HTML 表格）。</span>
+<span id="cb8-493"><a href="#cb8-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-494"><a href="#cb8-494" aria-hidden="true" tabindex="-1"></a>**第二类：网页文本数据。** 上市公司年报和管理层讨论（MD&amp;A）、政策文件和政府工作报告、新闻报道和社交媒体内容——这些是非结构化文本，数据量大，但信息密度高。需要爬取 + 解析两步走。文本数据在经管研究中的应用正在快速增长——从管理层语调分析到政策不确定性度量。</span>
+<span id="cb8-495"><a href="#cb8-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-496"><a href="#cb8-496" aria-hidden="true" tabindex="-1"></a>**第三类：第三方平台 API。** Google Trends（搜索热度）、百度指数（搜索趋势）、高德/百度地图 API（地理信息、POI 密度）、空气质量 API（每日 AQI）、夜间灯光数据——这些平台通常提供公开 API 或批量下载，但可能有调用频率限制或需要注册申请。它们是传统统计数据的补充——比如用夜间灯光亮度作为地区经济活动的代理变量，用 POI 密度度量商业活跃度。</span>
+<span id="cb8-497"><a href="#cb8-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-498"><a href="#cb8-498" aria-hidden="true" tabindex="-1"></a>**一个忠告：** 不要等到研究设计做完再去想数据从哪里来。数据和问题是一起演化的。你发现了一个数据源——它的粒度（企业级还是城市级）、频率（日度还是年度）、覆盖范围（全国还是局部）、时间跨度（3 年还是 30 年）——这些特征反过来会塑造你的研究问题。反过来说，如果你先有了一个具体的研究问题再去"找数据"，往往会发现要么数据不存在，要么粒度不够——这时候你只能降低研究问题的精度。</span>
+<span id="cb8-499"><a href="#cb8-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-500"><a href="#cb8-500" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-501"><a href="#cb8-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-502"><a href="#cb8-502" aria-hidden="true" tabindex="-1"></a><span class="fu">## 实战任务</span></span>
+<span id="cb8-503"><a href="#cb8-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-504"><a href="#cb8-504" aria-hidden="true" tabindex="-1"></a>**任务：** 选择一个可公开访问的数据源，让 Agent 帮你完成一次完整的数据采集流程。</span>
+<span id="cb8-505"><a href="#cb8-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-506"><a href="#cb8-506" aria-hidden="true" tabindex="-1"></a>**三个递进难度：**</span>
+<span id="cb8-507"><a href="#cb8-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-508"><a href="#cb8-508" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 难度           <span class="pp">|</span> 任务描述                                                             <span class="pp">|</span> 参考案例                  <span class="pp">|</span> 预计时间 <span class="pp">|</span></span>
+<span id="cb8-509"><a href="#cb8-509" aria-hidden="true" tabindex="-1"></a><span class="pp">| :-------------</span> <span class="pp">| :-------------------------------------------------------------------</span> <span class="pp">| :------------------------</span> <span class="pp">| :------:</span> <span class="pp">|</span></span>
+<span id="cb8-510"><a href="#cb8-510" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **入门** <span class="pp">|</span> 爬取<span class="in">`submarinecablemap.com`</span> 的海底光缆数据                         <span class="pp">|</span> <span class="in">`task8/SubmarineCable/`</span> <span class="pp">|</span> 30 分钟 <span class="pp">|</span></span>
+<span id="cb8-511"><a href="#cb8-511" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **进阶** <span class="pp">|</span> 爬取巨潮网某只股票过去一年的公告                                     <span class="pp">|</span> <span class="in">`task9/Juchao/`</span>         <span class="pp">|</span> 1-2 小时 <span class="pp">|</span></span>
+<span id="cb8-512"><a href="#cb8-512" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **挑战** <span class="pp">|</span> 自行选择一个与你的研究方向相关的网站，完成探索 → 编码 → 存储全流程 <span class="pp">|</span> ——                      <span class="pp">|</span> 2-4 小时 <span class="pp">|</span></span>
+<span id="cb8-513"><a href="#cb8-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-514"><a href="#cb8-514" aria-hidden="true" tabindex="-1"></a>**入门级（海底光缆）适合：** 没有爬虫经验的初学者。API 是公开的 GET 请求，不需要处理分页、不需要处理反爬（除了简单延时）、不需要设计数据库。核心体验是"API 发现"——看 Agent 如何找到 SPA 背后的数据接口。</span>
+<span id="cb8-515"><a href="#cb8-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-516"><a href="#cb8-516" aria-hidden="true" tabindex="-1"></a>**进阶级（巨潮网）适合：** 有基础爬虫概念的同学。涉及 POST API、多线程架构、SQLite 持久化、PDF 下载和解析、反爬策略设计。核心体验是"生产级设计"——一个能持续运行、增量更新的爬虫长什么样。</span>
+<span id="cb8-517"><a href="#cb8-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-518"><a href="#cb8-518" aria-hidden="true" tabindex="-1"></a>**挑战级（自行选择）适合：** 希望把爬虫能力应用到自己的研究方向的同学。你需要自己完成探索 → 需求编写 → 架构设计 → 编码测试的完整闭环。Agent 会帮你但决策是你来做。</span>
+<span id="cb8-519"><a href="#cb8-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-520"><a href="#cb8-520" aria-hidden="true" tabindex="-1"></a>**标准操作流程（8 步）：**</span>
+<span id="cb8-521"><a href="#cb8-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-522"><a href="#cb8-522" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>创建项目文件夹（如 <span class="in">`MyCrawler/`</span>），初始化 git 仓库</span>
+<span id="cb8-523"><a href="#cb8-523" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>让 Agent 用 Playwright 探索目标网站，汇报发现的 API 和数据格式</span>
+<span id="cb8-524"><a href="#cb8-524" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>基于探索报告，编写 <span class="in">`TODO.md`</span>（至少包含：目标 URL、期望字段、输出格式、存储方式、反爬约束）</span>
+<span id="cb8-525"><a href="#cb8-525" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Agent 设计爬虫架构方案，你审阅并确认</span>
+<span id="cb8-526"><a href="#cb8-526" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Agent 按 TODO.md 逐项实现爬虫代码</span>
+<span id="cb8-527"><a href="#cb8-527" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>运行爬虫，观察日志输出，发现问题，与 Agent 一起调试</span>
+<span id="cb8-528"><a href="#cb8-528" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>将原始数据保存到 <span class="in">`raw_data/`</span>，解析后数据保存到 <span class="in">`data/`</span></span>
+<span id="cb8-529"><a href="#cb8-529" aria-hidden="true" tabindex="-1"></a><span class="ss">8. </span>Agent 编写集成测试并运行，写 <span class="in">`README.md`</span></span>
+<span id="cb8-530"><a href="#cb8-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-531"><a href="#cb8-531" aria-hidden="true" tabindex="-1"></a>**验收标准（你的爬虫应该满足）：**</span>
+<span id="cb8-532"><a href="#cb8-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-533"><a href="#cb8-533" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>能成功获取至少 50 条以上的目标数据</span>
+<span id="cb8-534"><a href="#cb8-534" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>代码有基本的错误处理（网络超时重试、解析失败不中断）</span>
+<span id="cb8-535"><a href="#cb8-535" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>输出数据格式统一、字段完整</span>
+<span id="cb8-536"><a href="#cb8-536" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>有 README.md 记录发现过程和使用说明</span>
+<span id="cb8-537"><a href="#cb8-537" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>原始数据已保存（可随时重新解析）</span>
+<span id="cb8-538"><a href="#cb8-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-539"><a href="#cb8-539" aria-hidden="true" tabindex="-1"></a>**注意事项：**</span>
+<span id="cb8-540"><a href="#cb8-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-541"><a href="#cb8-541" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>确认目标网站的服务条款允许学术研究用途的数据采集</span>
+<span id="cb8-542"><a href="#cb8-542" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>遵守 <span class="in">`robots.txt`</span> 中声明的爬虫规则</span>
+<span id="cb8-543"><a href="#cb8-543" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>合理控制请求频率——宁慢毋快</span>
+<span id="cb8-544"><a href="#cb8-544" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果爬虫需要长时间运行（超过 1 小时），考虑在服务器或云主机上运行，而非本地笔记本</span>
+<span id="cb8-545"><a href="#cb8-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-546"><a href="#cb8-546" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-547"><a href="#cb8-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-548"><a href="#cb8-548" aria-hidden="true" tabindex="-1"></a><span class="fu">## 案例材料索引</span></span>
+<span id="cb8-549"><a href="#cb8-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-550"><a href="#cb8-550" aria-hidden="true" tabindex="-1"></a>所有案例均提供完整的项目文件——包括爬虫代码、测试文件、使用文档和原始数据。建议在动手实战前先打开这些文件夹浏览一遍，理解一个完整爬虫项目的文件结构和代码组织方式。</span>
+<span id="cb8-551"><a href="#cb8-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-552"><a href="#cb8-552" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 案例           <span class="pp">|</span> 位置                      <span class="pp">|</span> 复杂度 <span class="pp">|</span> 关键技能                                                          <span class="pp">|</span></span>
+<span id="cb8-553"><a href="#cb8-553" aria-hidden="true" tabindex="-1"></a><span class="pp">| :-------------</span> <span class="pp">| :------------------------</span> <span class="pp">| :----:</span> <span class="pp">| :----------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-554"><a href="#cb8-554" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 海底光缆爬虫   <span class="pp">|</span> <span class="in">`task8/SubmarineCable/`</span> <span class="pp">|</span>  入门  <span class="pp">|</span> API 发现、GET 请求、JSON 解析、CSV 数据展开                       <span class="pp">|</span></span>
+<span id="cb8-555"><a href="#cb8-555" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 巨潮网公告爬虫 <span class="pp">|</span> <span class="in">`task9/Juchao/`</span>         <span class="pp">|</span>  进阶  <span class="pp">|</span> POST API、多线程调度、SQLite 持久化、PDF 下载与文本解析、集成测试 <span class="pp">|</span></span>
+<span id="cb8-556"><a href="#cb8-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-557"><a href="#cb8-557" aria-hidden="true" tabindex="-1"></a>**每个案例文件夹包含：**</span>
+<span id="cb8-558"><a href="#cb8-558" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-559"><a href="#cb8-559" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>爬虫主程序（<span class="in">`.py`</span> 文件）</span>
+<span id="cb8-560"><a href="#cb8-560" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>测试文件（<span class="in">`tests/`</span> 目录）</span>
+<span id="cb8-561"><a href="#cb8-561" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>使用文档（<span class="in">`README.md`</span>）</span>
+<span id="cb8-562"><a href="#cb8-562" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>原始数据和解后数据（<span class="in">`raw_data/`</span> 和 <span class="in">`data/`</span>）</span>
+<span id="cb8-563"><a href="#cb8-563" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>需求描述（<span class="in">`TODO.md`</span>，部分案例）</span>
+<span id="cb8-564"><a href="#cb8-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-565"><a href="#cb8-565" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-566"><a href="#cb8-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-567"><a href="#cb8-567" aria-hidden="true" tabindex="-1"></a><span class="fu">## 本讲核心概念回顾</span></span>
+<span id="cb8-568"><a href="#cb8-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-569"><a href="#cb8-569" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 概念                   <span class="pp">|</span> 一句话解释                                                                       <span class="pp">|</span></span>
+<span id="cb8-570"><a href="#cb8-570" aria-hidden="true" tabindex="-1"></a><span class="pp">| :---------------------</span> <span class="pp">| :-------------------------------------------------------------------------------</span> <span class="pp">|</span></span>
+<span id="cb8-571"><a href="#cb8-571" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **爬虫**         <span class="pp">|</span> 用代码自动化"访问网页 → 复制信息 → 保存数据"的过程                             <span class="pp">|</span></span>
+<span id="cb8-572"><a href="#cb8-572" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **技术路线**     <span class="pp">|</span> 直接 HTTP 请求（requests）优先于浏览器模拟（Playwright）                         <span class="pp">|</span></span>
+<span id="cb8-573"><a href="#cb8-573" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **SPA**          <span class="pp">|</span> 单页应用——页面由 JavaScript 在浏览器中动态渲染，源代码里看不到数据             <span class="pp">|</span></span>
+<span id="cb8-574"><a href="#cb8-574" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **API 发现**     <span class="pp">|</span> 用浏览器开发者工具的 Network 标签页找到 SPA 页面背后的数据接口                   <span class="pp">|</span></span>
+<span id="cb8-575"><a href="#cb8-575" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **反爬策略**     <span class="pp">|</span> 服务器从 IP 频率、请求头、JS 执行、验证码等维度识别并阻止爬虫                    <span class="pp">|</span></span>
+<span id="cb8-576"><a href="#cb8-576" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **反爬博弈**     <span class="pp">|</span> 先温和（正常延时 + 真实请求头）→ 遇到阻拦再加防御——不要一上来就全副武装       <span class="pp">|</span></span>
+<span id="cb8-577"><a href="#cb8-577" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **TODO.md 驱动** <span class="pp">|</span> 把需求写清楚再交给 Agent——你负责领域的架构决策，Agent 负责技术的编码执行       <span class="pp">|</span></span>
+<span id="cb8-578"><a href="#cb8-578" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **双线程架构**   <span class="pp">|</span> 列表拉取（快）和文件下载（慢）分离到不同线程——各司其职，互不阻塞               <span class="pp">|</span></span>
+<span id="cb8-579"><a href="#cb8-579" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **状态机**       <span class="pp">|</span> 用 pending → downloading → completed / failed 追踪每条记录的处理生命周期       <span class="pp">|</span></span>
+<span id="cb8-580"><a href="#cb8-580" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **去重机制**     <span class="pp">|</span> 用唯一 ID（announcement_id 或 URL 哈希）的数据库唯一约束保证同一数据不会重复入库 <span class="pp">|</span></span>
+<span id="cb8-581"><a href="#cb8-581" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **保留原始数据** <span class="pp">|</span> 永远保存原始响应（JSON / PDF / HTML）——代码可能写错，原始数据不会              <span class="pp">|</span></span>
+<span id="cb8-582"><a href="#cb8-582" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **集成测试**     <span class="pp">|</span> 验证 API 连通性、字段完整性、核心逻辑正确性——1.35 秒跑完，保护你三个月后的修改 <span class="pp">|</span></span>
+<span id="cb8-583"><a href="#cb8-583" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> **轻量优先**     <span class="pp">|</span> 工具选择够用就好——PyMuPDF 而非 marker、SQLite 而非 MySQL、线程而非分布式       <span class="pp">|</span></span>
+<span id="cb8-584"><a href="#cb8-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-585"><a href="#cb8-585" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb8-586"><a href="#cb8-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-587"><a href="#cb8-587" aria-hidden="true" tabindex="-1"></a><span class="fu">## 课后阅读与准备</span></span>
+<span id="cb8-588"><a href="#cb8-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-589"><a href="#cb8-589" aria-hidden="true" tabindex="-1"></a>**必读：**</span>
+<span id="cb8-590"><a href="#cb8-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-591"><a href="#cb8-591" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>浏览 <span class="in">`task8/SubmarineCable/`</span> 和 <span class="in">`task9/Juchao/`</span> 两个完整案例的项目文件</span>
+<span id="cb8-592"><a href="#cb8-592" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>阅读 课程大纲的完整内容</span>
+<span id="cb8-593"><a href="#cb8-593" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-594"><a href="#cb8-594" aria-hidden="true" tabindex="-1"></a>**准备（下次课前完成）：**</span>
+<span id="cb8-595"><a href="#cb8-595" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-596"><a href="#cb8-596" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>确定你实战任务要爬取的数据源（入门级、进阶级或挑战级任选其一）</span>
+<span id="cb8-597"><a href="#cb8-597" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在下次课前完成 TODO.md 的初稿（至少包含目标 URL 和期望字段列表）</span>
+<span id="cb8-598"><a href="#cb8-598" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果已经尝试了爬取，记录遇到的问题（错误信息、反爬拦截、数据格式意外等）——下次课讨论</span>
+<span id="cb8-599"><a href="#cb8-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-600"><a href="#cb8-600" aria-hidden="true" tabindex="-1"></a>**思考题：**</span>
+<span id="cb8-601"><a href="#cb8-601" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-602"><a href="#cb8-602" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>你研究领域中，有哪些可公开访问的数据源目前以"手工下载"的方式获取？其中哪些可能通过 API 发现简化数据采集？</span>
+<span id="cb8-603"><a href="#cb8-603" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>如果你的数据源是 PDF 格式（如年报、公告、政策文件），你会如何设计 PDF → 结构化数据的完整管线？从下载到解析到入库，每一步的"够用就好"标准是什么？</span>
+<span id="cb8-604"><a href="#cb8-604" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>爬虫和数据清洗的边界在哪里？哪些处理应该在爬虫阶段完成（如去重、格式标准化），哪些应该留到数据分析阶段？</span></code></pre></div><button title="复制到剪贴板" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
