@@ -117,6 +117,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   html.auth-locked body > *:not(#book-auth-gate) {
     visibility: hidden !important;
   }
+  /* 登录框可能被插入正文容器内部，这里显式让它可见（覆盖继承的 hidden） */
+  html.auth-locked body #book-auth-gate {
+    visibility: visible !important;
+  }
+  html.auth-locked,
+  html.auth-locked body {
+    overflow: hidden;
+  }
 
   #book-auth-gate {
     position: fixed;
